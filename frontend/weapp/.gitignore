@@ -1,0 +1,6 @@
+*.iml
+.idea
+.tmp
+dist
+node_modules
+project.private.config.json

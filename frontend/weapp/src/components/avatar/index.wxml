@@ -1,0 +1,9 @@
+<wxs src="../../wxs/clsx.wxs" module="clsx"/>
+
+<view class="{{rootClass}}">
+  <image
+    class="{{clsx(['bg-yellow-0', !avatar], iconClass)}}"
+    src="{{avatar || '../../assets/images/anonymous.png'}}"
+    bind:tap="tapAvatar"
+  />
+</view>

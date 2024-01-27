@@ -1,0 +1,11 @@
+{
+  "enablePullDownRefresh": false,
+  "navigationBarTitleText": "猜谜题",
+  "usingComponents": {
+    "puzzle-hint": "/components/puzzle-hint/index",
+    "puzzle-limit": "/components/puzzle-limit/index",
+    "popover-timeline": "/components/popover-timeline/index",
+    "preview-page": "/components/preview-page/index",
+    "van-image": "/vant/image/index"
+  }
+}

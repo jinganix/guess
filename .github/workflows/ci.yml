@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: '0 10 * * *' # Once per day at 10am UTC
+
+jobs:
+  commitlint:
+    name: Check Commit Message
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: wagoid/commitlint-github-action@v5
+        with:
+          configFile: package.json
+          failOnWarnings: true
+  build:
+    name: Build
+    needs: [ commitlint ]
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ ubuntu-latest ]
+        jdk: [ 21 ]
+      fail-fast: false
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup JDK ${{ matrix.jdk }}
+        uses: actions/setup-java@v1
+        with:
+          java-version: ${{ matrix.jdk }}
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20
+      - name: Build with Gradle
+        run: ./gradlew clean build

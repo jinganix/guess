@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+import "webpb/WebpbExtend.proto";
+
+// global file options
+option (f_opts).java = {
+  annotation: '@JsonIgnoreProperties(ignoreUnknown = true)'
+  annotation: '@JsonInclude(JsonInclude.Include.NON_NULL)'
+  field_annotation: '@JsonAlias("{{_FIELD_NAME_}}")'
+  field_annotation: '@JsonProperty("{{_ALIAS_}}")'
+  import: 'com.fasterxml.jackson.annotation.JsonAlias'
+  import: 'com.fasterxml.jackson.annotation.JsonIgnoreProperties'
+  import: 'com.fasterxml.jackson.annotation.JsonInclude'
+  import: 'com.fasterxml.jackson.annotation.JsonProperty'
+  import: 'com.fasterxml.jackson.databind.annotation.JsonDeserialize'
+  import: 'com.fasterxml.jackson.databind.annotation.JsonSerialize'
+  import: 'com.fasterxml.jackson.databind.ser.std.ToStringSerializer'
+  import: 'com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlRootElement'
+  import: 'io.github.jinganix.guess.proto.converter.PbEnumConverter'
+  import: 'io.github.jinganix.guess.proto.exception.ApiErrorCode'
+  import: 'io.github.jinganix.webpb.runtime.enumeration.EnumerationDeserializer'
+  import: 'io.github.jinganix.webpb.runtime.enumeration.EnumerationSerializer'
+  import: 'jakarta.validation.Valid'
+  import: 'jakarta.validation.constraints.Max'
+  import: 'jakarta.validation.constraints.Min'
+  import: 'jakarta.validation.constraints.NotBlank'
+  import: 'jakarta.validation.constraints.NotEmpty'
+  import: 'jakarta.validation.constraints.NotNull'
+  import: 'jakarta.validation.constraints.Pattern'
+  import: 'jakarta.validation.constraints.Size'
+  import: 'org.hibernate.validator.constraints.Length'
+  import: 'org.hibernate.validator.constraints.Range'
+};
+
+option (f_opts).ts = {
+  int64_as_string: false
+  auto_alias: true
+};

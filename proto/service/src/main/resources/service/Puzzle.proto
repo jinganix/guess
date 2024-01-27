@@ -1,0 +1,80 @@
+syntax = "proto2";
+
+package PuzzleProto;
+
+option java_package = "io.github.jinganix.guess.proto.service.puzzle";
+
+import "imports/Common.proto";
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+message PuzzlePb {
+  required int32 id = 1;
+  required string content = 2;
+  repeated string images = 3;
+  repeated string options = 4;
+  required int32 limit = 5;
+}
+
+message PuzzleRankPb {
+  required int64 userId = 1 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required int32 rank = 2;
+  required int32 level = 3;
+}
+
+message PuzzleRetrieveRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "/api/puzzle/retrieve"
+  };
+}
+
+message PuzzleRetrieveResponse {
+  required PuzzlePb puzzle = 1;
+}
+
+message PuzzleAnswerRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/puzzle/answer"
+  };
+
+  required string answer = 1;
+}
+
+message PuzzleAnswerResponse {
+  required bool correct = 1;
+}
+
+message PuzzleHintRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "/api/puzzle/hint"
+  };
+}
+
+message PuzzleHintResponse {
+  required string answer = 1;
+}
+
+message PuzzleRankingRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "/api/puzzle/ranking"
+  };
+}
+
+message PuzzleRankingResponse {
+  repeated PuzzleRankPb ranking = 1;
+}
+
+message PuzzleIncreaseLimitRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "/api/puzzle/increase/limit"
+  };
+}
+
+message PuzzleIncreaseLimitResponse {
+  required int32 limit = 1;
+}

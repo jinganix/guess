@@ -1,0 +1,17 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "动态详情",
+  "usingComponents": {
+    "avatar": "/components/avatar/index",
+    "comment-editor": "/components/comment-editor/index",
+    "comment-list": "/components/comment-list/index",
+    "icon-comment": "/components/icon-comment/index",
+    "icon-follow": "/components/icon-follow/index",
+    "icon-like": "/components/icon-like/index",
+    "moment-detail": "/components/moment-detail/index",
+    "movable-button": "/components/movable-button/index",
+    "name-gender": "/components/name-gender/index",
+    "popup-options": "/components/popup-options/index",
+    "van-loading": "/vant/loading/index"
+  }
+}

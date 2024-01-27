@@ -1,0 +1,18 @@
+<wxs src="../../wxs/clsx.wxs" module="clsx"/>
+
+<view>
+  <view wx:for="{{cacheKeys}}" wx:key="*this" class="py-3 px-4 border-t border-grey-3/30">
+    <comment cache-key="{{item}}"/>
+  </view>
+
+  <view wx:if="{{loading}}" class="w-full flex justify-center">
+    <van-loading type="spinner" color="#1989fa"/>
+  </view>
+
+  <view wx:if="{{!loading && !more}}"
+    class='text-sm text-grey-1 text-center w-full'>
+    <view>- 这里是底线 -</view>
+  </view>
+</view>
+
+<popup-options />

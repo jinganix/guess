@@ -1,0 +1,46 @@
+<van-popup
+  bind:close="onClose"
+  close-on-click-overlay
+  duration="{{300}}"
+  overlay
+  safe-area-inset-bottom
+  show="{{show}}"
+  z-index="{{10000}}"
+>
+  <view class="w-[680rpx]">
+    <view
+      class="bg-white border border-grey-3/50 m-4 p-4"
+    >
+      <textarea
+        class="min-h-[240rpx] text-grey-0"
+        catch:input="onInput"
+        data-key="content"
+        placeholder="请输入评论..."
+        value="{{content}}"
+        maxlength="{{140}}"
+        auto-height="true"
+      />
+      <view class="w-full text-right text-sm text-grey-1">
+        {{content.length}}/140
+      </view>
+    </view>
+
+    <view class="flex justify-around my-4">
+      <button
+        type="button"
+        class="bg-yellow-0 nested-border nested-clip-tr-8 text-base py-1.5 w-28"
+        catch:tap="onClose"
+      >
+        取消
+      </button>
+      <button
+        type="button"
+        class="bg-yellow-0 text-grey-0 clip-tr-8 text-base py-1.5 w-28"
+        catch:tap="tapConfirm"
+        disabled="{{loading}}"
+      >
+        确认
+      </button>
+    </view>
+  </view>
+</van-popup>

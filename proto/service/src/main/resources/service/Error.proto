@@ -1,0 +1,56 @@
+syntax = "proto2";
+
+package AppErrorProto;
+
+option java_package = "io.github.jinganix.guess.proto.service.error";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+message ErrorMessage {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/msg/error"
+  };
+
+  required ErrorCode code = 1 [(opts).java = {annotation: '@JsonProperty("{{_FIELD_NAME_}}")'}, (opts).ts = {auto_alias: false}];
+  optional string message = 2 [(opts).java = {annotation: '@JsonProperty("{{_FIELD_NAME_}}")'}, (opts).ts = {auto_alias: false}];
+  map<string, string> errors = 3;
+}
+
+enum ErrorCode {
+  option (e_opts).java = {
+    annotation: '@JsonDeserialize(using = EnumerationDeserializer.class)'
+    annotation: '@JsonSerialize(using = EnumerationSerializer.class)'
+  };
+
+  OK = 0;
+  ERROR = 1;
+  FORCE_LOGOUT = 2;
+  BAD_REQUEST = 3;
+  PERMISSION_DENIED = 4;
+  INVALID_OPERATION = 5;
+  DUPLICATED_OPERATION = 6;
+  OPERATION_TOO_FREQUENT = 7;
+  USER_SUSPENDED = 8;
+  BAD_CREDENTIAL = 9;
+  SIGNUP_ERROR = 10;
+  BAD_REFRESH_TOKEN = 11;
+
+  WEAPP_LOGIN_FAILED = 101;
+  WEPPP_INVALID_UER_DATA = 102;
+  WEAPP_APP_ID_NOT_FOUND = 103;
+  WEAPP_DECRYPT_FAILED = 104;
+  WEAPP_CREATE_ORDER_FAILED = 105;
+  WEAPP_REFUND_FAILED = 106;
+  WEAPP_INVALID_CONTENT = 108;
+  USER_NOT_FOUND = 109;
+  SUBSCRIBE_MESSAGE_SEND_FAILED = 110;
+
+  REFUND_TIME_EXPIRED = 200;
+  TRY_ANSWER_EXCEED_LIMIT = 201;
+  DUPLICATED_ANSWER = 202;
+  MOMENT_NOT_FOUND = 203;
+  COMMENT_NOT_FOUND = 204;
+  IMAGE_NOT_FOUND = 205;
+}

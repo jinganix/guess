@@ -1,0 +1,9 @@
+{
+  "enablePullDownRefresh": false,
+  "navigationBarTitleText": "排行榜",
+  "usingComponents": {
+    "avatar": "/components/avatar/index",
+    "name-gender": "/components/name-gender/index",
+    "popup-share": "/components/popup-share/index"
+  }
+}

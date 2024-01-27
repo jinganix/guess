@@ -1,0 +1,39 @@
+core:
+  config:
+    puzzle-daily-limit: 30
+    puzzle-limit-increase: 20
+    static-url: http://127.0.0.1:8080/static/
+  url:
+    db-mysql: jdbc:mysql://db-mysql/guess
+  weapp:
+    app-id: fake-app-id
+
+server:
+  port: 8080
+
+spring:
+  application:
+    name: guess-service
+  profiles:
+    default: local
+  datasource:
+    url: ${core.url.db-mysql}
+    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    serialization:
+      FAIL_ON_EMPTY_BEANS: false
+    visibility:
+      field: none
+      getter: any
+      is-getter: any
+      setter: any
+  jpa:
+    properties:
+      hibernate:
+        auto_quote_keyword: true
+  mvc:
+    static-path-pattern: /static/**
+  web:
+    resources:
+      static-locations: classpath:/images

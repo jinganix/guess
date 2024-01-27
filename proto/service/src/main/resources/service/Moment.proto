@@ -1,0 +1,179 @@
+syntax = "proto2";
+
+package MomentProto;
+
+option java_package = "io.github.jinganix.guess.proto.service.moment";
+
+import "imports/WebpbOptions.proto";
+import "imports/Common.proto";
+import "webpb/WebpbExtend.proto";
+
+enum MomentCategory {
+  option (e_opts).java = {
+    annotation: '@JsonDeserialize(using = EnumerationDeserializer.class)'
+    annotation: '@JsonSerialize(using = EnumerationSerializer.class)',
+  };
+
+  ALL = 0;
+  MINE = 1;
+  FOLLOWED = 2;
+}
+
+enum MomentStatus {
+  option (e_opts).java = {
+    annotation: '@JsonDeserialize(using = EnumerationDeserializer.class)'
+    annotation: '@JsonSerialize(using = EnumerationSerializer.class)',
+  };
+
+  ACTIVE = 0;
+  DELETED = 1;
+  REPORTED = 2;
+}
+
+message MomentActionPb {
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required bool correct = 2;
+  required bool followed = 3;
+  required bool liked = 4;
+  required bool reported = 5;
+}
+
+message MomentPb {
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required int64 userId = 2 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required string content = 3;
+  required string option1 = 4;
+  required string option2 = 5;
+  required string option3 = 6;
+  required string option4 = 7;
+  required MomentStatus status = 8;
+  required int32 follow = 9;
+  required int32 comment = 10;
+  required int32 like = 11;
+  required int64 createdAt = 12;
+}
+
+message MomentFacadePb {
+  required MomentPb moment = 1;
+  required MomentActionPb action = 2;
+  required int32 answer = 3;
+}
+
+message MomentDetailPb {
+  required MomentPb moment = 1;
+  required MomentActionPb action = 2;
+  required int32 answer = 3;
+}
+
+message MomentListRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/moment/list"
+  };
+
+  required int64 createdAt = 1;
+  required int64 id = 2 [(opts).ts = {as_string: true}];
+  required MomentCategory category = 3;
+}
+
+message MomentListResponse {
+  required bool more = 1;
+  repeated MomentFacadePb moments = 2;
+}
+
+message MomentDeleteRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/moment/delete"
+  };
+
+  required int64 id = 1 [(opts).ts = {as_string: true}];
+}
+
+message MomentDeleteResponse {
+}
+
+message MomentCreateRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/moment/create"
+  };
+
+  required string content = 1 [(opts).java = {annotation: '@Size(min = 3, max = 140)', annotation: '@NotBlank'}];
+  required string option1 = 2 [(opts).java = {annotation: '@Size(max = 12)'}];
+  required string option2 = 3 [(opts).java = {annotation: '@Size(max = 12)'}];
+  required string option3 = 4 [(opts).java = {annotation: '@Size(max = 12)'}];
+  required string option4 = 5 [(opts).java = {annotation: '@Size(max = 12)'}];
+  required int32 answer = 6 [(opts).java = {annotation: '@NotNull', annotation: '@Min(1)', annotation: '@Max(4)'}];
+}
+
+message MomentCreateResponse {
+  required MomentFacadePb moment = 1;
+}
+
+message MomentRetrieveRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "/api/moment/{id}"
+  };
+
+  required int64 id = 1 [(opts).opt = {in_query: true}, (opts).ts = {as_string: true}];
+}
+
+message MomentRetrieveResponse {
+  required MomentFacadePb moment = 1;
+}
+
+message MomentAnswerRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/moment/answer"
+  };
+
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@NotNull'}];
+  required int32 answer = 2;
+}
+
+message MomentAnswerResponse {
+  required bool correct = 1;
+}
+
+message MomentFollowRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/moment/follow"
+  };
+
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java.annotation = "@NotNull"];
+}
+
+message MomentFollowResponse {
+  required bool followed = 1;
+}
+
+message MomentLikeRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/moment/like"
+  };
+
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java.annotation = "@NotNull"];
+}
+
+message MomentLikeResponse {
+  required bool liked = 1;
+}
+
+message MomentReportRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/moment/report"
+  };
+
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java.annotation = "@NotNull"];
+}
+
+message MomentReportResponse {
+  required bool reported = 1;
+  required bool deleted = 2;
+}

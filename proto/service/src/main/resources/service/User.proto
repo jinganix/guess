@@ -1,0 +1,106 @@
+syntax = "proto2";
+
+package UserProto;
+
+option java_package = "io.github.jinganix.guess.proto.service.user";
+
+import "imports/Common.proto";
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+enum UserStatus {
+  option (e_opts).java = {
+    annotation: '@JsonDeserialize(using = EnumerationDeserializer.class)'
+    annotation: '@JsonSerialize(using = EnumerationSerializer.class)',
+  };
+
+  ACTIVE = 0;
+  SUSPENDED = 1;
+  INACTIVE = 2;
+}
+
+message UserExtraPb {
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required int32 moment = 2;
+  required int32 follow = 3;
+}
+
+message UserPb {
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required string nickname = 2;
+  required string avatar = 3;
+  required int32 gender = 4;
+}
+
+message ConfigPb {
+  required string staticUrl = 1;
+  required int32 puzzleLimitIncrease = 2;
+  required int32 puzzleDailyLimit = 3;
+}
+
+message UserConfigRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/user/config"
+  };
+}
+
+message UserConfigResponse {
+  required ConfigPb config = 1;
+}
+
+message UserCurrentRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "/api/user/current"
+  };
+}
+
+message UserCurrentResponse {
+  required UserPb user = 1;
+}
+
+message UserListRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/user/list"
+  };
+
+  repeated int64 ids = 1 [(opts).ts = {as_string: true}];
+}
+
+message UserListResponse {
+  repeated UserPb users = 1;
+}
+
+message UserExtraRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "/api/user/extra"
+  };
+}
+
+message UserExtraResponse {
+  required UserExtraPb extra = 1;
+}
+
+message UserInfoPb {
+  required string nickName = 1;
+  required string avatarUrl = 2;
+  required int32 gender = 3;
+}
+
+message UserUpdateRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/user/update"
+  };
+
+  required string nickName = 1;
+  required string avatar = 2;
+  required int32 gender = 3;
+}
+
+message UserUpdateResponse {
+  required UserProto.UserPb user = 1;
+}

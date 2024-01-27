@@ -1,0 +1,33 @@
+syntax = "proto2";
+
+package InternalAuthProto;
+
+option java_package = "io.github.jinganix.guess.proto.internal.auth";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+message WeappUserPb {
+  required int64 id = 1 [
+    (opts).ts = {as_string: true},
+    (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}
+  ];
+  required string openId = 2;
+  required string unionId = 3;
+  required int64 createdAt = 4;
+  required int64 updatedAt = 5;
+}
+
+message UserWeappRetrieveRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/int/user/weapp"
+  };
+
+  required int64 userId = 1;
+  required string appId = 2;
+}
+
+message UserWeappRetrieveResponse {
+  required WeappUserPb user = 1;
+}

@@ -1,0 +1,14 @@
+{
+  "component": true,
+  "usingComponents": {
+    "avatar": "/components/avatar/index",
+    "icon-comment": "/components/icon-comment/index",
+    "icon-follow": "/components/icon-follow/index",
+    "icon-like": "/components/icon-like/index",
+    "more-options": "/components/more-options/index",
+    "movable-button": "/components/movable-button/index",
+    "name-gender": "/components/name-gender/index",
+    "popup-options": "/components/popup-options/index",
+    "van-loading": "/vant/loading/index"
+  }
+}

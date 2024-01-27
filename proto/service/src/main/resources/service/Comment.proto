@@ -1,0 +1,100 @@
+syntax = "proto2";
+
+package CommentProto;
+
+option java_package = "io.github.jinganix.guess.proto.service.comment";
+
+import "imports/Common.proto";
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+import "service/User.proto";
+
+message CommentActionPb {
+  required bool liked = 1;
+  required bool reported = 2;
+}
+
+message CommentPb {
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required int64 momentId = 2 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required int64 userId = 3 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@JsonSerialize(using = ToStringSerializer.class)'}];
+  required string content = 4;
+  optional string toUserId = 54;
+  required int32 like = 6;
+  required int64 createdAt = 7;
+}
+
+message CommentFacadePb {
+  required CommentPb comment = 1;
+  required CommentActionPb action = 2;
+}
+
+message CommentListRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/comment/list"
+  };
+
+  required int64 momentId = 1 [(opts).ts = {as_string: true}, (opts).java = {annotation: '@NotNull'}];
+  required int64 id = 3 [(opts).ts = {as_string: true}];
+  required int64 createdAt = 4;
+}
+
+message CommentListResponse {
+  required bool more = 1;
+  repeated CommentFacadePb comments = 2;
+}
+
+message CommentCreateRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/comment/create"
+  };
+
+  required int64 momentId = 1 [(opts).ts = {as_string: true}];
+  required int64 commentId = 2 [(opts).ts = {as_string: true}];
+  required string content = 3 [(opts).java = {annotation: '@NotNull' annotation: '@Size(min = 3, max = 140)'}];
+}
+
+message CommentCreateResponse {
+  required CommentFacadePb comment = 1;
+}
+
+message CommentDeleteRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/comment/delete"
+  };
+
+  required int64 id = 1 [(opts).ts = {as_string: true}];
+}
+
+message CommentReportRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/comment/report"
+  };
+
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java.annotation = "@NotNull"];
+}
+
+message CommentReportResponse {
+  required bool reported = 1;
+  required bool deleted = 2;
+}
+
+message CommentLikeRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/comment/like"
+  };
+
+  required int64 id = 1 [(opts).ts = {as_string: true}, (opts).java.annotation = "@NotNull"];
+}
+
+message CommentLikeResponse {
+  required bool liked = 1;
+}
+
+message CommentDeleteResponse {
+}

@@ -1,0 +1,8 @@
+<wxs src="../../wxs/clsx.wxs" module="clsx"/>
+
+<view class="flex items-center justify-center text-grey-2" catch:tap="tapIcon">
+  <view class="text-xl if if-comment"/>
+  <view class="ml-1 text-sm">
+    {{comment}}
+  </view>
+</view>

@@ -1,0 +1,45 @@
+<block wx:if="{{!store.loading}}">
+  <block
+    wx:for="{{store.rankings}}"
+    wx:key="userId"
+    data-item="{{item}}"
+  >
+    <view class="flex flex-col bg-white border border-grey-3/50 mx-4 mt-2">
+      <view class="flex p-2 pr-4 items-center">
+        <view class="text-2xl text-grey-0 w-12 text-center font-bold">
+          {{item.rank}}
+        </view>
+        <avatar userId="{{item.userId}}"/>
+
+        <view class="flex flex-col px-2 justify-between flex-1">
+          <name-gender userId="{{item.userId}}"/>
+          <view class="text-grey-1 text-sm mt-1">答题数: {{item.level}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:if="{{configStore.adCustomPuzzleRanking && index === 2}}" class="mx-4 mt-2">
+      <ad-custom unit-id="{{configStore.adCustomPuzzleRanking}}" ad-intervals="30"/>
+    </view>
+  </block>
+
+  <view wx:if="{{configStore.adCustomPuzzleRanking && store.rankings.length < 3}}"
+    class="mx-4 mt-2">
+    <ad-custom unit-id="{{configStore.adCustomPuzzleRanking}}" ad-intervals="30"/>
+  </view>
+
+  <view class='text-sm text-grey-1 text-center w-full py-4'>
+    <view>- 这里是底线 -</view>
+  </view>
+</block>
+
+<view wx:if="{{store.loading}}" class="flex flex-col justify-center">
+  <view wx:for="{{3}}" wx:key="index" class="flex bg-white mx-4 p-4 mt-4 items-center">
+    <view class="animate-pulse bg-grey-3/50 h-10 w-8"></view>
+    <view class="animate-pulse bg-grey-3/50 h-16 w-16 ml-4"></view>
+    <view class="w-full flex-1">
+      <view class="animate-pulse bg-grey-3/50 h-6 ml-4"></view>
+      <view class="animate-pulse bg-grey-3/50 h-4 ml-4 mt-2"></view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,26 @@
+@import "styles/theme";
+@import "styles/clip";
+@import 'styles/iconfont';
+@import "styles/tailwind";
+
+button {
+  background-color: #ffffff;
+  border-radius: 0;
+  border: none;
+  font-size: 1rem;
+  line-height: 1rem;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 0;
+  padding-right: 0;
+
+  &:after {
+    border-radius: 0;
+    border: none;
+  }
+}
+
+textarea {
+  height: auto;
+  width: auto;
+}

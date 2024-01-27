@@ -1,0 +1,10 @@
+@import 'src/styles/theme';
+
+Page {
+  background-color: $color-background;
+
+  .dropdown {
+    box-shadow: none;
+    height: auto;
+  }
+}

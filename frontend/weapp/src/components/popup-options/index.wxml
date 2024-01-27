@@ -1,0 +1,47 @@
+<wxs src="../../wxs/clsx.wxs" module="clsx"/>
+
+<van-popup
+  bind:close="onClose"
+  close-on-click-overlay
+  duration="{{300}}"
+  overlay
+  position="bottom"
+  round
+  safe-area-inset-bottom
+  show="{{show}}"
+  z-index="{{10000}}"
+>
+  <view class="px-4 mt-4">
+    <view class="flex items-center border-b border-grey-3/50 py-2" catch:tap="tapReport">
+      <view
+        class="{{clsx(['if if-error-warning-fill text-yellow-0', reported], ['if if-error-warning-line text-grey-1', !reported])}} text-3xl"/>
+      <view class="ml-4 w-full">
+        <view class="text-base {{clsx(['text-yellow-0', reported], ['text-grey-0', reported])}}">
+          {{reported ? "已举报" : "举报"}}
+        </view>
+        <view class="text-sm text-grey-2">举报反馈不良内容</view>
+      </view>
+    </view>
+
+    <view wx:if="{{userStore.userId === userId}}" class="flex items-center border-b border-grey-3/50 py-2" catch:tap="tapDelete">
+      <view
+        class="if if-close-circle-line text-grey-1 text-3xl"/>
+      <view class="ml-4 w-full">
+        <view class="text-base text-grey-0">
+          删除
+        </view>
+        <view class="text-sm text-grey-2">删除此条动态</view>
+      </view>
+    </view>
+
+    <view class="flex justify-center py-4">
+      <button
+        type="button"
+        class="bg-grey-4 text-grey-0 text-base py-2 w-48"
+        catch:tap="onClose"
+      >
+        取消
+      </button>
+    </view>
+  </view>
+</van-popup>

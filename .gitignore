@@ -1,0 +1,11 @@
+*.iml
+.DS_Store
+.env.local
+.gradle
+.idea
+.run
+.tmp
+LOG_DIR_IS_UNDEFINED
+build
+logs
+node_modules

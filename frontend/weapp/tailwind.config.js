@@ -1,0 +1,36 @@
+module.exports = {
+  content: ["./src/**/*.{wxml,js,ts}"],
+  corePlugins: {
+    preflight: false,
+  },
+  plugins: [],
+  theme: {
+    extend: {
+      colors: {
+        background: "#f2f2f2",
+        "black-0": "#000000",
+        "black-1": "#111111",
+        "black-2": "#222222",
+        "green-0": "#13a06f",
+        "green-1": "#15a46c",
+        "green-2": "#24b880",
+        "green-6": "#d8f3ef",
+        "grey-0": "#333333",
+        "grey-1": "#666666",
+        "grey-2": "#999999",
+        "grey-3": "#cccccc",
+        "grey-4": "#e5e5e5",
+        "grey-5": "#f0f0f0",
+        "grey-6": "#f7f7f7",
+        "grey-7": "#fafafa",
+        "red-1": "#e4393c",
+        "red-2": "#ec585a",
+        text: "#222222",
+        "yellow-0": "#f2b640",
+        "yellow-1": "#d29d3b",
+        "yellow-2": "#ecb158",
+        "yellow-3": "#ffe1b0",
+      },
+    },
+  },
+};

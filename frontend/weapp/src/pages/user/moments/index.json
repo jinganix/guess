@@ -1,0 +1,13 @@
+{
+  "enablePullDownRefresh": true,
+  "navigationBarTitleText": "",
+  "usingComponents": {
+    "icon-comment": "/components/icon-comment/index",
+    "icon-follow": "/components/icon-follow/index",
+    "icon-like": "/components/icon-like/index",
+    "moment-facade": "/components/moment-facade/index",
+    "name-gender": "/components/name-gender/index",
+    "popup-options": "/components/popup-options/index",
+    "van-loading": "/vant/loading/index"
+  }
+}

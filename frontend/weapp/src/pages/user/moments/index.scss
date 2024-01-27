@@ -1,0 +1,9 @@
+@import 'src/styles/theme';
+
+Page {
+  background-color: $color-background;
+
+  .grid-item {
+    padding: 0;
+  }
+}

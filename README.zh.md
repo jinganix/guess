@@ -12,7 +12,7 @@
 #### Linux和MacOS
 
 ```shell
-git@github.com:jinganix/guess.git
+git clone git@github.com:jinganix/guess.git
 cd guess/service/guess
 ./gradlew service:guess:bootRun --args='--core.weapp.app-id=? --core.weapp.app-secret=? --core.url.db-mysql=? --spring.datasource.username=? --spring.datasource.password=?'
 ```
@@ -25,7 +25,7 @@ cd guess/service/guess
 
 - core.weapp.app-id: 微信小程序的`app-id`
 - core.weapp.app-secret: 微信小程序的`app-secret`
-- core.url.db-mysql： mysql数据库连接地址，如`jdbc:mysql://127.0.0.1:3306/guess`
+- core.url.db-mysql: mysql数据库连接地址，如`jdbc:mysql://127.0.0.1:3306/guess`
 - spring.datasource.username: 数据库用户名
 - spring.datasource.password: 数据库密码
 

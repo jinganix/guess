@@ -14,7 +14,7 @@ The source code of the 'Guess Who I Am' Wechat miniprogram
 #### Linux or MacOS
 
 ```shell
-git@github.com:jinganix/guess.git
+git clone git@github.com:jinganix/guess.git
 cd guess/service/guess
 ./gradlew service:guess:bootRun --args='--core.weapp.app-id=? --core.weapp.app-secret=? --core.url.db-mysql=? --spring.datasource.username=? --spring.datasource.password=?'
 ```

@@ -27,13 +27,8 @@ import {
 import { Replay } from "@helpers/promise/replay";
 import { tryInitializeModules } from "@helpers/module/module.initializer";
 import { classId, trimContent } from "@helpers/utils/utils";
-import { appService, components, configStore } from "@modules/container";
-import {
-  ICustomShareContent,
-  ICustomTimelineContent,
-  InterstitialAd,
-  TappedEvent,
-} from "@helpers/wx/wx.types";
+import { components, configStore } from "@modules/container";
+import { InterstitialAd, TappedEvent } from "@helpers/wx/wx.types";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Pages } from "@helpers/const";
 import { PopoverTimelineScript } from "@comps/popover-timeline/script";
@@ -47,6 +42,7 @@ const CONNECTOR = new Connector({
   configStore: DataPiker.align<ConfigStore>(["adCustomPuzzleReply", "preview"]),
   store: DataPiker.align<PuzzleDetailScript>(DataPiker.ALL),
 });
+
 interface Source extends SourceType<typeof CONNECTOR> {}
 
 export class PuzzleDetailScript extends ComponentScript<Source> {
@@ -90,14 +86,6 @@ export class PuzzleDetailScript extends ComponentScript<Source> {
     this.images = [];
     this.options = [];
     this.limit = 0;
-  }
-
-  onShareAppMessage(): ICustomShareContent | void {
-    return appService.share((this._comp as ScriptedPage).route ?? "");
-  }
-
-  onShareTimeline(): ICustomTimelineContent | void {
-    return appService.shareTimeline((this._comp as ScriptedPage).route ?? "");
   }
 
   showAd(): void {

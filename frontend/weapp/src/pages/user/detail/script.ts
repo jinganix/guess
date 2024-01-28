@@ -22,7 +22,6 @@ import { ComponentScript, makePublicObservable } from "@helpers/wx/component.scr
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
 import { ScriptedPage } from "@helpers/wx/adapter";
 import { ConfigStore } from "@modules/config/config.store";
-import { ICustomShareContent, ICustomTimelineContent } from "@helpers/wx/wx.types";
 import { UserExtraStore } from "@modules/user/user.extra.store";
 import { UserStore } from "@modules/user/user.store";
 import { UserEditScript } from "@comps/user-edit/script";
@@ -57,14 +56,6 @@ export class UserDetailScript extends ComponentScript<Source> {
   didMount(): void {
     super.didMount();
     void userExtraStore.fetchData();
-  }
-
-  onShareAppMessage(): ICustomShareContent | void {
-    return appService.share((this._comp as ScriptedPage).route);
-  }
-
-  onShareTimeline(): ICustomTimelineContent | void {
-    return appService.shareTimeline((this._comp as ScriptedPage).route);
   }
 
   tapAvatar(): void {

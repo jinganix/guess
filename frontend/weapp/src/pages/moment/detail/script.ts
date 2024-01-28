@@ -18,7 +18,7 @@
 
 import { httpService } from "@helpers/service/http.service";
 import { MomentRetrieveRequest, MomentRetrieveResponse } from "@proto/MomentProto";
-import { appService, cacheService, components, configStore } from "@modules/container";
+import { cacheService, components, configStore } from "@modules/container";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
 import { ScriptedPage } from "@helpers/wx/adapter";
@@ -28,7 +28,7 @@ import { tryInitializeModules } from "@helpers/module/module.initializer";
 import { Replay } from "@helpers/promise/replay";
 import { Dispose } from "@helpers/types/types";
 import { CommentListScript } from "@comps/comment-list/script";
-import { ICustomShareContent, ICustomTimelineContent, TappedEvent } from "@helpers/wx/wx.types";
+import { TappedEvent } from "@helpers/wx/wx.types";
 import { CommentEditorScript } from "@comps/comment-editor/script";
 import { classId } from "@helpers/utils/utils";
 
@@ -79,14 +79,6 @@ export class MomentDetailScript extends ComponentScript<Source> {
     this.loading = false;
     this.momentId = "";
     this.moment = null;
-  }
-
-  onShareAppMessage(): ICustomShareContent | void {
-    return appService.share((this._comp as ScriptedPage).route);
-  }
-
-  onShareTimeline(): ICustomTimelineContent | void {
-    return appService.shareTimeline((this._comp as ScriptedPage).route);
   }
 
   async fetchData(force: boolean): Promise<void> {

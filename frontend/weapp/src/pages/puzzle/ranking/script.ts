@@ -25,9 +25,8 @@ import { ComponentScript, makePublicObservable } from "@helpers/wx/component.scr
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
 import { ConfigStore } from "@modules/config/config.store";
 import { ScriptedPage } from "@helpers/wx/adapter";
-import { appService, configStore } from "@modules/container";
+import { configStore } from "@modules/container";
 import { classId } from "@helpers/utils/utils";
-import { ICustomShareContent, ICustomTimelineContent } from "@helpers/wx/wx.types";
 
 const CONNECTOR = new Connector({
   configStore: DataPiker.align<ConfigStore>(["adCustomPuzzleRanking", "preview"]),
@@ -64,14 +63,6 @@ export class PuzzleRankingScript extends ComponentScript<Source> {
     super.willUnmount();
     this.loading = true;
     this.rankings = [];
-  }
-
-  onShareAppMessage(): ICustomShareContent | void {
-    return appService.share((this._comp as ScriptedPage).route ?? "");
-  }
-
-  onShareTimeline(): ICustomTimelineContent | void {
-    return appService.shareTimeline((this._comp as ScriptedPage).route ?? "");
   }
 
   async fetchData(force = false): Promise<void> {

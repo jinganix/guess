@@ -22,7 +22,7 @@ import { ComponentScript, makePublicObservable } from "@helpers/wx/component.scr
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
 import { ConfigStore } from "@modules/config/config.store";
 import { ScriptedPage } from "@helpers/wx/adapter";
-import { appService, configStore } from "@modules/container";
+import { configStore } from "@modules/container";
 import {
   IMomentFacadePb,
   MomentCategory,
@@ -35,7 +35,7 @@ import { find } from "lodash";
 import { CacheKey } from "@modules/cache/cache.service";
 import { classId, formatUrl } from "@helpers/utils/utils";
 import { Pages } from "@helpers/const";
-import { ICustomShareContent, ICustomTimelineContent, TappedEvent } from "@helpers/wx/wx.types";
+import { TappedEvent } from "@helpers/wx/wx.types";
 
 const CATEGORIES = {
   [MomentCategory.ALL]: "动态",
@@ -69,14 +69,6 @@ export class MomentListScript extends ComponentScript<Source> {
 
   source(): Source {
     return { configStore, store: this };
-  }
-
-  onShareAppMessage(): ICustomShareContent | void {
-    return appService.share((this._comp as ScriptedPage).route);
-  }
-
-  onShareTimeline(): ICustomTimelineContent | void {
-    return appService.shareTimeline((this._comp as ScriptedPage).route);
   }
 
   didMount({ category }: { category?: string }): void {

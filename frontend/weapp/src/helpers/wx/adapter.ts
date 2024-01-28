@@ -27,6 +27,8 @@ import {
   CompOtherOption,
   CustomOption,
   FullProperty,
+  ICustomShareContent,
+  ICustomTimelineContent,
   MethodOption,
   PageData,
   PageDataOption,
@@ -39,6 +41,7 @@ import {
 } from "@helpers/wx/wx.types";
 import { includes } from "lodash";
 import { cast } from "@helpers/utils/utils";
+import { appService } from "@modules/container";
 
 type Method = (this: Script, ...args: unknown[]) => void;
 type Methods = Record<string, Method> & Script;
@@ -84,7 +87,17 @@ export function componentMethods<T extends ComponentScript>(
 }
 
 export function pageMethods<T extends ComponentScript>(obj: { prototype: T }): MethodOption {
-  return delegatedMethods(obj, PAGE_LIFETIMES);
+  return {
+    ...delegatedMethods(obj, PAGE_LIFETIMES),
+
+    onShareAppMessage(this: ScriptedPage): ICustomShareContent | void {
+      return appService.share(this.route ?? "");
+    },
+
+    onShareTimeline(this: ScriptedPage): ICustomTimelineContent | void {
+      return appService.shareTimeline(this.route ?? "");
+    },
+  };
 }
 
 interface ScriptOption<T extends ComponentScript> {

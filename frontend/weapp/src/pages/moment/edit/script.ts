@@ -24,16 +24,11 @@ import {
   MomentCreateResponse,
 } from "@proto/MomentProto";
 import { every, some } from "lodash";
-import { appService, components, userExtraStore } from "@modules/container";
+import { components, userExtraStore } from "@modules/container";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
 import { ScriptedPage } from "@helpers/wx/adapter";
-import {
-  CustomEvent,
-  ICustomShareContent,
-  ICustomTimelineContent,
-  Input,
-} from "@helpers/wx/wx.types";
+import { CustomEvent, Input } from "@helpers/wx/wx.types";
 import { classId, trimContent } from "@helpers/utils/utils";
 import { MomentListScript } from "../list/script";
 
@@ -94,14 +89,6 @@ export class MomentEditScript extends ComponentScript<Source> {
     this.optionKeys = [1, 2, 3, 4].map((e) => `option${e}`);
     this.optionLen = 12;
     this.options = new EditOptions();
-  }
-
-  onShareAppMessage(): ICustomShareContent | void {
-    return appService.share((this._comp as ScriptedPage).route);
-  }
-
-  onShareTimeline(): ICustomTimelineContent | void {
-    return appService.shareTimeline((this._comp as ScriptedPage).route);
   }
 
   onCollapse(): void {

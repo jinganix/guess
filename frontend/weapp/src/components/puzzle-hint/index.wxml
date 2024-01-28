@@ -1,0 +1,36 @@
+<van-popup z-index="{{10000}}" catch:close="tapClose" show="{{show}}">
+  <view class="w-[680rpx] py-4" catch:tap="tapDialog">
+    <block wx:if="{{answer}}" >
+      <view class="flex flex-col px-8">
+        <view class="mt-4 text-grey-0 text-lg text-center">
+          答案是: {{answer}}
+        </view>
+      </view>
+
+      <view class="w-full flex justify-around mt-4">
+        <button
+          class="border border-solid border-yellow-0 text-black-1 py-2.5 w-32"
+          catch:tap="tapClose"
+        >
+          确定
+        </button>
+      </view>
+    </block>
+
+    <block wx:else>
+      <view class="flex flex-col px-8">
+        <view class="mt-4 text-grey-0 text-lg">答案是: ?</view>
+        <view class="mt-4 text-grey-2 text-sm">观看广告可查看答案</view>
+      </view>
+
+      <view class="w-full flex justify-around mt-4">
+        <button
+          class="border border-solid border-yellow-0 text-black-1 py-2.5 w-32"
+          catch:tap="tapVideoAd"
+        >
+          观看广告
+        </button>
+      </view>
+    </block>
+  </view>
+</van-popup>

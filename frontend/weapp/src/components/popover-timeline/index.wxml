@@ -1,0 +1,10 @@
+<view wx:if="{{show}}" class="z-[99999] fixed animate-pulse top-0 right-6" catch:tap="tapClose">
+  <view class="relative bg-grey-0/95 rounded mt-4">
+    <view class="text-grey-5 text-base py-1 px-4">
+      <view>点击 <text class="if if-dots"></text> 分享到朋友圈
+      </view>
+    </view>
+    <view
+      class="absolute right-8 top-0 transform -translate-x-1/2 -translate-y-1/2 rotate-45 w-4 h-4 bg-grey-0/95"/>
+  </view>
+</view>

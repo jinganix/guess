@@ -1,0 +1,13 @@
+<movable-area class="fixed top-0 left-0 h-screen w-screen pointer-events-none" style="z-index:1000">
+  <movable-view
+    animation="{{false}}"
+    catch:tap="tapButton"
+    class="top-[90%] left-[85%] w-10 h-10 pointer-events-auto"
+    direction="all"
+  >
+    <view
+      class='flex items-center justify-center w-10 h-10 rounded-full active:opacity-80 bg-yellow-0 shadow-md'>
+      <text class="{{iconClass}}"/>
+    </view>
+  </movable-view>
+</movable-area>

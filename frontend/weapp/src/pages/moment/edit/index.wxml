@@ -1,0 +1,63 @@
+<view class="flex flex-col justify-center">
+  <view class="bg-yellow-0 w-full h-20">
+    <view
+      class="bg-white mx-6 p-4 mt-8 clip-tr-12"
+    >
+      <textarea
+        class="min-h-[200rpx] text-black-2"
+        catch:input="onInput"
+        data-key="content"
+        placeholder="请输入主题..."
+        value="{{content}}"
+        maxlength="{{140}}"
+        auto-height="true"
+      />
+      <view class="w-full text-right text-sm text-grey-1">
+        {{store.content.length}}/140
+      </view>
+    </view>
+
+    <view class="mt-4 px-6">
+      <van-collapse value="{{ store.activeNames }}" catch:change="onCollapse">
+        <van-collapse-item title="编辑问题（可选）" name="1">
+          <view
+            wx:for="{{store.optionKeys}}"
+            wx:key="*this"
+            class="flex items-center border-b border-grey-3/50 last:border-0 p-2"
+          >
+            <input
+              class="text-base flex-1 h-8 pr-4 text-grey-0"
+              catch:input="onInputOption"
+              data-key="{{item}}"
+              data-len="{{store.optionLen}}"
+              placeholder="{{'请输入选项' + (index + 1) + '...'}}"
+              value="{{store.options[item]}}"
+            />
+            <view class="text-grey-1 text-base">{{store.options[item].length || 0}}/{{store.optionLen}}</view>
+          </view>
+
+          <view class="mt-4 mx-4 flex items-center">
+            <view class="mr-4 text-base text-grey-0">答案：</view>
+            <van-dropdown-menu custom-class="dropdown" direction="up">
+              <van-dropdown-item
+                value="{{store.answer}}"
+                options="{{store.answers}}"
+                catch:change="onDropdownChange"
+              />
+            </van-dropdown-menu>
+          </view>
+        </van-collapse-item>
+      </van-collapse>
+    </view>
+
+    <view class="flex justify-center py-4">
+      <button
+        class="bg-yellow-0 text-black-1 clip-tr-8 text-base py-2 w-48"
+        catch:tap="tapSubmit"
+        disabled="{{loading}}"
+      >
+        发布
+      </button>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,8 @@
+core:
+  jwt-secret: test-jwt-secret
+  url:
+    db-mysql: jdbc:mysql://127.0.0.1:3306/guess
+
+spring:
+  datasource:
+    password: root

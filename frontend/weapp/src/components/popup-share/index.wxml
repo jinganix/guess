@@ -1,0 +1,50 @@
+<van-popup
+  bind:close="onClose"
+  close-on-click-overlay
+  duration="{{300}}"
+  overlay
+  position="bottom"
+  round
+  safe-area-inset-bottom
+  show="{{show}}"
+  z-index="{{10000}}"
+>
+  <view class="text-grey-0 font-bold text-center text-base py-4">
+    邀请好友来答题
+  </view>
+
+  <view class="flex justify-around border-t border-grey-3/50 py-2 px-4">
+    <view class="text-center">
+      <button
+        class="flex items-center justify-center w-10 h-10 rounded-full active:opacity-80 bg-green-400"
+        bind:tap="onClose"
+        open-type="share"
+      >
+        <text class="if if-wechat text-2xl text-white"></text>
+      </button>
+      <view class="text-grey-1 text-xs mt-1">微信</view>
+    </view>
+
+    <view class="text-center">
+      <button
+        class="flex items-center justify-center w-10 h-10 rounded-full active:opacity-80 bg-lime-500"
+        catch:tap="tapTimeline"
+      >
+        <text class="if if-moments text-2xl text-white"></text>
+      </button>
+      <view class="text-grey-1 text-xs mt-1">朋友圈</view>
+    </view>
+  </view>
+
+  <view class="border-t-8 border-grey-3/50 flex justify-center py-2">
+    <button
+      type="button"
+      class="bg-yellow-0 text-grey-0 clip-tr-8 text-base py-2 w-48"
+      catch:tap="onClose"
+    >
+      取消
+    </button>
+  </view>
+</van-popup>
+
+<popover-timeline/>

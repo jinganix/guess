@@ -1,0 +1,18 @@
+<van-popup z-index="{{10000}}" catch:close="tapClose" show="{{show}}">
+  <view class="w-[680rpx] py-4" catch:tap="tapDialog">
+    <view class="flex flex-col px-8 text-center">
+      <view class="mt-4 text-grey-0 text-lg">体力不足</view>
+      <view class="mt-4 text-grey-1 text-base">每天自动补充{{configStore.puzzleDailyLimit}}体力</view>
+      <view class="mt-4 text-grey-1 text-base">观看广告可补充{{configStore.puzzleLimitIncrease}}体力</view>
+    </view>
+
+    <view class="w-full flex justify-around mt-4">
+      <button
+        class="border border-solid border-yellow-0 text-black-1 py-2.5 w-32"
+        catch:tap="tapVideoAd"
+      >
+        观看广告
+      </button>
+    </view>
+  </view>
+</van-popup>

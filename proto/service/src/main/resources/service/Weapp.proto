@@ -1,0 +1,31 @@
+syntax = "proto2";
+
+package WeappProto;
+
+option java_package = "io.github.jinganix.guess.proto.service.weapp";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+import "service/User.proto";
+
+message UserInfoPb {
+  required string nickName = 1;
+  required string avatarUrl = 2;
+  required int32 gender = 3;
+}
+
+message WeappUserUpdateRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/weapp/user/update"
+  };
+
+  required string signature = 1 [(opts).java = {annotation: '@NotEmpty'}];
+  required string encryptedData = 2 [(opts).java = {annotation: '@NotEmpty'}];
+  required string iv = 3 [(opts).java = {annotation: '@NotEmpty'}];
+  required UserInfoPb info = 4;
+}
+
+message WeappUserUpdateResponse {
+  required UserProto.UserPb user = 1;
+}

@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "./",
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
+    "incremental": true,
+    "isolatedModules": true,
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "target": "es6",
+    "types": ["miniprogram-api-typings", "node"],
+    "paths": {
+      "@comps/*": ["src/components/*"],
+      "@helpers/*": ["src/helpers/*"],
+      "@modules/*": ["src/modules/*"],
+      "@pages/*": ["src/pages/*"],
+      "@proto/*": ["build/generated/source/proto/main/ts/*"]
+    },
+    "typeRoots": [
+      "global.d.ts",
+      "node_modules/@types"
+    ]
+  },
+  "include": [
+    "build/**/*.ts",
+    "src/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.spec.ts",
+    "dist",
+    "node_modules"
+  ]
+}

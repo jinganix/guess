@@ -1,0 +1,33 @@
+<view wx:for="{{store.cacheKeys}}" wx:key="*this" class="mb-3">
+  <view class="bg-white border-t border-grey-3/50 pt-4 text-grey-1 text-sm">
+    <view class="px-6" data-item="{{item}}" catch:tap="tapMoment">
+      <moment-facade cache-key="{{item}}"/>
+    </view>
+
+    <view class="mt-2 py-1 grid grid-cols-3 border-t border-grey-3/50">
+      <icon-follow cache-key="{{item}}"/>
+      <icon-comment cache-key="{{item}}"/>
+      <icon-like cache-key="{{item}}"/>
+    </view>
+  </view>
+
+  <view wx:if="{{configStore.adCustomMomentList && index === 1}}" class="mt-3">
+    <ad-custom unit-id="{{configStore.adCustomMomentList}}" ad-intervals="30"/>
+  </view>
+</view>
+
+<view wx:if="{{configStore.adCustomMomentList && store.cacheKeys.length < 2}}" class="mb-3">
+  <ad-custom unit-id="{{configStore.adCustomMomentList}}" ad-intervals="30"/>
+</view>
+
+<view wx:if="{{store.loading}}" class="w-full flex justify-center pt-3 pb-5">
+  <van-loading type="spinner" color="#1989fa"/>
+</view>
+
+<view wx:if="{{!store.loading && !store.more}}"
+  class='text-sm text-grey-1 text-center w-full pt-3 pb-5'>
+  <view>- 这里是底线 -</view>
+</view>
+
+<popup-options/>
+<movable-button icon-class="if if-plus" catch:click="tapEdit"/>

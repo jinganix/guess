@@ -1,0 +1,26 @@
+<view class="flex flex-col justify-center">
+  <view class="bg-yellow-0 w-full h-16">
+    <view class="bg-white mx-4 p-4 mt-8 clip-tr-12 text-lg">
+      <view class="flex-1 text-base text-grey-0 ml-4">
+        看图猜成语
+      </view>
+
+      <view class="w-full flex justify-center mt-4">
+        <image class="w-64 h-64" src="../../assets/images/puzzle.png"/>
+      </view>
+    </view>
+
+    <view class="mt-4 px-4 grid grid-cols-2 gap-2">
+      <button
+        wx:for="{{options}}"
+        wx:key="*this"
+        class="text-center py-1 text-base bg-yellow-0 nested-border nested-clip-tr-8"
+        catch:tap="showPopover"
+      >
+        {{item}}
+      </button>
+    </view>
+  </view>
+</view>
+
+<popover-preview/>

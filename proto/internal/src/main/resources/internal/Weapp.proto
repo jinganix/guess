@@ -1,0 +1,330 @@
+syntax = "proto2";
+
+package InternalWeappProto;
+
+option java_package = "io.github.jinganix.guess.proto.internal.weapp";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+import "google/protobuf/any.proto";
+
+message WeappAccessTokenRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "https://api.weixin.qq.com/cgi-bin/token?appid={appId}&secret={secret}&grant_type=client_credential"
+  };
+
+  required string appId = 1 [(opts).java = {annotation: '@JsonProperty("appId")'}, (opts).opt = {in_query: true}];
+  required string secret = 2 [(opts).java = {annotation: '@JsonProperty("secret")'}, (opts).opt = {in_query: true}];
+}
+
+message WeappAccessTokenResponse {
+  required string accessToken = 1 [(opts).java = {annotation: '@JsonProperty("access_token")'}];
+  required string expiresIn = 2 [(opts).java = {annotation: '@JsonProperty("expires_in")'}];
+  required int32 errCode = 3 [(opts).java = {annotation: '@JsonProperty("errcode")'}];
+  required string errMsg = 4 [(opts).java = {annotation: '@JsonProperty("errmsg")'}];
+}
+
+message WeappSessionRequest {
+  option (m_opts).opt = {
+    method: "GET"
+    path: "https://api.weixin.qq.com/sns/jscode2session?appid={appId}&secret={secret}&js_code={jsCode}&grant_type=authorization_code"
+  };
+
+  required string appId = 1 [(opts).java = {annotation: '@JsonProperty("appId")'}, (opts).opt = {in_query: true}];
+  required string secret = 2 [(opts).java = {annotation: '@JsonProperty("secret")'}, (opts).opt = {in_query: true}];
+  required string jsCode = 3 [(opts).java = {annotation: '@JsonProperty("jsCode")'}, (opts).opt = {in_query: true}];
+}
+
+message WeappSessionResponse {
+  required string openId = 1 [(opts).java = {annotation: '@JsonProperty("openid")'}];
+  required string sessionKey = 2 [(opts).java = {annotation: '@JsonProperty("session_key")'}];
+  required string unionId = 3 [(opts).java = {annotation: '@JsonProperty("unionid")'}];
+  required int32 errCode = 4 [(opts).java = {annotation: '@JsonProperty("errcode")'}];
+  required string errMsg = 5 [(opts).java = {annotation: '@JsonProperty("errmsg")'}];
+}
+
+message WeappCheckContentRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "https://api.weixin.qq.com/wxa/msg_sec_check?access_token={accessToken}"
+  };
+
+  required string accessToken = 1 [(opts).java = {annotation: '@JsonProperty("accessToken")'}, (opts).opt = {in_query: true}];
+  required string content = 2 [(opts).java = {annotation: '@JsonProperty("content")'}];
+}
+
+message WeappCheckContentResponse {
+  required int32 errCode = 1 [(opts).java = {annotation: '@JsonProperty("errcode")'}];
+  required string errMsg = 2 [(opts).java = {annotation: '@JsonProperty("errmsg")'}];
+}
+
+message WeappMessageSendRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "https://api.weixin.qq.com/cgi-bin/message/subscribe/send?access_token={accessToken}"
+  };
+
+  required string accessToken = 1 [(opts).java = {annotation: '@JsonProperty("accessToken")'}, (opts).opt = {in_query: true}];
+  required string toUser = 2 [(opts).java = {annotation: '@JsonProperty("touser")'}];
+  required string templateId = 3 [(opts).java = {annotation: '@JsonProperty("template_id")'}];
+  required string page = 4 [(opts).java = {annotation: '@JsonProperty("page")'}];
+  required google.protobuf.Any data = 5 [(opts).java = {annotation: '@JsonProperty("data")'}];
+  required string miniProgramState = 6 [(opts).java = {annotation: '@JsonProperty("miniprogram_state")'}];
+  required string lang = 7 [(opts).java = {annotation: '@JsonProperty("lang")'}];
+}
+
+message WeappMessageSendResponse {
+  required int32 errCode = 1 [(opts).java = {annotation: '@JsonProperty("errcode")'}];
+  required string errMsg = 2 [(opts).java = {annotation: '@JsonProperty("errmsg")'}];
+}
+
+message WeappOrderCreateRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "https://api.mch.weixin.qq.com/pay/unifiedorder"
+  };
+  option (m_opts).java = {
+    annotation: '@JacksonXmlRootElement(localName = "xml")'
+  };
+
+  required string appId = 1 [(opts).java = {annotation: '@JsonProperty("appid")'}];
+  required string mchId = 2 [(opts).java = {annotation: '@JsonProperty("mch_id")'}];
+  optional string deviceInfo = 3 [(opts).java = {annotation: '@JsonProperty("device_info")'}];
+  required string nonceStr = 4 [(opts).java = {annotation: '@JsonProperty("nonce_str")'}];
+  required string sign = 5 [(opts).java = {annotation: '@JsonProperty("sign")'}];
+  optional string signType = 6 [(opts).java = {annotation: '@JsonProperty("sign_type")'}];
+  required string body = 7 [(opts).java = {annotation: '@JsonProperty("body")'}];
+  optional string detail = 8 [(opts).java = {annotation: '@JsonProperty("detail")'}];
+  optional string attach = 9 [(opts).java = {annotation: '@JsonProperty("attach")'}];
+  required string outTradeNo = 10 [(opts).java = {annotation: '@JsonProperty("out_trade_no")'}];
+  optional string feeType = 11 [(opts).java = {annotation: '@JsonProperty("fee_type")'}];
+  required int32 totalFee = 12 [(opts).java = {annotation: '@JsonProperty("total_fee")'}];
+  required string spBillCreateIp = 13 [(opts).java = {annotation: '@JsonProperty("spbill_create_ip")'}];
+  optional string timeStart = 14 [(opts).java = {annotation: '@JsonProperty("time_start")'}];
+  optional string timeExpire = 15 [(opts).java = {annotation: '@JsonProperty("time_expire")'}];
+  optional string goodsTag = 16 [(opts).java = {annotation: '@JsonProperty("goods_tag")'}];
+  required string notifyUrl = 17 [(opts).java = {annotation: '@JsonProperty("notify_url")'}];
+  required string tradeType = 18 [(opts).java = {annotation: '@JsonProperty("trade_type")'}];
+  optional string productId = 19 [(opts).java = {annotation: '@JsonProperty("product_id")'}];
+  optional string limitPay = 20 [(opts).java = {annotation: '@JsonProperty("limit_pay")'}];
+  optional string openId = 21 [(opts).java = {annotation: '@JsonProperty("openid")'}];
+  optional string receipt = 22 [(opts).java = {annotation: '@JsonProperty("receipt")'}];
+  optional string profitSharing = 23 [(opts).java = {annotation: '@JsonProperty("profit_sharing")'}];
+  optional string sceneInfo = 24 [(opts).java = {annotation: '@JsonProperty("scene_info")'}];
+}
+
+message WeappOrderCreateResponse {
+  required string returnCode = 1 [(opts).java = {annotation: '@JsonProperty("return_code")'}];
+  required string returnMsg = 2 [(opts).java = {annotation: '@JsonProperty("return_msg")'}];
+  required string appId = 3 [(opts).java = {annotation: '@JsonProperty("appid")'}];
+  required string mchId = 4 [(opts).java = {annotation: '@JsonProperty("mch_id")'}];
+  optional string deviceInfo = 5 [(opts).java = {annotation: '@JsonProperty("device_info")'}];
+  required string nonceStr = 6 [(opts).java = {annotation: '@JsonProperty("nonce_str")'}];
+  required string sign = 7 [(opts).java = {annotation: '@JsonProperty("sign")'}];
+  optional string resultCode = 8 [(opts).java = {annotation: '@JsonProperty("result_code")'}];
+  optional string errCode = 9 [(opts).java = {annotation: '@JsonProperty("err_code")'}];
+  required string errCodeDes = 10 [(opts).java = {annotation: '@JsonProperty("err_code_des")'}];
+  required string tradeType = 11 [(opts).java = {annotation: '@JsonProperty("trade_type")'}];
+  optional string prepayId = 12 [(opts).java = {annotation: '@JsonProperty("prepay_id")'}];
+  optional string codeUrl = 13 [(opts).java = {annotation: '@JsonProperty("code_url")'}];
+}
+
+message WeappPayRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/wechat/pay/callback"
+  };
+
+  required string returnCode = 1 [(opts).java = {annotation: '@JsonProperty("return_code")'}];
+  required string returnMsg = 2 [(opts).java = {annotation: '@JsonProperty("return_msg")'}];
+  required string appId = 3 [(opts).java = {annotation: '@JsonProperty("appid")'}];
+  required string mchId = 4 [(opts).java = {annotation: '@JsonProperty("mch_id")'}];
+  optional string deviceInfo = 5 [(opts).java = {annotation: '@JsonProperty("device_info")'}];
+  required string nonceStr = 6 [(opts).java = {annotation: '@JsonProperty("nonce_str")'}];
+  required string sign = 7 [(opts).java = {annotation: '@JsonProperty("sign")'}];
+  optional string signType = 8 [(opts).java = {annotation: '@JsonProperty("sign_type")'}];
+  optional string resultCode = 9 [(opts).java = {annotation: '@JsonProperty("result_code")'}];
+  optional string errCode = 10 [(opts).java = {annotation: '@JsonProperty("err_code")'}];
+  required string errCodeDes = 11 [(opts).java = {annotation: '@JsonProperty("err_code_des")'}];
+  required string openId = 12 [(opts).java = {annotation: '@JsonProperty("openid")'}];
+  required string isSubscribe = 13 [(opts).java = {annotation: '@JsonProperty("is_subscribe")'}];
+  required string tradeType = 14 [(opts).java = {annotation: '@JsonProperty("trade_type")'}];
+  required string bankType = 15 [(opts).java = {annotation: '@JsonProperty("bank_type")'}];
+  required int32 totalFee = 16 [(opts).java = {annotation: '@JsonProperty("total_fee")'}];
+  optional int32 settlementTotalFee = 17 [(opts).java = {annotation: '@JsonProperty("settlement_total_fee")'}];
+  optional string feeType = 18 [(opts).java = {annotation: '@JsonProperty("fee_type")'}];
+  required int32 cashFee = 19 [(opts).java = {annotation: '@JsonProperty("cash_fee")'}];
+  optional string cashFeeType = 20 [(opts).java = {annotation: '@JsonProperty("cash_fee_type")'}];
+  optional int32 couponFee = 21 [(opts).java = {annotation: '@JsonProperty("coupon_fee")'}];
+  optional int32 couponCount = 22 [(opts).java = {annotation: '@JsonProperty("coupon_count")'}];
+  required string transactionId = 23 [(opts).java = {annotation: '@JsonProperty("transaction_id")'}];
+  required string outTradeNo = 24 [(opts).java = {annotation: '@JsonProperty("out_trade_no")'}];
+  optional string attach = 25 [(opts).java = {annotation: '@JsonProperty("attach")'}];
+  required string timeEnd = 26 [(opts).java = {annotation: '@JsonProperty("time_end")'}];
+}
+
+message WeappPayResponse {
+  option (m_opts).java = {
+    annotation: '@JacksonXmlRootElement(localName = "xml")'
+  };
+
+  required string returnCode = 1 [(opts).java = {annotation: '@JsonProperty("return_code")'}];
+  required string returnMsg = 2 [(opts).java = {annotation: '@JsonProperty("return_msg")'}];
+}
+
+message WeappRefundCreateRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "https://api.mch.weixin.qq.com/secapi/pay/refund"
+  };
+  option (m_opts).java = {
+    annotation: '@JacksonXmlRootElement(localName = "xml")'
+  };
+
+  required string appId = 1 [(opts).java = {annotation: '@JsonProperty("appid")'}];
+  required string mchId = 2 [(opts).java = {annotation: '@JsonProperty("mch_id")'}];
+  required string nonceStr = 3 [(opts).java = {annotation: '@JsonProperty("nonce_str")'}];
+  required string sign = 4 [(opts).java = {annotation: '@JsonProperty("sign")'}];
+  optional string signType = 5 [(opts).java = {annotation: '@JsonProperty("sign_type")'}];
+  required string transactionId = 6 [(opts).java = {annotation: '@JsonProperty("transaction_id")'}];
+  optional string outTradeNo = 7 [(opts).java = {annotation: '@JsonProperty("out_trade_no")'}];
+  optional string outRefundNo = 8 [(opts).java = {annotation: '@JsonProperty("out_refund_no")'}];
+  required int32 totalFee = 9 [(opts).java = {annotation: '@JsonProperty("total_fee")'}];
+  required int32 refundFee = 10 [(opts).java = {annotation: '@JsonProperty("refund_fee")'}];
+  optional string refundFeeType = 11 [(opts).java = {annotation: '@JsonProperty("refund_fee_type")'}];
+  optional string refundDesc = 12 [(opts).java = {annotation: '@JsonProperty("refund_desc")'}];
+  optional string refundAccount = 13 [(opts).java = {annotation: '@JsonProperty("refund_account")'}];
+  optional string notifyUrl = 14 [(opts).java = {annotation: '@JsonProperty("notify_url")'}];
+}
+
+message WeappRefundCreateResponse {
+  required string returnCode = 1 [(opts).java = {annotation: '@JsonProperty("return_code")'}];
+  required string returnMsg = 2 [(opts).java = {annotation: '@JsonProperty("return_msg")'}];
+  optional string errCode = 3 [(opts).java = {annotation: '@JsonProperty("err_code")'}];
+  required string errCodeDes = 4 [(opts).java = {annotation: '@JsonProperty("err_code_des")'}];
+  required string appId = 5 [(opts).java = {annotation: '@JsonProperty("appid")'}];
+  required string mchId = 6 [(opts).java = {annotation: '@JsonProperty("mch_id")'}];
+  required string nonceStr = 7 [(opts).java = {annotation: '@JsonProperty("nonce_str")'}];
+  required string sign = 8 [(opts).java = {annotation: '@JsonProperty("sign")'}];
+  required string transactionId = 9 [(opts).java = {annotation: '@JsonProperty("transaction_id")'}];
+  optional string outTradeNo = 10 [(opts).java = {annotation: '@JsonProperty("out_trade_no")'}];
+  optional string outRefundNo = 11 [(opts).java = {annotation: '@JsonProperty("out_refund_no")'}];
+  optional string refundId = 12 [(opts).java = {annotation: '@JsonProperty("refund_id")'}];
+  optional int32 refundFee = 13 [(opts).java = {annotation: '@JsonProperty("refund_fee")'}];
+  optional int32 settlementRefundFee = 14 [(opts).java = {annotation: '@JsonProperty("settlement_refund_fee")'}];
+  optional int32 totalFee = 15 [(opts).java = {annotation: '@JsonProperty("total_fee")'}];
+  optional int32 settlementTotalFee = 16 [(opts).java = {annotation: '@JsonProperty("settlement_total_fee")'}];
+  optional string feeType = 17 [(opts).java = {annotation: '@JsonProperty("fee_type")'}];
+  optional int32 cashFee = 18 [(opts).java = {annotation: '@JsonProperty("cash_fee")'}];
+  optional string cashFeeType = 19 [(opts).java = {annotation: '@JsonProperty("cash_fee_type")'}];
+  optional int32 cashRefundFee = 20 [(opts).java = {annotation: '@JsonProperty("cash_refund_fee")'}];
+  optional int32 couponRefundFee = 21 [(opts).java = {annotation: '@JsonProperty("coupon_refund_fee")'}];
+  optional int32 couponRefundCount = 22 [(opts).java = {annotation: '@JsonProperty("coupon_refund_count")'}];
+}
+
+message WeappRefundRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/wechat/refund/callback"
+  };
+
+  required string returnCode = 1 [(opts).java = {annotation: '@JsonProperty("return_code")'}];
+  required string returnMsg = 2 [(opts).java = {annotation: '@JsonProperty("return_msg")'}];
+  required string appId = 3 [(opts).java = {annotation: '@JsonProperty("appid")'}];
+  required string mchId = 4 [(opts).java = {annotation: '@JsonProperty("mch_id")'}];
+  required string nonceStr = 5 [(opts).java = {annotation: '@JsonProperty("nonce_str")'}];
+  required string reqInfo = 6 [(opts).java = {annotation: '@JsonProperty("req_info")'}];
+}
+
+message WeappRefundResponse {
+  option (m_opts).java = {
+    annotation: '@JacksonXmlRootElement(localName = "xml")'
+  };
+
+  required string returnCode = 1 [(opts).java = {annotation: '@JsonProperty("return_code")'}];
+  required string returnMsg = 2 [(opts).java = {annotation: '@JsonProperty("return_msg")'}];
+}
+
+message WeappRefundPb {
+  required string transactionId = 1 [(opts).java = {annotation: '@JsonProperty("transaction_id")'}];
+  required string outTradeNo = 2 [(opts).java = {annotation: '@JsonProperty("out_trade_no")'}];
+  required string refundId = 3 [(opts).java = {annotation: '@JsonProperty("refund_id")'}];
+  required string outRefundNo = 4 [(opts).java = {annotation: '@JsonProperty("out_refund_no")'}];
+  required int32 totalFee = 5 [(opts).java = {annotation: '@JsonProperty("total_fee")'}];
+  optional int32 settlementTotalFee = 6 [(opts).java = {annotation: '@JsonProperty("settlement_total_fee")'}];
+  required int32 refundFee = 7 [(opts).java = {annotation: '@JsonProperty("refund_fee")'}];
+  required int32 settlementRefundFee = 8 [(opts).java = {annotation: '@JsonProperty("settlement_refund_fee")'}];
+  required string refundStatus = 9 [(opts).java = {annotation: '@JsonProperty("refund_status")'}];
+  optional string successTime = 10 [(opts).java = {annotation: '@JsonProperty("success_time")'}];
+  required string refundRecvAccout = 11 [(opts).java = {annotation: '@JsonProperty("refund_recv_accout")'}];
+  required string refundAccount = 12 [(opts).java = {annotation: '@JsonProperty("refund_account")'}];
+  required string refundRequestSource = 13 [(opts).java = {annotation: '@JsonProperty("refund_request_source")'}];
+}
+
+message WeappSendRedPackRquest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack"
+  };
+  option (m_opts).java = {
+    annotation: '@JacksonXmlRootElement(localName = "xml")'
+  };
+
+  required string nonceStr = 1 [(opts).java = {annotation: '@JsonProperty("nonce_str")'}];
+  required string sign = 2 [(opts).java = {annotation: '@JsonProperty("sign")'}];
+  required string mchBillNo = 3 [(opts).java = {annotation: '@JsonProperty("mch_billno")'}];
+  required string mchId = 4 [(opts).java = {annotation: '@JsonProperty("mch_id")'}];
+  required string wxAppId = 5 [(opts).java = {annotation: '@JsonProperty("wxappid")'}];
+  required string sendName = 6 [(opts).java = {annotation: '@JsonProperty("send_name")'}];
+  required string reOpenId = 7 [(opts).java = {annotation: '@JsonProperty("re_openid")'}];
+  required int32 totalAmount = 8 [(opts).java = {annotation: '@JsonProperty("total_amount")'}];
+  required int32 totalNum = 9 [(opts).java = {annotation: '@JsonProperty("total_num")'}];
+  required string wishing = 10 [(opts).java = {annotation: '@JsonProperty("wishing")'}];
+  required string clientIp = 11 [(opts).java = {annotation: '@JsonProperty("client_ip")'}];
+  required string actName = 12 [(opts).java = {annotation: '@JsonProperty("act_name")'}];
+  required string remark = 13 [(opts).java = {annotation: '@JsonProperty("remark")'}];
+  optional string sceneId = 14 [(opts).java = {annotation: '@JsonProperty("scene_id")'}];
+  optional string riskInfo = 15 [(opts).java = {annotation: '@JsonProperty("risk_info")'}];
+}
+
+message WeappSendRedPackResponse {
+  required string returnCode = 1 [(opts).java = {annotation: '@JsonProperty("return_code")'}];
+  optional string returnMsg = 2 [(opts).java = {annotation: '@JsonProperty("return_msg")'}];
+  required string resultCode = 3 [(opts).java = {annotation: '@JsonProperty("result_code")'}];
+  optional string errCode = 4 [(opts).java = {annotation: '@JsonProperty("err_code")'}];
+  optional string errCodeDes = 5 [(opts).java = {annotation: '@JsonProperty("err_code_des")'}];
+  required string mchBillNo = 6 [(opts).java = {annotation: '@JsonProperty("mch_billno")'}];
+  required string mchId = 7 [(opts).java = {annotation: '@JsonProperty("mch_id")'}];
+  required string wxAppId = 8 [(opts).java = {annotation: '@JsonProperty("wxappid")'}];
+  required string reOpenId = 9 [(opts).java = {annotation: '@JsonProperty("re_openid")'}];
+  required int32 totalAmount = 10 [(opts).java = {annotation: '@JsonProperty("total_amount")'}];
+  required string sendListId = 11 [(opts).java = {annotation: '@JsonProperty("send_listid")'}];
+}
+
+message WeappJumpWxaPb {
+  optional string path = 1;
+  optional string query = 2;
+  optional string envVersion = 3 [(opts).java = {annotation: '@JsonProperty("env_version")'}];
+}
+
+message WeappUrlSchemeRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "https://api.weixin.qq.com/wxa/generatescheme?access_token={accessToken}"
+  };
+
+  required string accessToken = 1 [(opts).opt = {in_query: true}];
+  optional WeappJumpWxaPb jumpWxa = 2 [(opts).java = {annotation: '@JsonProperty("jump_wxa")'}];
+  optional bool isExpire = 3 [(opts).java = {annotation: '@JsonProperty("is_expire")'}];
+  optional int32 expireType = 4 [(opts).java = {annotation: '@JsonProperty("expire_type")'}];
+  optional int64 expireTime = 5 [(opts).java = {annotation: '@JsonProperty("expire_time")'}];
+  optional int32 expireInterval = 6 [(opts).java = {annotation: '@JsonProperty("expire_interval")'}];
+}
+
+message WeappUrlSchemeResponse {
+  required int32 errCode = 1 [(opts).java = {annotation: '@JsonProperty("errcode")'}];
+  required string errMsg = 2 [(opts).java = {annotation: '@JsonProperty("errmsg")'}];
+  required string openLink = 3 [(opts).java = {annotation: '@JsonProperty("openlink")'}];
+}

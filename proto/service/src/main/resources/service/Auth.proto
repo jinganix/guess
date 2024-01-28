@@ -1,0 +1,38 @@
+syntax = "proto2";
+
+package AuthProto;
+
+option java_package = "io.github.jinganix.guess.proto.service.auth";
+
+import "imports/WebpbOptions.proto";
+import "webpb/WebpbExtend.proto";
+
+enum TokenType {
+  BEARER = 0 [(v_opts).opt = {value: 'Bearer'}];
+}
+
+message AuthLoginRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/auth/login"
+  };
+
+  required string code = 1 [(opts).java = {annotation: '@NotNull' annotation: '@Size(min = 1, max = 40)'}];
+}
+
+message AuthTokenRequest {
+  option (m_opts).opt = {
+    method: "POST"
+    path: "/api/auth/token"
+  };
+
+  optional string refreshToken = 1 [(opts).java = {annotation: '@NotNull' annotation: '@Size(min = 1, max = 40)'}];
+}
+
+message AuthTokenResponse {
+  required string accessToken = 1;
+  required int64 expiresIn = 2;
+  required string refreshToken = 3;
+  required string tokenType = 4;
+  required string scope = 5;
+}

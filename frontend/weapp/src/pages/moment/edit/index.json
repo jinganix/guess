@@ -1,0 +1,11 @@
+{
+  "enablePullDownRefresh": false,
+  "navigationBarTitleText": "编辑猜一猜",
+  "usingComponents": {
+    "avatar": "/components/avatar/index",
+    "van-collapse": "/vant/collapse/index",
+    "van-collapse-item": "/vant/collapse-item/index",
+    "van-dropdown-menu": "/vant/dropdown-menu/index",
+    "van-dropdown-item": "/vant/dropdown-item/index"
+  }
+}

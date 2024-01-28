@@ -1,0 +1,3 @@
+<button class="bg-grey-5 px-1.5" catch:tap="tapDots">
+  <view class="text-sm text-grey-1 if if-dot"></view>
+</button>

@@ -1,0 +1,47 @@
+{
+  "entryPagePath": "pages/puzzle/detail/index",
+  "lazyCodeLoading": "requiredComponents",
+  "pages": [
+    "pages/moment/detail/index",
+    "pages/moment/edit/index",
+    "pages/moment/list/index",
+    "pages/puzzle/detail/index",
+    "pages/puzzle/ranking/index",
+    "pages/user/detail/index",
+    "pages/user/moments/index"
+  ],
+  "tabBar": {
+    "backgroundColor": "#000000",
+    "borderStyle": "black",
+    "color": "#8a8a8a",
+    "custom": false,
+    "selectedColor": "#f2b640",
+    "list": [
+      {
+        "pagePath": "pages/puzzle/detail/index",
+        "text": "猜谜题",
+        "iconPath": "./assets/tab-bar/tab_puzzle.png",
+        "selectedIconPath": "./assets/tab-bar/tab_puzzle_s.png"
+      },
+      {
+        "pagePath": "pages/moment/list/index",
+        "text": "动态",
+        "iconPath": "./assets/tab-bar/tab_moment.png",
+        "selectedIconPath": "./assets/tab-bar/tab_moment_s.png"
+      },
+      {
+        "pagePath": "pages/user/detail/index",
+        "text": "我的",
+        "iconPath": "./assets/tab-bar/tab_me.png",
+        "selectedIconPath": "./assets/tab-bar/tab_me_s.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "dark",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": ""
+  }
+}

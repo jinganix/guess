@@ -1,0 +1,66 @@
+<view wx:if="{{!configStore.preview}}" class="flex flex-col justify-center">
+  <view class="bg-yellow-0 w-full h-16">
+    <view class="flex bg-white mx-4 p-4 mt-8 clip-tr-12 text-lg">
+      <avatar userId="{{userStore.userId}}" catch:tap="tapAvatar"/>
+
+      <name-gender userId="{{userStore.userId}}" class="flex-1 ml-4 flex items-center"/>
+
+      <view class="flex items-center" catch:tap="tapEdit">
+        <button class="bg-yellow-0 clip-4 px-1">
+          <view class="if if-edit-fill text-xl text-grey-1"></view>
+        </button>
+      </view>
+    </view>
+
+    <view class="flex px-4 mt-4 gap-8">
+      <view
+        class="flex justify-center items-center flex-1 bg-yellow-0 nested-border nested-clip-tr-8 text-grey-0 text-base py-2"
+        catch:tap="tapRepo"
+      >
+        <text class="mr-1 if if-file-copy-2-fill"/>项目源码
+      </view>
+      <view
+        class="flex justify-center items-center flex-1 bg-yellow-0 clip-tr-8 text-grey-0 text-base py-2"
+        catch:tap="tapInvite"
+      >
+        <text class="mr-1 if if-share-forward-line"/>邀请猜题
+      </view>
+    </view>
+
+    <view class="flex flex-col bg-white clip-tr-12 px-4 py-2 mx-4 mt-4">
+      <view
+        class="w-full flex justify-between items-center text-base text-grey-0 p-3"
+        catch:tap="tapMomentPage"
+      >
+        <view class="if if-scan-2-line text-lg mr-4"/>
+        <view class="flex-1 text-left">我的动态</view>
+        <view>{{userExtraStore.moment}}</view>
+      </view>
+
+      <view
+        class="w-full flex justify-between items-center text-base text-grey-0 p-3 border-t border-grey-3/30"
+        catch:tap="tapFollowedPage"
+      >
+        <view class="if if-star-line text-lg mr-4"/>
+        <view class="flex-1 text-left">我的关注</view>
+        <view>{{userExtraStore.follow}}</view>
+      </view>
+
+      <view
+        class="w-full flex justify-between items-center text-base text-grey-0 p-3 border-t border-grey-3/30"
+      >
+        <view class="if if-customer-service-2-line text-lg mr-4"/>
+        <button class="flex-1 text-left" open-type="contact">联系客服</button>
+      </view>
+    </view>
+
+    <view wx:if="{{configStore.adCustomMe}}" class="mt-4 mx-4">
+      <ad-custom unit-id="{{configStore.adCustomMe}}" ad-intervals="30"/>
+    </view>
+
+    <view class="h-4"/>
+  </view>
+</view>
+
+<user-edit/>
+<popup-share/>

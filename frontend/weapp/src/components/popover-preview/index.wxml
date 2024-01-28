@@ -1,0 +1,9 @@
+<view wx:if="{{show}}" class="z-[99999] fixed animate-pulse bottom-0 right-6" catch:tap="tapClose">
+  <view class="relative bg-grey-0/95 rounded mb-4">
+    <view class="text-grey-5 text-base py-1 px-4">
+      <view>请前往小程序使用完整服务</view>
+    </view>
+    <view
+      class="absolute right-8 bottom-0 transform translate-x-1/2 translate-y-1/2 rotate-45 w-4 h-4 bg-grey-0/95"/>
+  </view>
+</view>

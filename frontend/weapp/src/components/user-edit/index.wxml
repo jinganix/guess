@@ -1,0 +1,63 @@
+<wxs src="../../wxs/clsx.wxs" module="clsx"/>
+
+<van-popup z-index="{{10000}}" catch:close="tapClose" show="{{show}}">
+  <view class="w-[680rpx] py-4">
+    <view class="flex flex-col px-8 items-center text-grey-0 text-lg">
+      <view class="w-full flex flex-col items-center mt-6">
+        <view class="w-24 h-24 border border-grey-2/50 flex items-center justify-center">
+          <button
+            class="w-full h-full flex items-center justify-center"
+            open-type="chooseAvatar"
+            catch:chooseavatar="chooseAvatar"
+          >
+            <image wx:if="{{avatar}}" class="w-full h-full" src="{{avatar}}"></image>
+            <view wx:else class="text-4xl if if-image-add-fill text-grey-2"/>
+          </button>
+        </view>
+      </view>
+
+      <view class="w-full justify-around flex mt-4">
+        <view
+          class="px-1 border-2 {{clsx(['border-grey-3/50', gender !== 1], ['border-blue-400', gender === 1])}}"
+          catch:tap="tapGender"
+          data-gender="1">
+          <view class="text-2xl text-blue-400 if if-male"></view>
+        </view>
+        <view
+          class="px-1 border-2 {{clsx(['border-grey-3/50', gender !== 2], ['border-red-400', gender === 2])}}"
+          catch:tap="tapGender"
+          data-gender="2">
+          <view class="text-2xl text-red-400 if if-female"></view>
+        </view>
+      </view>
+
+      <view class="w-full mt-4 p-2 bg-grey-2/50 nested-border nested-clip-tr-8">
+        <input
+          class="text-center text-base text-grey-0"
+          type="nickname"
+          placeholder="请输入昵称"
+          catch:blur="changeNickname"
+          catch:input="changeNickname"
+          value="{{nickname}}"
+        />
+      </view>
+    </view>
+
+    <view class="w-full flex justify-around mt-6">
+      <button
+        class="border border-solid border-yellow-0 text-black-1 py-2.5 w-32"
+        catch:tap="tapClose"
+      >
+        取消
+      </button>
+
+      <button
+        class="bg-yellow-0 text-black-1 py-2.5 w-32"
+        catch:tap="tapConfirm"
+        disabled="{{loading}}"
+      >
+        保存
+      </button>
+    </view>
+  </view>
+</van-popup>

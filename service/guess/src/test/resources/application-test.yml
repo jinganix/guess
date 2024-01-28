@@ -1,0 +1,13 @@
+core:
+  jwt-secret: fake-jwt-secret
+  weapp:
+    app-id: fake-app-id
+    app-secret: fake-app-secret
+
+server:
+  port: 0
+
+spring:
+  datasource:
+    username: test
+    password: test

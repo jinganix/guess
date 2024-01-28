@@ -1,0 +1,59 @@
+/* eslint-disable */
+var REGEXP = getRegExp('{|}|"', 'g');
+
+function keys(obj) {
+  return JSON.stringify(obj)
+  .replace(REGEXP, '')
+  .split(',')
+  .map(function (item) {
+    return item.split(':')[0];
+  });
+}
+
+function isArray(array) {
+  return array && array.constructor === 'Array';
+}
+
+function kebabCase(word) {
+  return word
+  .replace(getRegExp("[A-Z]|[0-9]+", 'g'), function (i) {
+    return '-' + i;
+  })
+  .toLowerCase()
+}
+
+function traversing(mods, conf) {
+  if (!conf) {
+    return;
+  }
+
+  if (typeof conf === 'string' || typeof conf === 'number') {
+    mods.push(conf);
+  } else if (isArray(conf)) {
+    if (conf.length === 2) {
+      conf[1] === true && mods.push(conf[0]);
+    } else {
+      conf.forEach(function (item) {
+        traversing(mods, item);
+      });
+    }
+  } else if (typeof conf === 'object') {
+    keys(conf).forEach(function (key) {
+      conf[key] && key.split('_').forEach(function (x) {
+        mods.push(kebabCase(x))
+      });
+    });
+  }
+}
+
+function clsx() {
+  var mods = [];
+  var i = 0, tmp, len = arguments.length;
+  for (; i < len; i++) {
+    tmp = arguments[i]
+    traversing(mods, tmp);
+  }
+  return mods.join(' ');
+}
+
+module.exports = clsx;

@@ -1,0 +1,29 @@
+<view wx:if="{{!loading}}" class="flex flex-col justify-center">
+  <view class="bg-yellow-0 w-full h-32">
+    <view class="bg-white mx-4 min-h-full mt-8 clip-tr-12">
+      <moment-detail cache-key="{{cacheKey}}"/>
+
+      <view class="mt-2 py-1 grid grid-cols-3 border-t border-grey-3/50">
+        <icon-follow cache-key="{{cacheKey}}"/>
+        <icon-comment cache-key="{{cacheKey}}"/>
+        <icon-like cache-key="{{cacheKey}}"/>
+      </view>
+    </view>
+
+    <view wx:if="{{configStore.adCustomMomentDetail}}" class="mt-4 px-4">
+      <ad-custom unit-id="{{configStore.adCustomMomentDetail}}" ad-intervals="30"/>
+    </view>
+
+    <view class="m-4 py-4 bg-white">
+      <view class="text-sm text-black-1 font-bold pb-2 px-4">
+        {{comment}}条评论
+      </view>
+
+      <comment-list cacheKey="{{cacheKey}}"/>
+    </view>
+  </view>
+</view>
+
+<comment-editor/>
+<movable-button icon-class="if if-edit-fill" catch:click="tapComment"/>
+<popup-options/>

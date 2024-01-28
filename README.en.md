@@ -3,38 +3,67 @@
 
 # Guess
 
-The source code of the 'Guess Who I Am' Wechat miniprogram
+The source code of the 'Guess Who I Am' Wechat miniprogram.
 
-## Run
+- Frontend development using `TypeScript` with `webpack` for building and bundling
+- Backend development using `Java` and `Spring` framework with `Gradle` for building and packaging
 
-### Backend
+## Running the Project
 
-#### Linux or MacOS
+To run the project, you need to first clone the source code and navigate to the project's root directory.
 
 ```shell
 git clone git@github.com:jinganix/guess.git
-cd guess/service/guess
-./gradlew service:guess:bootRun --args='--core.weapp.app-id=? --core.weapp.app-secret=? --core.url.db-mysql=? --spring.datasource.username=? --spring.datasource.password=?'
+cd guess
 ```
 
-#### Windows
+### Backend
 
-Replace `./gradlew` with `./gradlew.bat`
+#### Running with docker-compose
 
-#### Description
+- Modify the [application-local.yml](service/guess/src/main/resources/application-local.yml) file to configure the backend service of the project
 
-- core.weapp.app-id: `app-id` of the Wechat miniprogram
-- core.weapp.app-secret: `app-secret` of the Wechat miniprogram
-- core.url.db-mysql： Mysql connection url，e.g. `jdbc:mysql://127.0.0.1:3306/guess`
-- spring.datasource.username: Mysql connection username
-- spring.datasource.password: Mysql connection password
+- core.weapp.app-id: The `app-id` of the WeChat mini-program
+- core.weapp.app-secret: The `app-secret` of the WeChat mini-program
+
+If you have `docker` and `docker-compose` installed, you can start the backend service using the following command:
+
+```shell
+docker-compose up
+```
+
+#### Running with Gradle
+
+You need to install JDK with the corresponding version specified in [.tool-versions](.tool-versions) and start a MySQL database.
+
+Modify the application-local.yml file to configure the backend services of the project.
+
+- core.weapp.app-id: The `app-id` of the WeChat mini-program
+- core.weapp.app-secret: The `app-secret` of the WeChat mini-program
+- core.url.db-mysql: The connection URL of the MySQL database, e.g., `jdbc:mysql://127.0.0.1:3306/guess`
+- spring.datasource.username: The database username
+- spring.datasource.password: The database password
+
+The following command can be used to start the backend services on a Linux or macOS system:
+
+```shell
+./gradlew service:guess:bootRun'
+```
+
+The following command can be used to start the backend services on a Windows system:
+
+```shell
+./gradlew.bat service:guess:bootRun'
+```
 
 ### Frontend
 
-#### Execute commands
+You need to install [node.js](https://nodejs.org/en) with the version specified in [.tool-versions](.tool-versions).
+
+#### Running the Commands
 
 ```shell
-git@github.com:jinganix/guess.git
+git clone git@github.com:jinganix/guess.git
 cd guess/frontend/weapp
 npm install
 npm start
@@ -45,7 +74,7 @@ npm start
 1. Import`guess/frontend/weapp/dist` into Wechat devtools
 2. Disable domain verification
 
-   <img src="docs/devtools.setting.png" alt="Image" width="381" height="576">
+   <img src="docs/devtools.setting.en.png" alt="Image" width="381" height="576">
 
 ## Scan to experience
 

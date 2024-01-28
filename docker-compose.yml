@@ -1,0 +1,34 @@
+version: "3.1"
+services:
+  guess-mysql:
+    build: docs/mysql
+    image: guess/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3316:3306"
+    volumes:
+      - data-mysql:/var/lib/mysql
+
+  guess-service:
+    build: service/guess
+    image: guess/service
+    depends_on:
+      guess-mysql:
+        condition: service_started
+    environment:
+      JAVA_OPTS: >
+        -Xss512k
+        -XX:MaxRAM=260m
+        -Dspring.profiles.active=local
+        -Dspring.datasource.password=root
+        -Dcore.url.db-mysql=jdbc:mysql://guess-mysql/guess?allowPublicKeyRetrieval=true&useSSL=false
+    ports:
+      - "8080:8080"
+    volumes:
+      - data-app:/app/guess
+
+volumes:
+  data-app:
+  data-mysql:

@@ -1,8 +1,11 @@
 core:
-  jwt-secret: test-jwt-secret
   url:
     db-mysql: jdbc:mysql://127.0.0.1:3306/guess
+  weapp:
+    app-id: fake-app-id
+    app-secret: fake-app-secret
 
 spring:
   datasource:
+    username: root
     password: root

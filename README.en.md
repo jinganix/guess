@@ -3,7 +3,7 @@
 
 # Guess
 
-The source code of the 'Guess Who I Am' Wechat miniprogram.
+The source code of the 'Guess Who I Am' Wechat miniprogram, you can [scan to experience](#qr-code) the miniprogram
 
 - Frontend development using `TypeScript` with `webpack` for building and bundling
 - Backend development using `Java` and `Spring` framework with `Gradle` for building and packaging
@@ -76,7 +76,7 @@ npm start
 
    <img src="docs/devtools.setting.png" alt="Image" width="320" height="484">
 
-## Scan to experience
+## <a id="qr-code"></a>Scan to experience
 
 <img src="docs/qrcode.jpg" alt="Image" width="240" height="240">
 

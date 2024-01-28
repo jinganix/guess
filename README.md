@@ -3,7 +3,7 @@
 
 # 猜我是谁
 
-`猜我是谁`微信小程序源码
+本仓库是《猜我是谁》微信小程序的源码，你可以[扫码体验](#qr-code)此小程序
 
 - 前端使用`Typescript`开发，用`webpack`构建打包
 - 后端使用`Java`和`Spring`框架开发，用`gradle`构建打包
@@ -76,10 +76,10 @@ npm start
 
    <img src="docs/devtools.setting.png" alt="Image" width="320" height="484">
 
-## 扫码体验
+## <a id="qr-code"></a>扫码体验
 
 <img src="docs/qrcode.jpg" alt="Image" width="240" height="240">
 
 ## 贡献
 
-如果你有兴趣报告/修复问题并直接为代码库做出贡献，请查看 [CONTRIBUTING.md](CONTRIBUTING.md) 获取更多信息，了解我们期望的贡献内容以及如何开始。
+如果你有兴趣报告/修复问题并直接为代码库做出贡献，请查看 [CONTRIBUTING.md](CONTRIBUTING.md) 获取更多信息，了解我们期望的贡献内容以及如何开始

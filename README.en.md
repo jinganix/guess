@@ -74,11 +74,11 @@ npm start
 1. Import`guess/frontend/weapp/dist` into Wechat devtools
 2. Disable domain verification
 
-   <img src="docs/devtools.setting.en.png" alt="Image" width="381" height="576">
+   <img src="docs/devtools.setting.png" alt="Image" width="320" height="484">
 
 ## Scan to experience
 
-<img src="docs/qrcode.jpg" alt="Image" width="300" height="300">
+<img src="docs/qrcode.jpg" alt="Image" width="240" height="240">
 
 ## Contributing
 

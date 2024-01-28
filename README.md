@@ -74,11 +74,11 @@ npm start
 1. 开发者工具导入项目的dist目录：`guess/frontend/weapp/dist`
 2. 关闭域名校验
 
-   <img src="docs/devtools.setting.png" alt="Image" width="381" height="576">
+   <img src="docs/devtools.setting.png" alt="Image" width="320" height="484">
 
 ## 扫码体验
 
-<img src="docs/qrcode.jpg" alt="Image" width="300" height="300">
+<img src="docs/qrcode.jpg" alt="Image" width="240" height="240">
 
 ## 贡献
 

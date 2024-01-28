@@ -1,17 +1,17 @@
 [![CI](https://github.com/jinganix/guess/actions/workflows/ci.yml/badge.svg)](https://github.com/jinganix/guess/actions/workflows/ci.yml)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
-[中文文档](README.zh.md)
+[English Doc](README.en.md)
 
-# Guess
+# 猜我是谁
 
-The source code of the 'Guess Who I Am' Wechat miniprogram
+`猜我是谁`微信小程序源码
 
-## Run
+## 运行项目
 
-### Backend
+### 后端
 
-#### Linux or MacOS
+#### Linux和MacOS
 
 ```shell
 git clone git@github.com:jinganix/guess.git
@@ -21,19 +21,19 @@ cd guess/service/guess
 
 #### Windows
 
-Replace `./gradlew` with `./gradlew.bat`
+使用`./gradlew.bat`代替`./gradlew`
 
-#### Description
+#### 参数说明
 
-- core.weapp.app-id: `app-id` of the Wechat miniprogram
-- core.weapp.app-secret: `app-secret` of the Wechat miniprogram
-- core.url.db-mysql： Mysql connection url，e.g. `jdbc:mysql://127.0.0.1:3306/guess`
-- spring.datasource.username: Mysql connection username
-- spring.datasource.password: Mysql connection password
+- core.weapp.app-id: 微信小程序的`app-id`
+- core.weapp.app-secret: 微信小程序的`app-secret`
+- core.url.db-mysql: mysql数据库连接地址，如`jdbc:mysql://127.0.0.1:3306/guess`
+- spring.datasource.username: 数据库用户名
+- spring.datasource.password: 数据库密码
 
-### Frontend
+### 前端
 
-#### Execute commands
+#### 运行命令
 
 ```shell
 git@github.com:jinganix/guess.git
@@ -42,17 +42,17 @@ npm install
 npm start
 ```
 
-#### Wechat devtools
+#### 开发者工具设置
 
-1. Import`guess/frontend/weapp/dist` into Wechat devtools
-2. Disable domain verification
+1. 开发者工具导入项目的dist目录：`guess/frontend/weapp/dist`
+2. 关闭域名校验
 
    <img src="docs/devtools.setting.png" alt="Image" width="381" height="576">
 
-## Scan to experience
+## 扫码体验
 
 <img src="docs/qrcode.jpg" alt="Image" width="300" height="300">
 
-## Contributing
+## 贡献
 
-If you are interested in reporting/fixing issues and contributing directly to the code base, please see [CONTRIBUTING.md](CONTRIBUTING.md) for more information on what we're looking for and how to get started.
+如果您有兴趣报告/修复问题并直接为代码库做出贡献，请查看 [CONTRIBUTING.md](CONTRIBUTING.md) 获取更多信息，了解我们期望的贡献内容以及如何开始。

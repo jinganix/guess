@@ -72,22 +72,29 @@ export async function tryInitializeModules(): Promise<boolean> {
 export class AppInitializer {
   disposes: Dispose[] = [];
 
+  async tryInitializeModules(attempts: number): Promise<void> {
+    if (!attempts) {
+      return;
+    }
+    try {
+      this.disposes = await initializeModules();
+    } catch (err) {
+      if (err === ErrorCode.FORCE_LOGOUT) {
+        await deleteAuthToken();
+        await this.tryInitializeModules(attempts - 1);
+      } else {
+        console.error("initialize failed", err);
+      }
+    }
+  }
+
   initialize(options: LaunchShowOption): void {
     const scene = (options as { scene: number }).scene;
     const preview = scene === 1154 || scene === 1155;
     configStore.updatePreview(preview);
-    if (preview) {
-      return;
+    if (!preview) {
+      void this.tryInitializeModules(2);
     }
-    initializeModules()
-      .then((disposes) => (this.disposes = disposes))
-      .catch((err) => {
-        if (err === ErrorCode.FORCE_LOGOUT) {
-          void deleteAuthToken();
-        } else {
-          console.error("initialize failed", err);
-        }
-      });
   }
 
   onAppDispose(): Dispose {

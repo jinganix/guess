@@ -63,6 +63,9 @@ public class AccessTokenCache {
     return orderedTraceExecutor.supply(
         "ACCESS_TOKEN",
         () -> {
+          if (accessToken != null && createdAt + TimeUnit.MINUTES.toMillis(30) > millis) {
+            return this.accessToken;
+          }
           WeappAccessTokenRequest request = new WeappAccessTokenRequest(appId, appSecret);
           WeappAccessTokenResponse response =
               weappClient.request(request, WeappAccessTokenResponse.class);

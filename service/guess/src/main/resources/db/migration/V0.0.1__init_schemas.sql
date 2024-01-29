@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `id` bigint NOT NULL,
   `nickname` varchar(45) DEFAULT NULL,
   `gender` tinyint DEFAULT NULL,
-  `avatar` varchar(5120) DEFAULT NULL,
+  `avatar` blob DEFAULT NULL,
   `status` tinyint NOT NULL DEFAULT '0',
   `created_at` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
   `updated_at` timestamp(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3),

@@ -16,13 +16,20 @@
  * https://github.com/jinganix/guess
  */
 
-import { LaunchShowOption } from "@helpers/wx/wx.types";
-import { appInitializer } from "@helpers/module/module.initializer";
-import { listenErrors } from "@helpers/errors";
+import * as Errors from "@helpers/errors";
 
-App({
-  onLaunch(option: LaunchShowOption) {
-    appInitializer.initialize(option);
-    listenErrors();
-  },
+describe("App", () => {
+  describe("when launch", () => {
+    it("then initialized", () => {
+      const initialize = jest.fn();
+      const mockInitializer = { appInitializer: { initialize } };
+      jest.mock("@helpers/module/module.initializer", () => mockInitializer);
+
+      const spyListenErrors = jest.spyOn(Errors, "listenErrors");
+
+      require("./app");
+      expect(initialize).toHaveBeenCalledWith("arg");
+      expect(spyListenErrors).toHaveBeenCalledTimes(1);
+    });
+  });
 });

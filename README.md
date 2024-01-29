@@ -47,13 +47,13 @@ docker-compose up
 以下命令可以在`Linux`或`MacOd`系统中启动后端服务
 
 ```shell
-./gradlew service:guess:bootRun'
+./gradlew service:guess:bootRun
 ```
 
 以下命令可以在`Windows`系统中启动后端服务
 
 ```shell
-./gradlew.bat service:guess:bootRun'
+./gradlew.bat service:guess:bootRun
 ```
 
 ### 前端

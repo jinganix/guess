@@ -4,10 +4,7 @@ module.exports = {
     jest: true,
     node: true,
   },
-  extends: [
-    "plugin:@typescript-eslint/recommended-requiring-type-checking",
-    "plugin:prettier/recommended",
-  ],
+  extends: ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
   overrides: [
     {
       files: ["*.ts", "*.tsx"],
@@ -39,10 +36,6 @@ module.exports = {
     },
   ],
   parser: "@typescript-eslint/parser",
-  parserOptions: {
-    createDefaultProgram: true,
-    project: ["./tsconfig.json"],
-  },
   plugins: ["import", "sort-keys-fix"],
   root: true,
   rules: {

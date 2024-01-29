@@ -12,7 +12,7 @@ interface Options {
 export default function loader(
   this: webpack.LoaderContext<unknown>,
   source: string | Buffer,
-  sourceMap?: string
+  sourceMap?: string,
 ): string | Buffer | void | undefined {
   const options: Options = getOptions(cast(this)) || {};
   const context = options.context || this.rootContext;

@@ -9,7 +9,7 @@ interface TabBar {
 
 export default function loader(
   this: webpack.LoaderContext<unknown>,
-  source: string | Buffer
+  source: string | Buffer,
 ): string | Buffer | void | undefined {
   const options = getOptions(cast(this)) || {};
 

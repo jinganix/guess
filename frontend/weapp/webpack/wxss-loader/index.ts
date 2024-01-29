@@ -5,7 +5,7 @@ import { cast, moduleLoader } from "../utils";
 export default function loader(
   this: webpack.LoaderContext<unknown>,
   source: string | Buffer,
-  sourceMap?: string
+  sourceMap?: string,
 ): string | Buffer | void | undefined {
   const options = getOptions(cast(this)) || {};
   const text = source.toString();

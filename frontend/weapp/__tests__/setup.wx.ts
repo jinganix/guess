@@ -16,13 +16,10 @@
  * https://github.com/jinganix/guess
  */
 
-import { LaunchShowOption } from "@helpers/wx/wx.types";
-import { appInitializer } from "@helpers/module/module.initializer";
-import { listenErrors } from "@helpers/errors";
+(global as unknown as { wx: object }).wx = {
+  getStorageSync: jest.fn(),
+};
 
-App({
-  onLaunch(option: LaunchShowOption) {
-    appInitializer.initialize(option);
-    listenErrors();
-  },
-});
+(global as unknown as { App: object }).App = (options: Record<string, (option: unknown) => void>) => {
+  Object.values(options).forEach(x => x("arg"));
+};

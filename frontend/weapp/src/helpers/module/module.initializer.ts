@@ -60,48 +60,32 @@ export async function initializeModules(): Promise<Dispose[]> {
   return initializer ? await initializer.initialize() : Promise.resolve([]);
 }
 
-export async function tryInitializeModules(): Promise<boolean> {
+export async function tryInitializeModules(attempts: number = 2): Promise<boolean> {
+  if (!attempts) {
+    return false;
+  }
   try {
     await initializeModules();
     return true;
   } catch (err) {
-    return false;
+    if (err === ErrorCode.FORCE_LOGOUT) {
+      await deleteAuthToken();
+      return await tryInitializeModules(attempts - 1);
+    } else {
+      console.error("initialize failed", err);
+      return false;
+    }
   }
 }
 
 export class AppInitializer {
-  disposes: Dispose[] = [];
-
-  async tryInitializeModules(attempts: number): Promise<void> {
-    if (!attempts) {
-      return;
-    }
-    try {
-      this.disposes = await initializeModules();
-    } catch (err) {
-      if (err === ErrorCode.FORCE_LOGOUT) {
-        await deleteAuthToken();
-        await this.tryInitializeModules(attempts - 1);
-      } else {
-        console.error("initialize failed", err);
-      }
-    }
-  }
-
   initialize(options: LaunchShowOption): void {
     const scene = (options as { scene: number }).scene;
     const preview = scene === 1154 || scene === 1155;
     configStore.updatePreview(preview);
     if (!preview) {
-      void this.tryInitializeModules(2);
+      void tryInitializeModules(2);
     }
-  }
-
-  onAppDispose(): Dispose {
-    return () => {
-      this.disposes.forEach((dispose) => dispose());
-      this.disposes = [];
-    };
   }
 }
 

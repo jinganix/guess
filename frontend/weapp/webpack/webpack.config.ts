@@ -1,17 +1,17 @@
 import * as webpack from "webpack";
-import {ModuleOptions, RuleSetUseItem} from "webpack";
+import { ModuleOptions, RuleSetUseItem } from "webpack";
 import * as path from "path";
-import {UnifiedWebpackPluginV5} from "weapp-tailwindcss/webpack";
+import { UnifiedWebpackPluginV5 } from "weapp-tailwindcss/webpack";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
-import {Environment} from "./env/env";
-import {EntryResolver} from "./entry.resolver";
-import {moduleLoader, PathMappers, requireFile} from "./utils";
-import {WebpackConfig} from "./types";
 import TerserPlugin = require("terser-webpack-plugin");
 import MiniCssExtractPlugin = require("mini-css-extract-plugin");
 import CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 import CopyPlugin = require("copy-webpack-plugin");
 import ESLintWebpackPlugin = require("eslint-webpack-plugin");
+import { WebpackConfig } from "./types";
+import { moduleLoader, PathMappers, requireFile } from "./utils";
+import { EntryResolver } from "./entry.resolver";
+import { Environment } from "./env/env";
 
 const ROOT_DIR = path.resolve(".");
 const SRC_DIR = path.resolve("src");
@@ -103,8 +103,8 @@ const wxmlLoader = (options?: {
 
 export default (env: string | { dev: boolean }): webpack.Configuration => {
   const isDev: boolean = typeof env === "string" ? env !== "prod" : env.dev;
-  const {environment}: { environment: Environment } = requireFile(
-    path.resolve(`./webpack/env/${isDev ? "dev" : "prod"}.env.ts`)
+  const { environment }: { environment: Environment } = requireFile(
+    path.resolve(`./webpack/env/${isDev ? "dev" : "prod"}.env.ts`),
   );
   config.environment = environment;
 
@@ -128,17 +128,17 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
         {
           include: [SRC_DIR, VANT_DIR],
           test: /\.wxs$/,
-          use: [fileLoader(), wxsLoader({minify: !isDev})],
+          use: [fileLoader(), wxsLoader({ minify: !isDev })],
         },
         {
           include: [VANT_DIR],
           test: /\.wxss$/,
-          use: [fileLoader(), wxssLoader({rpx: false})],
+          use: [fileLoader(), wxssLoader({ rpx: false })],
         },
         {
           include: [SRC_DIR, VANT_DIR],
           test: /\.json$/,
-          use: [dumpLoader(), wxjsonLoader({minify: !isDev})],
+          use: [dumpLoader(), wxjsonLoader({ minify: !isDev })],
         },
         {
           include: [SRC_DIR, VANT_DIR],
@@ -156,7 +156,7 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
           test: /\.less$/,
           use: [
             MiniCssExtractPlugin.loader,
-            wxssLoader({rpx: true}),
+            wxssLoader({ rpx: true }),
             "css-loader",
             "less-loader",
           ],
@@ -197,18 +197,23 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
       minimize: true,
       minimizer: [
         !isDev &&
-        new TerserPlugin({
-          extractComments: false,
-          test: /\.js(\?.*)?$/i,
-        }),
+          new TerserPlugin({
+            extractComments: false,
+            test: /\.js(\?.*)?$/i,
+          }),
         !isDev &&
-        new CssMinimizerPlugin({
-          test: /\.(css|wxss)$/g,
-        }),
+          new CssMinimizerPlugin({
+            test: /\.(css|wxss)$/g,
+          }),
       ].filter(Boolean),
-      runtimeChunk: {name: "runtime"},
+      runtimeChunk: { name: "runtime" },
       splitChunks: {
         cacheGroups: {
+          components: {
+            chunks: "all",
+            name: "components",
+            test: /[\\/]src[\\/](pages|components)[\\/].*script\.(js|jsx|ts|tsx)$/,
+          },
           generated: {
             chunks: "all",
             enforce: true,
@@ -231,11 +236,6 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
             chunks: "all",
             name: "vendors",
             test: /[\\/]node_modules[\\/](?!@vant)/,
-          },
-          components: {
-            chunks: "all",
-            name: "components",
-            test: /[\\/]src[\\/](pages|components)[\\/].*script\.(js|jsx|ts|tsx)$/,
           },
         },
       },
@@ -263,7 +263,7 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
         failOnError: true,
         overrideConfigFile: ".eslintrc.js",
       }),
-      new MiniCssExtractPlugin({filename: `[name].wxss`}),
+      new MiniCssExtractPlugin({ filename: `[name].wxss` }),
       new webpack.DefinePlugin({
         "process.env": JSON.stringify(environment),
       }),

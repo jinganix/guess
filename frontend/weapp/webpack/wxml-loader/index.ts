@@ -59,7 +59,7 @@ function getPublicPath(ctx: AnyObject): string {
 
 export default function loader(
   this: webpack.LoaderContext<Options>,
-  source: string | Buffer
+  source: string | Buffer,
 ): string | Buffer | void | undefined {
   let content = source.toString();
   const callback = this.async();

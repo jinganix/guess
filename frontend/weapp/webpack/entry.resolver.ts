@@ -6,7 +6,11 @@ import { cast, requireFile } from "./utils";
 import { App, Component, WebpackConfig } from "./types";
 
 export class EntryResolver {
-  constructor(private rootDir: string, private srcDir: string, private config: WebpackConfig) {}
+  constructor(
+    private rootDir: string,
+    private srcDir: string,
+    private config: WebpackConfig,
+  ) {}
 
   resolve(): Record<string, string[]> {
     const app: App = requireFile(path.resolve(this.srcDir, "app.json"));
@@ -22,9 +26,13 @@ export class EntryResolver {
         ...this.getEntryPoints(components),
         sitemap: [path.resolve(this.srcDir, "sitemap.json")],
       },
-      identity
+      identity,
     );
-    return this.mapEntries(data);
+    const mapped = this.mapEntries(data);
+    for (const [key, values] of Object.entries(mapped)) {
+      mapped[key] = values.filter((x) => !/\.test\.|\.spec\./.test(x));
+    }
+    return mapped;
   }
 
   private getPages(app: App): string[] {
@@ -73,14 +81,17 @@ export class EntryResolver {
   }
 
   private getEntries(rootDir: string, patterns: string[]): Record<string, string[]> {
-    const fileList = globby.sync(patterns);
-    return fileList.reduce((value, current) => {
-      const filePath = path.parse(path.relative(this.rootDir, current));
-      const entry = path.join(filePath.dir, filePath.name);
-      value[entry] || (value[entry] = []);
-      value[entry].push(path.resolve(rootDir, current));
-      return value;
-    }, {} as Record<string, string[]>);
+    const fileList = globby.sync([...patterns, "!**/*.test.*", "!**/*.spec.*"]);
+    return fileList.reduce(
+      (value, current) => {
+        const filePath = path.parse(path.relative(this.rootDir, current));
+        const entry = path.join(filePath.dir, filePath.name);
+        value[entry] || (value[entry] = []);
+        value[entry].push(path.resolve(rootDir, current));
+        return value;
+      },
+      {} as Record<string, string[]>,
+    );
   }
 
   private getEntryPoints(entries: string[]): Record<string, string[]> {
@@ -88,9 +99,17 @@ export class EntryResolver {
     entries.forEach((entry) => {
       const key = path.relative(this.rootDir, entry);
       if (entry.endsWith("/index")) {
-        obj[key] = globby.sync(path.resolve(this.rootDir, entry).replace(/\/index$/, "/**"));
+        obj[key] = globby.sync([
+          path.resolve(this.rootDir, entry).replace(/\/index$/, "/**"),
+          "!**/*.test.*",
+          "!**/*.spec.*",
+        ]);
       } else {
-        obj[key] = globby.sync(path.resolve(this.rootDir, entry) + ".*");
+        obj[key] = globby.sync([
+          path.resolve(this.rootDir, entry) + ".*",
+          "!**/*.test.*",
+          "!**/*.spec.*",
+        ]);
       }
     });
     return obj;

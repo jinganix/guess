@@ -47,13 +47,13 @@ Modify the application-local.yml file to configure the backend services of the p
 The following command can be used to start the backend services on a Linux or macOS system:
 
 ```shell
-./gradlew service:guess:bootRun'
+./gradlew service:guess:bootRun
 ```
 
 The following command can be used to start the backend services on a Windows system:
 
 ```shell
-./gradlew.bat service:guess:bootRun'
+./gradlew.bat service:guess:bootRun
 ```
 
 ### Frontend

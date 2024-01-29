@@ -23,6 +23,7 @@ import { WebpbMessage } from "webpb";
 import { request } from "@helpers/service/request";
 import { Replay } from "@helpers/promise/replay";
 import { awx } from "@helpers/wx/awx";
+import { emitter } from "@helpers/event/emitter";
 
 async function requestToken(message: WebpbMessage): Promise<AuthToken | null> {
   const res = await request({
@@ -48,21 +49,12 @@ export class AuthService {
   private replay = new Replay<AuthToken | null>(readAuthToken());
 
   constructor() {
-    setInterval(() => void this.checkRefresh(), 10000);
+    emitter.on("token", (token) => (this.replay = new Replay<AuthToken | null>(token)));
   }
 
   async ensureToken(): Promise<AuthToken | null> {
     const token = await this.getToken();
     return token ? token : this.auth();
-  }
-
-  async checkRefresh(): Promise<void> {
-    try {
-      const token = await this.replay.value();
-      if (token && token.isExpired()) {
-        await this.refresh(token.refreshToken);
-      }
-    } catch (_err) {}
   }
 
   async auth(): Promise<AuthToken | null> {

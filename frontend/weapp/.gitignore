@@ -1,6 +1,7 @@
 *.iml
 .idea
 .tmp
+coverage
 dist
 node_modules
 project.private.config.json

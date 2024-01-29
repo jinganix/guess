@@ -17,11 +17,11 @@
  */
 
 import { WebpbMessage, WebpbMeta } from "webpb";
-import urlJoin from "url-join";
 import { environment } from "@helpers/environment";
 import { awx } from "@helpers/wx/awx";
 import { emitter } from "@helpers/event/emitter";
 import { RequestOption } from "@helpers/wx/wx.types";
+import { urlJoin } from "@helpers/utils/url.join";
 
 export type ResponseError = {
   code?: string;

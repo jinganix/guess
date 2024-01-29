@@ -23,6 +23,7 @@ task<Exec>("npmInstall") {
 
 task<Exec>("npmCheck") {
   commandLine(npm, "run", "lint")
+  commandLine(npm, "run", "test")
   commandLine(npm, "run", "build")
 
   dependsOn("npmInstall")

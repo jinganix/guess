@@ -6,8 +6,22 @@ plugins {
   `maven-publish`
 }
 
+val javaVersion = JavaVersion.VERSION_21
+
+java {
+  sourceCompatibility = javaVersion
+  targetCompatibility = javaVersion
+}
+
+tasks.compileKotlin {
+  kotlinOptions {
+    jvmTarget = javaVersion.toString()
+  }
+}
+
 repositories {
   gradlePluginPortal()
+  mavenCentral()
 }
 
 val properties = Properties()

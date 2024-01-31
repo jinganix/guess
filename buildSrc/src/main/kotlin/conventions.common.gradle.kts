@@ -10,6 +10,5 @@ Props.initialize(project)
 Vers.initialize(project)
 
 repositories {
-  mavenLocal()
   mavenCentral()
 }

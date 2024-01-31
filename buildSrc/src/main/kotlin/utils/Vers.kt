@@ -8,7 +8,6 @@ import kotlin.reflect.full.memberProperties
 object Vers {
   private var initialized = false
 
-  lateinit var versionAssertj: String
   lateinit var versionAuthorizationServer: String
   lateinit var versionBcpkix: String
   lateinit var versionCaffeine: String
@@ -19,17 +18,11 @@ object Vers {
   lateinit var versionFlyway: String
   lateinit var versionFreemarker: String
   lateinit var versionGradleVersionsPlugin: String
-  lateinit var versionGuava: String
   lateinit var versionJackson: String
   lateinit var versionJacocoAgent: String
-  lateinit var versionJakartaXml: String
-  lateinit var versionJupiter: String
   lateinit var versionJwt: String
   lateinit var versionLombok: String
   lateinit var versionMapstruct: String
-  lateinit var versionMockitoCore: String
-  lateinit var versionMockitoInline: String
-  lateinit var versionModelMapper: String
   lateinit var versionMysqlConnector: String
   lateinit var versionNetty: String
   lateinit var versionPeashooter: String

@@ -1,7 +1,14 @@
+import utils.Vers.versionWebpb
+
 plugins {
-    id("proto.common")
+  java
+}
+
+repositories {
+  mavenCentral()
 }
 
 dependencies {
-    compileOnly(project(":proto:imports"))
+  compileOnly("io.github.jinganix.webpb:webpb-proto:${versionWebpb}")
+  compileOnly(project(":proto:imports"))
 }

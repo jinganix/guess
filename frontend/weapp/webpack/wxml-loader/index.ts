@@ -44,7 +44,7 @@ const defaultMinimizeConf = {
   removeStyleLinkTypeAttributes: true,
 };
 
-function getPublicPath(ctx: AnyObject): string {
+function getPublicPath(ctx: Record<string, unknown>): string {
   const property = "publicPath";
   const options: { output: Record<string, string> } = cast(ctx["options"]);
   if (options && options.output && property in options.output) {

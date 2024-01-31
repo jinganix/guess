@@ -30,7 +30,7 @@ plugins {
   java
 }
 
-group = "io.github.jinganix.ddz"
+group = "io.github.jinganix.guess"
 version = "${versionWebpb}-SNAPSHOT"
 
 java {

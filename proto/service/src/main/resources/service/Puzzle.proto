@@ -4,7 +4,6 @@ package PuzzleProto;
 
 option java_package = "io.github.jinganix.guess.proto.service.puzzle";
 
-import "imports/Common.proto";
 import "imports/WebpbOptions.proto";
 import "webpb/WebpbExtend.proto";
 

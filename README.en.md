@@ -1,6 +1,8 @@
 [![CI](https://github.com/jinganix/guess/actions/workflows/ci.yml/badge.svg)](https://github.com/jinganix/guess/actions/workflows/ci.yml)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
+[中文版本](README.md)
+
 # Guess
 
 The source code of the 'Guess Who I Am' Wechat miniprogram, you can [scan to experience](#qr-code) the miniprogram

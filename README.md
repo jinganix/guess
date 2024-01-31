@@ -1,6 +1,8 @@
 [![CI](https://github.com/jinganix/guess/actions/workflows/ci.yml/badge.svg)](https://github.com/jinganix/guess/actions/workflows/ci.yml)
 [![License](http://img.shields.io/:license-apache-brightgreen.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 
+[English Version](README.en.md)
+
 # 猜我是谁
 
 本仓库是《猜我是谁》微信小程序的源码，你可以[扫码体验](#qr-code)此小程序
@@ -44,7 +46,7 @@ docker-compose up
 - spring.datasource.username: 数据库用户名
 - spring.datasource.password: 数据库密码
 
-以下命令可以在`Linux`或`MacOd`系统中启动后端服务
+以下命令可以在`Linux`或`MacOS`系统中启动后端服务
 
 ```shell
 ./gradlew service:guess:bootRun

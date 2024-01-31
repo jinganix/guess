@@ -9,11 +9,9 @@ object Props {
 
   lateinit var group: String
   lateinit var version: String
-  var javaDocs: Boolean = true
-  var coverage: Boolean = true
+  var verifyJavaDocs: Boolean = true
+  var verifyCoverage: Boolean = true
   var jacocoMinCoverage: Double = 1.0
-  var releaseRepo: String = ""
-  var snapshotRepo: String = ""
 
   fun initialize(project: Project) {
     if (initialized) {

@@ -28,8 +28,6 @@ import io.github.jinganix.guess.proto.service.user.UserListRequest;
 import io.github.jinganix.guess.proto.service.user.UserListResponse;
 import io.github.jinganix.guess.proto.service.user.UserUpdateRequest;
 import io.github.jinganix.guess.proto.service.user.UserUpdateResponse;
-import io.github.jinganix.guess.proto.service.weapp.WeappUserUpdateRequest;
-import io.github.jinganix.guess.proto.service.weapp.WeappUserUpdateResponse;
 import io.github.jinganix.guess.service.module.user.handler.UserConfigHandler;
 import io.github.jinganix.guess.service.module.user.handler.UserCurrentHandler;
 import io.github.jinganix.guess.service.module.user.handler.UserExtraHandler;
@@ -106,8 +104,8 @@ public class UserController {
   /**
    * Update user data.
    *
-   * @param request {@link WeappUserUpdateRequest}
-   * @return {@link WeappUserUpdateResponse}
+   * @param request {@link UserUpdateRequest}
+   * @return {@link UserUpdateResponse}
    */
   @PreAuthorize("hasRole('user')")
   @WebpbRequestMapping

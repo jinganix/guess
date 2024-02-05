@@ -59,8 +59,8 @@ function delegatedMethods<T extends ComponentScript>(
   const methods: Record<string, Method> = {};
   Object.getOwnPropertyNames(obj.prototype).forEach((x) => {
     if (x !== "constructor" && !includes(excludes, x)) {
-      methods[x] = function callScript(this: Script, ...args: unknown[]): void {
-        this.script[x](...args);
+      methods[x] = function callScript(this: Script, ...args: unknown[]): unknown {
+        return this.script[x](...args);
       };
     }
   });
@@ -78,8 +78,8 @@ export function componentMethods<T extends ComponentScript>(
       const property = properties[key] as FullProperty<PropertyType>;
       data[key] = property.value;
       const methodName = `observe${key.charAt(0).toUpperCase() + key.slice(1)}`;
-      methods[methodName] = function (this: Script, newVal: unknown): void {
-        this.script.onPropertyChanged(key, newVal);
+      methods[methodName] = function (this: Script, newVal: unknown): unknown {
+        return this.script.onPropertyChanged(key, newVal);
       };
     }
   }
@@ -88,8 +88,6 @@ export function componentMethods<T extends ComponentScript>(
 
 export function pageMethods<T extends ComponentScript>(obj: { prototype: T }): MethodOption {
   return {
-    ...delegatedMethods(obj, PAGE_LIFETIMES),
-
     onShareAppMessage(this: ScriptedPage): ICustomShareContent | void {
       return appService.share(this.route ?? "");
     },
@@ -97,6 +95,8 @@ export function pageMethods<T extends ComponentScript>(obj: { prototype: T }): M
     onShareTimeline(this: ScriptedPage): ICustomTimelineContent | void {
       return appService.shareTimeline(this.route ?? "");
     },
+
+    ...delegatedMethods(obj, PAGE_LIFETIMES),
   };
 }
 

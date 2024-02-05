@@ -86,6 +86,11 @@ tasks.withType<Test> {
   useJUnitPlatform()
 }
 
+tasks.bootJar {
+  archiveFileName.set("guess-service.jar")
+  launchScript()
+}
+
 tasks.test {
   finalizedBy(tasks.jacocoTestReport)
 }

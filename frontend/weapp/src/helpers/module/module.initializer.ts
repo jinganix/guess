@@ -81,7 +81,7 @@ export async function tryInitializeModules(attempts: number = 2): Promise<boolea
 export class AppInitializer {
   initialize(options: LaunchShowOption): void {
     const scene = (options as { scene: number }).scene;
-    const preview = scene === 1154 || scene === 1155;
+    const preview = scene === 1154;
     configStore.updatePreview(preview);
     if (!preview) {
       void tryInitializeModules(2);

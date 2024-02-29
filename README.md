@@ -12,11 +12,12 @@
 
 ## 运行项目
 
-你需要先拉取项目源码，然后切换到项目根目录
+你需要先拉取项目源码，切换到项目根目录，使用gradle构建项目
 
 ```shell
 git clone git@github.com:jinganix/guess.git
 cd guess
+./gradlew build
 ```
 
 ### 后端

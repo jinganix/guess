@@ -20,7 +20,6 @@ import { Replay } from "@helpers/promise/replay";
 import { Dispose, ModuleInitializer } from "@helpers/types/types";
 import { deleteAuthToken } from "@helpers/token";
 import { configStore, userExtraStore, userStore } from "@modules/container";
-import { ErrorCode } from "@proto/AppErrorProto";
 import { LaunchShowOption } from "@helpers/wx/wx.types";
 
 const INITIALIZERS: ModuleInitializer[][] = [[userStore], [configStore, userExtraStore]];
@@ -68,13 +67,8 @@ export async function tryInitializeModules(attempts: number = 2): Promise<boolea
     await initializeModules();
     return true;
   } catch (err) {
-    if (err === ErrorCode.FORCE_LOGOUT) {
-      await deleteAuthToken();
-      return await tryInitializeModules(attempts - 1);
-    } else {
-      console.error("initialize failed", err);
-      return false;
-    }
+    await deleteAuthToken();
+    return await tryInitializeModules(attempts - 1);
   }
 }
 

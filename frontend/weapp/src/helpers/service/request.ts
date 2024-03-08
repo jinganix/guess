@@ -22,12 +22,7 @@ import { awx } from "@helpers/wx/awx";
 import { emitter } from "@helpers/event/emitter";
 import { RequestOption } from "@helpers/wx/wx.types";
 import { urlJoin } from "@helpers/utils/url.join";
-
-export type ResponseError = {
-  code?: string;
-  emitted: boolean;
-  status: number;
-};
+import { ErrorCode } from "@proto/AppErrorProto";
 
 export interface RequestConfig<R extends WebpbMessage> {
   message: WebpbMessage;
@@ -49,7 +44,7 @@ async function checkError(status: number, data: Record<string, unknown>): Promis
   }
 
   if (status == 401) {
-    throw { emitted: false, status } as ResponseError;
+    throw ErrorCode.FORCE_LOGOUT;
   }
   if (status == 403) {
     await emitter.emit("notifier", "error", "没有权限");

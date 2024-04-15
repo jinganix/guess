@@ -27,7 +27,7 @@ public class MysqlContainer extends MySQLContainer<MysqlContainer> {
   /** Constructor. */
   public MysqlContainer() {
     super(
-        DockerImageName.parse(isArm64() ? "arm64v8/mysql:8.3.0" : "mysql:8.3.0")
+        DockerImageName.parse(isArm64() ? "arm64v8/mysql:8.1.0" : "mysql:8.1.0")
             .asCompatibleSubstituteFor("mysql"));
   }
 

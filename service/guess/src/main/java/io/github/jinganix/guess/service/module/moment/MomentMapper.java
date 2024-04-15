@@ -28,8 +28,12 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring", injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+@Mapper(
+    componentModel = "spring",
+    injectionStrategy = InjectionStrategy.CONSTRUCTOR,
+    unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public abstract class MomentMapper {
 
   public abstract MomentActionPb mapToPb(MomentAction action);

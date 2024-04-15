@@ -11,6 +11,7 @@ import utils.Vers.versionCommonsLang3
 import utils.Vers.versionFlyway
 import utils.Vers.versionJackson
 import utils.Vers.versionJwt
+import utils.Vers.versionLombok
 import utils.Vers.versionMapstruct
 import utils.Vers.versionMysqlConnector
 import utils.Vers.versionNetty
@@ -39,9 +40,9 @@ java {
 
 dependencies {
   annotationProcessor("io.github.jinganix.webpb:webpb-processor:${versionWebpb}")
-  annotationProcessor("org.projectlombok:lombok:${Vers.versionLombok}")
+  annotationProcessor("org.projectlombok:lombok:$versionLombok")
   annotationProcessor("org.mapstruct:mapstruct-processor:${versionMapstruct}")
-  compileOnly("org.projectlombok:lombok:${Vers.versionLombok}")
+  compileOnly("org.projectlombok:lombok:$versionLombok")
   implementation("com.auth0:java-jwt:${versionJwt}")
   implementation("com.fasterxml.jackson.core:jackson-databind:${versionJackson}")
   implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${versionJackson}")
@@ -73,9 +74,9 @@ dependencies {
   protobuf(project(":proto:internal"))
   protobuf(project(":proto:service"))
   runtimeOnly("mysql:mysql-connector-java:${versionMysqlConnector}")
-  testAnnotationProcessor("org.projectlombok:lombok:${Vers.versionLombok}")
+  testAnnotationProcessor("org.projectlombok:lombok:$versionLombok")
   testAnnotationProcessor("org.mapstruct:mapstruct-processor:${versionMapstruct}")
-  testCompileOnly("org.projectlombok:lombok:${Vers.versionLombok}")
+  testCompileOnly("org.projectlombok:lombok:$versionLombok")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.testcontainers:junit-jupiter:${versionTestContainers}")
@@ -131,10 +132,10 @@ if (Props.verifyJavaDocs) {
   }
 }
 
+val versionGoogleJavaFormat: String by project
 spotless {
   java {
-    googleJavaFormat()
-
+    googleJavaFormat(versionGoogleJavaFormat)
     targetExclude("build/**/*.java")
   }
 }

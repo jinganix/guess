@@ -11,12 +11,12 @@
     "@commitlint/config-conventional": "~19.1.0",
     "@commitlint/cz-commitlint": "~19.2.0",
     "commitizen": "~4.3.0",
-    "commitlint": "~19.2.0",
+    "commitlint": "~19.2.1",
     "husky": "~9.0.11"
   },
   "config": {
     "commitizen": {
-      "path": "./cz-adapter.cjs"
+      "path": "@commitlint/cz-commitlint"
     }
   },
   "commitlint": {

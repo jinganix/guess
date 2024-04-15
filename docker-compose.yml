@@ -1,4 +1,3 @@
-version: "3.1"
 services:
   guess-mysql:
     build: docs/mysql
@@ -7,16 +6,18 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
     ports:
-      - "3316:3306"
-    volumes:
-      - data-mysql:/var/lib/mysql
+      - "3306"
+    healthcheck:
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
+      timeout: 20s
+      retries: 10
 
   guess-service:
     build: service/guess
     image: guess/service
     depends_on:
       guess-mysql:
-        condition: service_started
+        condition: service_healthy
     environment:
       JAVA_OPTS: >
         -Xss512k
@@ -26,9 +27,3 @@ services:
         -Dcore.url.db-mysql=jdbc:mysql://guess-mysql/guess?allowPublicKeyRetrieval=true&useSSL=false
     ports:
       - "8080:8080"
-    volumes:
-      - data-app:/app/guess
-
-volumes:
-  data-app:
-  data-mysql:

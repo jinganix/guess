@@ -32,7 +32,7 @@ cd guess
 如果你已经安装`docker`和`docker-compose`，可以通过以下命令启动后端服务
 
 ```shell
-docker-compose up
+docker-compose up --build
 ```
 
 #### 通过gradle运行

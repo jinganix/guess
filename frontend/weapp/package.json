@@ -22,7 +22,7 @@
     "@babel/core": "^7.24.4",
     "@babel/plugin-transform-runtime": "^7.24.3",
     "@babel/preset-env": "^7.24.4",
-    "@types/copy-webpack-plugin": "^8.0.1",
+    "@types/copy-webpack-plugin": "^10.0.0",
     "@types/html-minifier": "^4.0.5",
     "@types/jest": "^29.5.12",
     "@types/loader-utils": "^2.0.6",

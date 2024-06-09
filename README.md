@@ -3,9 +3,9 @@
 
 [English Version](README.en.md)
 
-# 猜我是谁
+# 猜猜谜题
 
-本仓库是《猜我是谁》微信小程序的源码，你可以[扫码体验](#qr-code)此小程序
+本仓库是《猜猜谜题》微信小程序的源码，你可以[扫码体验](#qr-code)此小程序
 
 - 前端使用`Typescript`开发，用`webpack`构建打包
 - 后端使用`Java`和`Spring`框架开发，用`gradle`构建打包

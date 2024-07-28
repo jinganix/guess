@@ -89,7 +89,7 @@
     "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
     "lodash": "^4.17.21",
-    "lru-cache": "^10.2.0",
+    "lru-cache": "^11.0.0",
     "mobx": "^6.12.3",
     "tailwind-merge": "^2.2.2",
     "webpb": "^0.0.18"

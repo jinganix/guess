@@ -162,7 +162,7 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
           ],
         },
         {
-          include: /src/,
+          include: [SRC_DIR],
           test: /\.(scss)$/,
           use: [
             {
@@ -179,7 +179,9 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
             {
               loader: "sass-loader",
               options: {
+                api: "legacy",
                 sassOptions: {
+                  // https://sass-lang.com/documentation/js-api/interfaces/options/#loadPaths not working
                   includePaths: [path.resolve("src", "styles"), path.resolve("src")],
                 },
               },

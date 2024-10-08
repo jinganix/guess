@@ -18,8 +18,8 @@
 
 package io.github.jinganix.guess.service.helper.actor;
 
-import io.github.jinganix.peashooter.TraceExecutor;
 import io.github.jinganix.peashooter.Tracer;
+import io.github.jinganix.peashooter.executor.TraceExecutor;
 import java.util.concurrent.Executors;
 import org.springframework.stereotype.Component;
 

@@ -16,11 +16,11 @@
  * https://github.com/jinganix/guess
  */
 
-import { PageDataOption, MethodOption, PropertyOption } from "@helpers/wx/wx.types";
+import { PageDataOption, MethodOption, PropertyOption, BehaviorOption } from "@helpers/wx/wx.types";
 import { components } from "@modules/container";
 import { PopoverPreviewScript } from "@comps/popover-preview/script";
 
-Component<PageDataOption, PropertyOption, MethodOption>({
+Component<PageDataOption, PropertyOption, MethodOption, BehaviorOption>({
   data: {
     options: ["天外有天", "指鹿为马", "鸡飞狗跳", "火上浇油"],
   },

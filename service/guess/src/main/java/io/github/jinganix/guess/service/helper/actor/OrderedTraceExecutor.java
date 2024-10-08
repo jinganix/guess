@@ -18,19 +18,23 @@
 
 package io.github.jinganix.guess.service.helper.actor;
 
-import io.github.jinganix.peashooter.DefaultExecutorSelector;
-import io.github.jinganix.peashooter.TaskQueueProvider;
-import io.github.jinganix.peashooter.TraceExecutor;
+import io.github.jinganix.peashooter.executor.DefaultExecutorSelector;
+import io.github.jinganix.peashooter.executor.TraceExecutor;
+import io.github.jinganix.peashooter.queue.CaffeineTaskQueueProvider;
 import java.util.function.Supplier;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
-public class OrderedTraceExecutor extends io.github.jinganix.peashooter.OrderedTraceExecutor {
+public class OrderedTraceExecutor
+    extends io.github.jinganix.peashooter.executor.OrderedTraceExecutor {
 
-  public OrderedTraceExecutor(TaskQueueProvider queueProvider, TraceExecutor executor) {
-    super(queueProvider, new DefaultExecutorSelector(executor), executor.getTracer());
+  public OrderedTraceExecutor(TraceExecutor executor) {
+    super(
+        new CaffeineTaskQueueProvider(),
+        new DefaultExecutorSelector(executor),
+        executor.getTracer());
   }
 
   public <R> R supply(Object key, Supplier<R> supplier) {

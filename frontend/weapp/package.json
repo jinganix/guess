@@ -53,7 +53,7 @@
     "less": "^4.2.0",
     "less-loader": "^12.2.0",
     "mini-css-extract-plugin": "^2.9.0",
-    "miniprogram-api-typings": "^3.12.2",
+    "miniprogram-api-typings": "^4.0.0",
     "miniprogram-automator": "^0.12.1",
     "postcss": "^8.4.40",
     "postcss-loader": "^8.1.1",

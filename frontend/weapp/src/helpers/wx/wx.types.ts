@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import AuthorizeOption = WechatMiniprogram.AuthorizeOption;
 import BaseEvent = WechatMiniprogram.BaseEvent;
+import BehaviorOption = WechatMiniprogram.Component.BehaviorOption;
 import BoundingClientRectCallback = WechatMiniprogram.BoundingClientRectCallback;
 import BoundingClientRectCallbackResult = WechatMiniprogram.BoundingClientRectCallbackResult;
 import Canvas = WechatMiniprogram.Canvas;
@@ -92,6 +93,7 @@ import VideoContext = WechatMiniprogram.VideoContext;
 export type {
   AuthorizeOption,
   BaseEvent,
+  BehaviorOption,
   BoundingClientRectCallback,
   BoundingClientRectCallbackResult,
   Canvas,

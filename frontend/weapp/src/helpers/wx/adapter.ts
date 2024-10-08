@@ -18,6 +18,7 @@
 
 import { ComponentScript } from "@helpers/wx/component.script";
 import {
+  BehaviorOption,
   CompData,
   CompDataOption,
   CompInstanceMethods,
@@ -172,7 +173,7 @@ export function defaultComponent<T extends ComponentScript>(
   type: { prototype: T },
   factory: (comp: ScriptedComponent<T>) => T,
   properties?: PropertyOption,
-): CompOptions<PageDataOption, PropertyOption, MethodOption> {
+): CompOptions<PageDataOption, PropertyOption, MethodOption, BehaviorOption> {
   return {
     data: factory(cast({})).initData(properties && Object.keys(properties)),
 

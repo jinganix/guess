@@ -6,6 +6,7 @@ export function cast<T>(obj: unknown): T {
 }
 
 export function requireFile<T>(path: string): T {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   return cast(require(path));
 }
 
@@ -45,7 +46,7 @@ export class ModuleLoader {
       if (!this.loaded[url]) {
         this.loaded[url] = true;
         ctx.addDependency(url);
-        ctx.loadModule(url, (err, src) => (err ? reject(err) : resolve(src)));
+        ctx.loadModule(url, (err, src) => (err ? reject(err) : resolve(String(src))));
       } else {
         resolve("");
       }

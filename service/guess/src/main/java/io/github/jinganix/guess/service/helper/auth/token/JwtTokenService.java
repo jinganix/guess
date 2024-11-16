@@ -19,6 +19,7 @@
 package io.github.jinganix.guess.service.helper.auth.token;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import java.util.Collections;
@@ -27,16 +28,10 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Service;
 
 @Slf4j
 @Service
-@ConditionalOnProperty(
-    prefix = "core",
-    name = "token-type",
-    havingValue = "jwt",
-    matchIfMissing = true)
 public class JwtTokenService implements TokenService {
 
   private static final String USER_ID = "uid";
@@ -45,23 +40,33 @@ public class JwtTokenService implements TokenService {
 
   private static final String SCOPES = "sco";
 
-  @Value("${core.jwt-secret}")
-  private String jwtSecret;
+  private final String issuer;
+
+  private final Algorithm algorithm;
+
+  private final JWTVerifier verifier;
+
+  public JwtTokenService(
+      @Value("${core.issuer}") String issuer, @Value("${core.jwt-secret}") String jwtSecret) {
+    this.issuer = issuer;
+    this.algorithm = Algorithm.HMAC256(jwtSecret);
+    this.verifier = JWT.require(algorithm).withIssuer(issuer).build();
+  }
 
   @Override
   public String generate(Long userId, String uuid, String... scopes) {
-    Algorithm algorithm = Algorithm.HMAC256(jwtSecret);
     return JWT.create()
         .withArrayClaim(SCOPES, scopes)
         .withClaim(USER_ID, userId)
         .withClaim(TOKEN, uuid)
         .withIssuedAt(new Date())
+        .withIssuer(issuer)
         .sign(algorithm);
   }
 
   public JwtToken decode(String text) {
     try {
-      DecodedJWT jwt = JWT.decode(text);
+      DecodedJWT jwt = verifier.verify(text);
       if (jwt.getIssuedAt().getTime() < System.currentTimeMillis() - TimeUnit.DAYS.toMillis(7)) {
         return null;
       }

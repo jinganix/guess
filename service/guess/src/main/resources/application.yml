@@ -1,4 +1,5 @@
 core:
+  issuer: io.github.jinganix.guess
   config:
     puzzle-daily-limit: 30
     puzzle-limit-increase: 20

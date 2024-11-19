@@ -16,9 +16,9 @@
  * https://github.com/jinganix/guess
  */
 
-import { ICustomShareContent, ICustomTimelineContent } from "@helpers/wx/wx.types";
-import { relativePrefix } from "@helpers/utils/utils";
 import { Pages } from "@helpers/const";
+import { relativePrefix } from "@helpers/utils/utils";
+import { ICustomShareContent, ICustomTimelineContent } from "@helpers/wx/wx.types";
 
 export class AppService {
   async copyText(text: string): Promise<void> {

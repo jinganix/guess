@@ -16,13 +16,18 @@
  * https://github.com/jinganix/guess
  */
 
-import { httpService } from "@helpers/service/http.service";
+import { Pages } from "@helpers/const";
 import { tryInitializeModules } from "@helpers/module/module.initializer";
+import { httpService } from "@helpers/service/http.service";
+import { classId, formatUrl } from "@helpers/utils/utils";
+import { ScriptedPage } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { TappedEvent } from "@helpers/wx/wx.types";
+import { CacheKey } from "@modules/cache/cache.service";
 import { ConfigStore } from "@modules/config/config.store";
-import { ScriptedPage } from "@helpers/wx/adapter";
 import { configStore } from "@modules/container";
+import { Moment } from "@modules/moment/moment.types";
 import {
   IMomentFacadePb,
   MomentCategory,
@@ -30,12 +35,7 @@ import {
   MomentListResponse,
   MomentStatus,
 } from "@proto/MomentProto";
-import { Moment } from "@modules/moment/moment.types";
 import { find } from "lodash";
-import { CacheKey } from "@modules/cache/cache.service";
-import { classId, formatUrl } from "@helpers/utils/utils";
-import { Pages } from "@helpers/const";
-import { TappedEvent } from "@helpers/wx/wx.types";
 
 const CATEGORIES = {
   [MomentCategory.ALL]: "动态",

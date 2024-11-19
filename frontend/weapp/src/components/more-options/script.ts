@@ -16,11 +16,11 @@
  * https://github.com/jinganix/guess
  */
 
-import { components } from "@modules/container";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { ScriptedComponent } from "@helpers/wx/adapter";
 import { PopupOptionsScript } from "@comps/popup-options/script";
 import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
+import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
+import { components } from "@modules/container";
 
 export class MoreOptionsScript extends ComponentScript {
   static readonly CLASS_ID = classId();

@@ -16,18 +16,18 @@
  * https://github.com/jinganix/guess
  */
 
-import { MomentCategory } from "@proto/MomentProto";
-import { appService, components, configStore, userExtraStore, userStore } from "@modules/container";
+import { PopoverShareScript } from "@comps/popup-share/script";
+import { UserEditScript } from "@comps/user-edit/script";
+import { Pages } from "@helpers/const";
+import { classId, formatUrl } from "@helpers/utils/utils";
+import { ScriptedPage } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedPage } from "@helpers/wx/adapter";
 import { ConfigStore } from "@modules/config/config.store";
+import { appService, components, configStore, userExtraStore, userStore } from "@modules/container";
 import { UserExtraStore } from "@modules/user/user.extra.store";
 import { UserStore } from "@modules/user/user.store";
-import { UserEditScript } from "@comps/user-edit/script";
-import { classId, formatUrl } from "@helpers/utils/utils";
-import { Pages } from "@helpers/const";
-import { PopoverShareScript } from "@comps/popup-share/script";
+import { MomentCategory } from "@proto/MomentProto";
 
 const CONNECTOR = new Connector({
   configStore: DataPiker.align<ConfigStore>(["adCustomMe"]),

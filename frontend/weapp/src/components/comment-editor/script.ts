@@ -16,17 +16,17 @@
  * https://github.com/jinganix/guess
  */
 
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { cacheService, components } from "@modules/container";
-import { Input } from "@helpers/wx/wx.types";
+import { CommentListScript } from "@comps/comment-list/script";
 import { emitter } from "@helpers/event/emitter";
 import { httpService } from "@helpers/service/http.service";
-import { CommentCreateRequest, CommentCreateResponse } from "@proto/CommentProto";
-import { Moment } from "@modules/moment/moment.types";
-import { CommentListScript } from "@comps/comment-list/script";
 import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
+import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
+import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { Input } from "@helpers/wx/wx.types";
+import { cacheService, components } from "@modules/container";
+import { Moment } from "@modules/moment/moment.types";
+import { CommentCreateRequest, CommentCreateResponse } from "@proto/CommentProto";
 
 const CONNECTOR = new Connector({
   store: DataPiker.spread<CommentEditorScript>([

@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { MomentFacadeScript } from "@comps/moment-facade/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(MomentFacadeScript, (x) => new MomentFacadeScript(x), {

@@ -16,7 +16,13 @@
  * https://github.com/jinganix/guess
  */
 
+import { emitter } from "@helpers/event/emitter";
+import { httpService } from "@helpers/service/http.service";
 import { formatReadable, classId } from "@helpers/utils/utils";
+import { CacheKey } from "@modules/cache/cache.service";
+import { CacheItem } from "@modules/cache/cache.types";
+import { cacheService } from "@modules/container";
+import { Moment } from "@modules/moment/moment.types";
 import {
   CommentDeleteRequest,
   CommentDeleteResponse,
@@ -27,12 +33,6 @@ import {
   ICommentFacadePb,
 } from "@proto/CommentProto";
 import { makeAutoObservable } from "mobx";
-import { CacheItem } from "@modules/cache/cache.types";
-import { CacheKey } from "@modules/cache/cache.service";
-import { cacheService } from "@modules/container";
-import { httpService } from "@helpers/service/http.service";
-import { Moment } from "@modules/moment/moment.types";
-import { emitter } from "@helpers/event/emitter";
 
 export class Comment implements CacheItem {
   static readonly CLASS_ID = classId();

@@ -16,15 +16,15 @@
  * https://github.com/jinganix/guess
  */
 
-import { RewardedVideoAd } from "@helpers/wx/wx.types";
-import { configStore } from "@modules/container";
 import { emitter } from "@helpers/event/emitter";
 import { httpService } from "@helpers/service/http.service";
-import { PuzzleHintRequest, PuzzleHintResponse } from "@proto/PuzzleProto";
+import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { classId } from "@helpers/utils/utils";
+import { RewardedVideoAd } from "@helpers/wx/wx.types";
+import { configStore } from "@modules/container";
+import { PuzzleHintRequest, PuzzleHintResponse } from "@proto/PuzzleProto";
 
 const CONNECTOR = new Connector({ store: DataPiker.spread<PuzzleHintScript>(["answer", "show"]) });
 

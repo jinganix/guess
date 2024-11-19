@@ -16,13 +16,13 @@
  * https://github.com/jinganix/guess
  */
 
+import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
+import { TappedEvent } from "@helpers/wx/wx.types";
 import { cacheService } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
-import { TappedEvent } from "@helpers/wx/wx.types";
-import { classId } from "@helpers/utils/utils";
 
 const CONNECTOR = new Connector({
   moment: DataPiker.spread<Moment>([

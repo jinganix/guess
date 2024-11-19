@@ -16,7 +16,20 @@
  * https://github.com/jinganix/guess
  */
 
+import { PopoverTimelineScript } from "@comps/popover-timeline/script";
+import { PuzzleHintScript } from "@comps/puzzle-hint/script";
+import { PuzzleLimitScript } from "@comps/puzzle-limit/script";
+import { Pages } from "@helpers/const";
+import { tryInitializeModules } from "@helpers/module/module.initializer";
+import { Replay } from "@helpers/promise/replay";
 import { httpService } from "@helpers/service/http.service";
+import { classId, trimContent } from "@helpers/utils/utils";
+import { ScriptedPage } from "@helpers/wx/adapter";
+import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
+import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { InterstitialAd, TappedEvent } from "@helpers/wx/wx.types";
+import { ConfigStore } from "@modules/config/config.store";
+import { components, configStore } from "@modules/container";
 import {
   IPuzzlePb,
   PuzzleAnswerRequest,
@@ -24,19 +37,6 @@ import {
   PuzzleRetrieveRequest,
   PuzzleRetrieveResponse,
 } from "@proto/PuzzleProto";
-import { Replay } from "@helpers/promise/replay";
-import { tryInitializeModules } from "@helpers/module/module.initializer";
-import { classId, trimContent } from "@helpers/utils/utils";
-import { components, configStore } from "@modules/container";
-import { InterstitialAd, TappedEvent } from "@helpers/wx/wx.types";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Pages } from "@helpers/const";
-import { PopoverTimelineScript } from "@comps/popover-timeline/script";
-import { PuzzleLimitScript } from "@comps/puzzle-limit/script";
-import { ScriptedPage } from "@helpers/wx/adapter";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ConfigStore } from "@modules/config/config.store";
-import { PuzzleHintScript } from "@comps/puzzle-hint/script";
 
 const CONNECTOR = new Connector({
   configStore: DataPiker.align<ConfigStore>(["adCustomPuzzleReply", "preview"]),

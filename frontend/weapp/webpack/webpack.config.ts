@@ -7,7 +7,6 @@ import TerserPlugin = require("terser-webpack-plugin");
 import MiniCssExtractPlugin = require("mini-css-extract-plugin");
 import CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 import CopyPlugin = require("copy-webpack-plugin");
-import ESLintWebpackPlugin = require("eslint-webpack-plugin");
 import { WebpackConfig } from "./types";
 import { moduleLoader, PathMappers, requireFile } from "./utils";
 import { EntryResolver } from "./entry.resolver";
@@ -256,14 +255,6 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
             to: "assets/images/[name][ext]",
           },
         ],
-      }),
-      new ESLintWebpackPlugin({
-        emitError: true,
-        emitWarning: true,
-        exclude: ["build", "node_modules"],
-        extensions: ["ts", "tsx"],
-        failOnError: true,
-        overrideConfigFile: ".eslintrc.js",
       }),
       new MiniCssExtractPlugin({ filename: `[name].wxss` }),
       new webpack.DefinePlugin({

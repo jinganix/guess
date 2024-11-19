@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { AuthToken } from "@helpers/token";
 import { createTinyEvents } from "@helpers/event/events";
+import { AuthToken } from "@helpers/token";
 
 export type NotifierVariant = "info" | "error" | "success";
 

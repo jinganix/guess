@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { PuzzleDetailScript } from "@pages/puzzle/detail/script";
 import { cast } from "@helpers/utils/utils";
+import { PuzzleDetailScript } from "@pages/puzzle/detail/script";
 import { configStore } from "../../../modules/container";
 
 describe("PuzzleDetailScript", () => {

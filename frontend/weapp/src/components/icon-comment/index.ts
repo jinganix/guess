@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { IconCommentScript } from "@comps/icon-comment/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(IconCommentScript, (x) => new IconCommentScript(x), {

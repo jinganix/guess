@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { MovableButtonScript } from "@comps/movable-button/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(MovableButtonScript, (x) => new MovableButtonScript(x), {

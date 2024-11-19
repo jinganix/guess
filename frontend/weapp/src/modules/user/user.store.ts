@@ -16,13 +16,13 @@
  * https://github.com/jinganix/guess
  */
 
-import { makeAutoObservable } from "mobx";
-import { httpService } from "@helpers/service/http.service";
-import { IUserPb, UserCurrentRequest, UserCurrentResponse } from "@proto/UserProto";
-import { Dispose, ModuleInitializer } from "@helpers/types/types";
 import { Replay } from "@helpers/promise/replay";
-import { ErrorCode } from "@proto/AppErrorProto";
+import { httpService } from "@helpers/service/http.service";
+import { Dispose, ModuleInitializer } from "@helpers/types/types";
 import { User } from "@modules/user/user.types";
+import { ErrorCode } from "@proto/AppErrorProto";
+import { IUserPb, UserCurrentRequest, UserCurrentResponse } from "@proto/UserProto";
+import { makeAutoObservable } from "mobx";
 
 export class UserStore implements ModuleInitializer {
   private replay: Replay<void> = new Replay();

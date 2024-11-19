@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { CommentScript } from "@comps/comment/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(CommentScript, (x) => new CommentScript(x), {

@@ -16,13 +16,13 @@
  * https://github.com/jinganix/guess
  */
 
+import { CommentEditorScript } from "@comps/comment-editor/script";
+import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { cacheService, components, userStore } from "@modules/container";
 import { Comment } from "@modules/comment/comment.types";
-import { classId } from "@helpers/utils/utils";
-import { CommentEditorScript } from "@comps/comment-editor/script";
+import { cacheService, components, userStore } from "@modules/container";
 import { User } from "@modules/user/user.types";
 
 const CONNECTOR = new Connector({

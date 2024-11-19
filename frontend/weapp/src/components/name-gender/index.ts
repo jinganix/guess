@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { NameGenderScript } from "@comps/name-gender/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(NameGenderScript, (x) => new NameGenderScript(x), {

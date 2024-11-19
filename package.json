@@ -12,7 +12,7 @@
     "@commitlint/cz-commitlint": "~19.5.0",
     "commitizen": "~4.3.1",
     "commitlint": "~19.5.0",
-    "husky": "~9.1.6"
+    "husky": "~9.1.7"
   },
   "config": {
     "commitizen": {

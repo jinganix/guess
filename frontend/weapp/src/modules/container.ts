@@ -16,18 +16,18 @@
  * https://github.com/jinganix/guess
  */
 
-import { CacheService } from "@modules/cache/cache.service";
-import { UserCache } from "@modules/cache/user.cache";
-import { MomentCache } from "@modules/cache/moment.cache";
-import { CommentCache } from "@modules/cache/comment.cache";
-import { UserStore } from "@modules/user/user.store";
-import { AppService } from "@modules/utils/app.service";
-import { ConfigStore } from "@modules/config/config.store";
-import { UserExtraStore } from "@modules/user/user.extra.store";
 import { Components } from "@helpers/wx/components";
-import { User } from "@modules/user/user.types";
-import { Moment } from "@modules/moment/moment.types";
+import { CacheService } from "@modules/cache/cache.service";
+import { CommentCache } from "@modules/cache/comment.cache";
+import { MomentCache } from "@modules/cache/moment.cache";
+import { UserCache } from "@modules/cache/user.cache";
 import { Comment } from "@modules/comment/comment.types";
+import { ConfigStore } from "@modules/config/config.store";
+import { Moment } from "@modules/moment/moment.types";
+import { UserExtraStore } from "@modules/user/user.extra.store";
+import { UserStore } from "@modules/user/user.store";
+import { User } from "@modules/user/user.types";
+import { AppService } from "@modules/utils/app.service";
 
 export const appService = new AppService();
 export const cacheService = new CacheService();

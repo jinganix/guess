@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { IconFollowScript } from "@comps/icon-follow/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(IconFollowScript, (x) => new IconFollowScript(x), {

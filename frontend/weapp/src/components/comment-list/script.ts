@@ -16,14 +16,14 @@
  * https://github.com/jinganix/guess
  */
 
+import { httpService } from "@helpers/service/http.service";
+import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { Comment } from "@modules/comment/comment.types";
-import { httpService } from "@helpers/service/http.service";
-import { CommentListRequest, CommentListResponse, ICommentFacadePb } from "@proto/CommentProto";
 import { CacheKey } from "@modules/cache/cache.service";
-import { classId } from "@helpers/utils/utils";
+import { Comment } from "@modules/comment/comment.types";
+import { CommentListRequest, CommentListResponse, ICommentFacadePb } from "@proto/CommentProto";
 
 const CONNECTOR = new Connector({
   store: DataPiker.spread<CommentListScript>(["cacheKeys", "loading", "more"]),

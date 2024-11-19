@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { AvatarScript } from "@comps/avatar/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(AvatarScript, (x) => new AvatarScript(x), {

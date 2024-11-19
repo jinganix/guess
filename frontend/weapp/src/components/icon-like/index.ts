@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { IconLikeScript } from "@comps/icon-like/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(IconLikeScript, (x) => new IconLikeScript(x), {

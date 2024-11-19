@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { PopoverShareScript } from "@comps/popup-share/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(PopoverShareScript, (x) => new PopoverShareScript(x), {

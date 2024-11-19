@@ -16,11 +16,11 @@
  * https://github.com/jinganix/guess
  */
 
-import { UserListRequest, UserListResponse } from "@proto/UserProto";
-import { includes } from "lodash";
-import { User } from "@modules/user/user.types";
 import { httpService } from "@helpers/service/http.service";
 import { LruCache } from "@modules/cache/lru.cache";
+import { User } from "@modules/user/user.types";
+import { UserListRequest, UserListResponse } from "@proto/UserProto";
+import { includes } from "lodash";
 
 class DelayLoader {
   ids: string[] = [];

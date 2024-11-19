@@ -16,13 +16,13 @@
  * https://github.com/jinganix/guess
  */
 
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
 import { cn } from "@helpers/utils/cn";
 import { classId } from "@helpers/utils/utils";
-import { User } from "@modules/user/user.types";
+import { ScriptedComponent } from "@helpers/wx/adapter";
+import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
+import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
 import { cacheService } from "@modules/container";
+import { User } from "@modules/user/user.types";
 
 const NAME_CLASS = "text-base font-bold text-grey-0";
 

@@ -27,6 +27,7 @@ describe("App", () => {
 
       const spyListenErrors = jest.spyOn(Errors, "listenErrors");
 
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
       require("./app");
       expect(initialize).toHaveBeenCalledWith("arg");
       expect(spyListenErrors).toHaveBeenCalledTimes(1);

@@ -44,6 +44,8 @@ dependencies {
   annotationProcessor("org.mapstruct:mapstruct-processor:${versionMapstruct}")
   compileOnly("org.projectlombok:lombok:$versionLombok")
   implementation("com.auth0:java-jwt:${versionJwt}")
+  implementation("com.fasterxml.jackson.core:jackson-annotations:${versionJackson}")
+  implementation("com.fasterxml.jackson.core:jackson-core:${versionJackson}")
   implementation("com.fasterxml.jackson.core:jackson-databind:${versionJackson}")
   implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:${versionJackson}")
   implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:${versionJackson}")

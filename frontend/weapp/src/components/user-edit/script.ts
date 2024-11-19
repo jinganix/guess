@@ -16,16 +16,16 @@
  * https://github.com/jinganix/guess
  */
 
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { httpService } from "@helpers/service/http.service";
-import { cacheService, userStore } from "@modules/container";
 import { emitter } from "@helpers/event/emitter";
+import { httpService } from "@helpers/service/http.service";
+import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
+import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
+import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { CustomEvent, Input, TappedEvent } from "@helpers/wx/wx.types";
+import { cacheService, userStore } from "@modules/container";
 import { User } from "@modules/user/user.types";
 import { UserUpdateRequest, UserUpdateResponse } from "@proto/UserProto";
-import { CustomEvent, Input, TappedEvent } from "@helpers/wx/wx.types";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { classId } from "@helpers/utils/utils";
 
 export type Gender = 0 | 1 | 2;
 

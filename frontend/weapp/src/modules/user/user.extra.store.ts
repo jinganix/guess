@@ -16,12 +16,12 @@
  * https://github.com/jinganix/guess
  */
 
-import { makeAutoObservable } from "mobx";
+import { tryInitializeModules } from "@helpers/module/module.initializer";
+import { Replay } from "@helpers/promise/replay";
 import { httpService } from "@helpers/service/http.service";
 import { Dispose, ModuleInitializer } from "@helpers/types/types";
-import { Replay } from "@helpers/promise/replay";
-import { tryInitializeModules } from "@helpers/module/module.initializer";
 import { IUserExtraPb, UserExtraRequest, UserExtraResponse } from "@proto/UserProto";
+import { makeAutoObservable } from "mobx";
 
 export class UserExtraStore implements ModuleInitializer {
   private replay: Replay<void> = new Replay();

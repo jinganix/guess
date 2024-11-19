@@ -16,7 +16,7 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { PopoverTimelineScript } from "@comps/popover-timeline/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(defaultComponent(PopoverTimelineScript, (x) => new PopoverTimelineScript(x)));

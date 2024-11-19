@@ -16,10 +16,10 @@
  * https://github.com/jinganix/guess
  */
 
+import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { classId } from "@helpers/utils/utils";
 
 const CONNECTOR = new Connector({
   store: DataPiker.spread<PopoverPreviewScript>(["show"]),

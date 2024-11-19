@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { Dispose } from "@helpers/types/types";
 import { emitter } from "@helpers/event/emitter";
+import { Dispose } from "@helpers/types/types";
 import { includes } from "lodash";
 
 export function listenLoading(types: string[], callback: (loading: boolean) => void): Dispose {

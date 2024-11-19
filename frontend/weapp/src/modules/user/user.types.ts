@@ -16,12 +16,12 @@
  * https://github.com/jinganix/guess
  */
 
-import { makeAutoObservable } from "mobx";
-import { IUserPb } from "@proto/UserProto";
-import { CacheItem } from "@modules/cache/cache.types";
-import { CacheKey } from "@modules/cache/cache.service";
-import { cacheService } from "@modules/container";
 import { classId } from "@helpers/utils/utils";
+import { CacheKey } from "@modules/cache/cache.service";
+import { CacheItem } from "@modules/cache/cache.types";
+import { cacheService } from "@modules/container";
+import { IUserPb } from "@proto/UserProto";
+import { makeAutoObservable } from "mobx";
 
 function randName(id: string): string {
   const name = "游客" + Number(id.substring(8)).toString(32);

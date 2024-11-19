@@ -16,13 +16,13 @@
  * https://github.com/jinganix/guess
  */
 
-import { WebpbMessage, WebpbMeta } from "webpb";
 import { environment } from "@helpers/environment";
-import { awx } from "@helpers/wx/awx";
 import { emitter } from "@helpers/event/emitter";
-import { RequestOption } from "@helpers/wx/wx.types";
 import { urlJoin } from "@helpers/utils/url.join";
+import { awx } from "@helpers/wx/awx";
+import { RequestOption } from "@helpers/wx/wx.types";
 import { ErrorCode } from "@proto/AppErrorProto";
+import { WebpbMessage, WebpbMeta } from "webpb";
 
 export interface RequestConfig<R extends WebpbMessage> {
   message: WebpbMessage;

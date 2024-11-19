@@ -16,9 +16,9 @@
  * https://github.com/jinganix/guess
  */
 
-import { ErrorCode } from "@proto/AppErrorProto";
 import { emitter, NotifierVariant } from "@helpers/event/emitter";
 import { Dispose } from "@helpers/types/types";
+import { ErrorCode } from "@proto/AppErrorProto";
 
 export const errors: Record<string, string> = {
   [ErrorCode.OK]: "成功",

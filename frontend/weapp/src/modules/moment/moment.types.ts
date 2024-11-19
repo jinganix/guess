@@ -16,6 +16,12 @@
  * https://github.com/jinganix/guess
  */
 
+import { emitter } from "@helpers/event/emitter";
+import { httpService } from "@helpers/service/http.service";
+import { formatReadable, classId } from "@helpers/utils/utils";
+import { CacheKey } from "@modules/cache/cache.service";
+import { CacheItem } from "@modules/cache/cache.types";
+import { cacheService, userExtraStore, userStore } from "@modules/container";
 import {
   IMomentFacadePb,
   MomentAnswerRequest,
@@ -31,12 +37,6 @@ import {
   MomentStatus,
 } from "@proto/MomentProto";
 import { makeAutoObservable } from "mobx";
-import { formatReadable, classId } from "@helpers/utils/utils";
-import { httpService } from "@helpers/service/http.service";
-import { emitter } from "@helpers/event/emitter";
-import { CacheItem } from "@modules/cache/cache.types";
-import { CacheKey } from "@modules/cache/cache.service";
-import { cacheService, userExtraStore, userStore } from "@modules/container";
 
 export class Moment implements CacheItem {
   static readonly CLASS_ID = classId();

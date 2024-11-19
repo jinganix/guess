@@ -16,17 +16,17 @@
  * https://github.com/jinganix/guess
  */
 
-import { httpService } from "@helpers/service/http.service";
-import { Ranking } from "@modules/ranking/ranking.types";
-import { IPuzzleRankPb, PuzzleRankingRequest, PuzzleRankingResponse } from "@proto/PuzzleProto";
-import { Replay } from "@helpers/promise/replay";
 import { tryInitializeModules } from "@helpers/module/module.initializer";
+import { Replay } from "@helpers/promise/replay";
+import { httpService } from "@helpers/service/http.service";
+import { classId } from "@helpers/utils/utils";
+import { ScriptedPage } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
 import { ConfigStore } from "@modules/config/config.store";
-import { ScriptedPage } from "@helpers/wx/adapter";
 import { configStore } from "@modules/container";
-import { classId } from "@helpers/utils/utils";
+import { Ranking } from "@modules/ranking/ranking.types";
+import { IPuzzleRankPb, PuzzleRankingRequest, PuzzleRankingResponse } from "@proto/PuzzleProto";
 
 const CONNECTOR = new Connector({
   configStore: DataPiker.align<ConfigStore>(["adCustomPuzzleRanking", "preview"]),

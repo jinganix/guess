@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { MomentDetailScript } from "@comps/moment-detail/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(MomentDetailScript, (x) => new MomentDetailScript(x), {

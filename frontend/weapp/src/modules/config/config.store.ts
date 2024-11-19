@@ -16,11 +16,11 @@
  * https://github.com/jinganix/guess
  */
 
-import { IConfigPb, UserConfigRequest, UserConfigResponse } from "@proto/UserProto";
-import { makeAutoObservable } from "mobx";
+import { Replay } from "@helpers/promise/replay";
 import { httpService } from "@helpers/service/http.service";
 import { Dispose, ModuleInitializer } from "@helpers/types/types";
-import { Replay } from "@helpers/promise/replay";
+import { IConfigPb, UserConfigRequest, UserConfigResponse } from "@proto/UserProto";
+import { makeAutoObservable } from "mobx";
 
 export class ConfigStore implements ModuleInitializer {
   private replay: Replay<void> = new Replay<void>();

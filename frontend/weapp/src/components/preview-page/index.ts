@@ -16,9 +16,9 @@
  * https://github.com/jinganix/guess
  */
 
+import { PopoverPreviewScript } from "@comps/popover-preview/script";
 import { PageDataOption, MethodOption, PropertyOption, BehaviorOption } from "@helpers/wx/wx.types";
 import { components } from "@modules/container";
-import { PopoverPreviewScript } from "@comps/popover-preview/script";
 
 Component<PageDataOption, PropertyOption, MethodOption, BehaviorOption>({
   data: {

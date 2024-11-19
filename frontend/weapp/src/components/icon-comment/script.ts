@@ -16,14 +16,14 @@
  * https://github.com/jinganix/guess
  */
 
+import { CommentEditorScript } from "@comps/comment-editor/script";
+import { Pages } from "@helpers/const";
+import { formatUrl, classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
 import { cacheService, components } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
-import { CommentEditorScript } from "@comps/comment-editor/script";
-import { formatUrl, classId } from "@helpers/utils/utils";
-import { Pages } from "@helpers/const";
 
 const CONNECTOR = new Connector({ moment: DataPiker.spread<Moment>(["comment"]) });
 

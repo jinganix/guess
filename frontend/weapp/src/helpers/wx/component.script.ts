@@ -17,11 +17,11 @@
  */
 
 import { Dispose } from "@helpers/types/types";
-import { components } from "@modules/container";
-import { AnnotationsMap, makeObservable, observable } from "mobx";
-import { fromPairs, omit } from "lodash";
-import { Connector, publicKeys } from "@helpers/wx/connect";
 import { ScriptedComponent, ScriptedPage } from "@helpers/wx/adapter";
+import { Connector, publicKeys } from "@helpers/wx/connect";
+import { components } from "@modules/container";
+import { fromPairs, omit } from "lodash";
+import { AnnotationsMap, makeObservable, observable } from "mobx";
 
 export function makePublicObservable<T extends object>(obj: T): AnnotationsMap<T, never> {
   return makeObservable(

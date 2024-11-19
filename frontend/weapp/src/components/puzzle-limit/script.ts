@@ -16,17 +16,17 @@
  * https://github.com/jinganix/guess
  */
 
-import { RewardedVideoAd } from "@helpers/wx/wx.types";
-import { components, configStore } from "@modules/container";
 import { emitter } from "@helpers/event/emitter";
 import { httpService } from "@helpers/service/http.service";
-import { PuzzleIncreaseLimitRequest, PuzzleIncreaseLimitResponse } from "@proto/PuzzleProto";
+import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { RewardedVideoAd } from "@helpers/wx/wx.types";
 import { ConfigStore } from "@modules/config/config.store";
-import { ScriptedComponent } from "@helpers/wx/adapter";
+import { components, configStore } from "@modules/container";
 import { PuzzleDetailScript } from "@pages/puzzle/detail/script";
-import { classId } from "@helpers/utils/utils";
+import { PuzzleIncreaseLimitRequest, PuzzleIncreaseLimitResponse } from "@proto/PuzzleProto";
 
 const CONNECTOR = new Connector({
   configStore: DataPiker.align<ConfigStore>(["puzzleDailyLimit", "puzzleLimitIncrease"]),

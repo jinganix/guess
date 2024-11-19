@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import fill from "lodash/fill";
 import dayjs from "dayjs";
+import fill from "lodash/fill";
 import { query as formatQuery } from "webpb";
 
 export function cast<T>(obj: unknown): T {

@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import AuthorizeOption = WechatMiniprogram.AuthorizeOption;
 import BaseEvent = WechatMiniprogram.BaseEvent;
 import BehaviorOption = WechatMiniprogram.Component.BehaviorOption;
@@ -88,7 +87,6 @@ import TrivialInstance = WechatMiniprogram.Component.TrivialInstance;
 import UploadFileOption = WechatMiniprogram.UploadFileOption;
 import UploadFileSuccessCallbackResult = WechatMiniprogram.UploadFileSuccessCallbackResult;
 import VideoContext = WechatMiniprogram.VideoContext;
-/* eslint-enable max-len */
 
 export type {
   AuthorizeOption,

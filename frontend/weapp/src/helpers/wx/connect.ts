@@ -17,8 +17,8 @@
  */
 
 import { Dispose } from "@helpers/types/types";
-import { IArrayDidChange, IObjectDidChange, IValueDidChange, observe } from "mobx";
 import { cloneDeep, flatten, range } from "lodash";
+import { IArrayDidChange, IObjectDidChange, IValueDidChange, observe } from "mobx";
 
 export type SetData = (data: object) => void;
 

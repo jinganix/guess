@@ -16,14 +16,14 @@
  * https://github.com/jinganix/guess
  */
 
-import { AuthLoginRequest, AuthTokenRequest, AuthTokenResponse } from "@proto/AuthProto";
-import { AuthToken, deleteAuthToken, readAuthToken, saveAuthToken } from "@helpers/token";
 import { environment } from "@helpers/environment";
-import { WebpbMessage } from "webpb";
-import { request } from "@helpers/service/request";
-import { Replay } from "@helpers/promise/replay";
-import { awx } from "@helpers/wx/awx";
 import { emitter } from "@helpers/event/emitter";
+import { Replay } from "@helpers/promise/replay";
+import { request } from "@helpers/service/request";
+import { AuthToken, deleteAuthToken, readAuthToken, saveAuthToken } from "@helpers/token";
+import { awx } from "@helpers/wx/awx";
+import { AuthLoginRequest, AuthTokenRequest, AuthTokenResponse } from "@proto/AuthProto";
+import { WebpbMessage } from "webpb";
 
 async function requestToken(message: WebpbMessage): Promise<AuthToken | null> {
   const res = await request({

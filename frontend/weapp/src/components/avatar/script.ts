@@ -16,13 +16,13 @@
  * https://github.com/jinganix/guess
  */
 
+import { cn } from "@helpers/utils/cn";
+import { classId } from "@helpers/utils/utils";
+import { ScriptedComponent } from "@helpers/wx/adapter";
 import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
 import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { User } from "@modules/user/user.types";
-import { cn } from "@helpers/utils/cn";
 import { cacheService } from "@modules/container";
-import { classId } from "@helpers/utils/utils";
+import { User } from "@modules/user/user.types";
 
 const ROOT_CLASS = "w-14 h-14 flex items-center justify-center border border-grey-3 rounded";
 const ICON_CLASS = "w-[100%] h-[100%] rounded";

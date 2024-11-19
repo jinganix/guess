@@ -16,20 +16,20 @@
  * https://github.com/jinganix/guess
  */
 
-import { httpService } from "@helpers/service/http.service";
 import { emitter } from "@helpers/event/emitter";
+import { httpService } from "@helpers/service/http.service";
+import { classId, trimContent } from "@helpers/utils/utils";
+import { ScriptedPage } from "@helpers/wx/adapter";
+import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
+import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { CustomEvent, Input } from "@helpers/wx/wx.types";
+import { components, userExtraStore } from "@modules/container";
 import {
   IMomentCreateRequest,
   MomentCreateRequest,
   MomentCreateResponse,
 } from "@proto/MomentProto";
 import { every, some } from "lodash";
-import { components, userExtraStore } from "@modules/container";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedPage } from "@helpers/wx/adapter";
-import { CustomEvent, Input } from "@helpers/wx/wx.types";
-import { classId, trimContent } from "@helpers/utils/utils";
 import { MomentListScript } from "../list/script";
 
 export class EditOptions {

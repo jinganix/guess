@@ -16,21 +16,21 @@
  * https://github.com/jinganix/guess
  */
 
-import { httpService } from "@helpers/service/http.service";
-import { MomentRetrieveRequest, MomentRetrieveResponse } from "@proto/MomentProto";
-import { cacheService, components, configStore } from "@modules/container";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ScriptedPage } from "@helpers/wx/adapter";
-import { Moment } from "@modules/moment/moment.types";
-import { ConfigStore } from "@modules/config/config.store";
+import { CommentEditorScript } from "@comps/comment-editor/script";
+import { CommentListScript } from "@comps/comment-list/script";
 import { tryInitializeModules } from "@helpers/module/module.initializer";
 import { Replay } from "@helpers/promise/replay";
+import { httpService } from "@helpers/service/http.service";
 import { Dispose } from "@helpers/types/types";
-import { CommentListScript } from "@comps/comment-list/script";
-import { TappedEvent } from "@helpers/wx/wx.types";
-import { CommentEditorScript } from "@comps/comment-editor/script";
 import { classId } from "@helpers/utils/utils";
+import { ScriptedPage } from "@helpers/wx/adapter";
+import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
+import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { TappedEvent } from "@helpers/wx/wx.types";
+import { ConfigStore } from "@modules/config/config.store";
+import { cacheService, components, configStore } from "@modules/container";
+import { Moment } from "@modules/moment/moment.types";
+import { MomentRetrieveRequest, MomentRetrieveResponse } from "@proto/MomentProto";
 
 const CONNECTOR = new Connector({
   configStore: DataPiker.align<ConfigStore>(["adCustomMomentDetail"]),

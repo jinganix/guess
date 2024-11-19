@@ -17,10 +17,10 @@
  */
 
 import { Replay } from "@helpers/promise/replay";
-import { Dispose, ModuleInitializer } from "@helpers/types/types";
 import { deleteAuthToken } from "@helpers/token";
-import { configStore, userExtraStore, userStore } from "@modules/container";
+import { Dispose, ModuleInitializer } from "@helpers/types/types";
 import { LaunchShowOption } from "@helpers/wx/wx.types";
+import { configStore, userExtraStore, userStore } from "@modules/container";
 
 const INITIALIZERS: ModuleInitializer[][] = [[userStore], [configStore, userExtraStore]];
 

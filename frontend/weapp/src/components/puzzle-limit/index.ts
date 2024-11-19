@@ -16,7 +16,7 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { PuzzleLimitScript } from "@comps/puzzle-limit/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(defaultComponent(PuzzleLimitScript, (x) => new PuzzleLimitScript(x)));

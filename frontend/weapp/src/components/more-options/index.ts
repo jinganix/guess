@@ -16,8 +16,8 @@
  * https://github.com/jinganix/guess
  */
 
-import { defaultComponent } from "@helpers/wx/adapter";
 import { MoreOptionsScript } from "@comps/more-options/script";
+import { defaultComponent } from "@helpers/wx/adapter";
 
 Component(
   defaultComponent(MoreOptionsScript, (x) => new MoreOptionsScript(x), {

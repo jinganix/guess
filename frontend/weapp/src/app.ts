@@ -16,9 +16,9 @@
  * https://github.com/jinganix/guess
  */
 
-import { LaunchShowOption } from "@helpers/wx/wx.types";
-import { appInitializer } from "@helpers/module/module.initializer";
 import { listenErrors } from "@helpers/errors";
+import { appInitializer } from "@helpers/module/module.initializer";
+import { LaunchShowOption } from "@helpers/wx/wx.types";
 
 App({
   onLaunch(option: LaunchShowOption) {

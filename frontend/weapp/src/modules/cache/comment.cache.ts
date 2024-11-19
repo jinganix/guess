@@ -16,12 +16,12 @@
  * https://github.com/jinganix/guess
  */
 
+import { CommentListScript } from "@comps/comment-list/script";
 import { Dispose } from "@helpers/types/types";
 import { CacheHolder } from "@modules/cache/cache.types";
 import { Comment } from "@modules/comment/comment.types";
-import { find } from "lodash";
 import { components } from "@modules/container";
-import { CommentListScript } from "@comps/comment-list/script";
+import { find } from "lodash";
 
 export class CommentCache implements CacheHolder<Comment> {
   constructor() {}

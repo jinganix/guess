@@ -16,9 +16,9 @@
  * https://github.com/jinganix/guess
  */
 
-import { LRUCache } from "lru-cache";
 import { Dispose } from "@helpers/types/types";
 import { CacheHolder } from "@modules/cache/cache.types";
+import { LRUCache } from "lru-cache";
 
 export abstract class LruCache<T extends object> implements CacheHolder<T> {
   protected cache: LRUCache<string, T>;

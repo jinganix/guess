@@ -16,6 +16,7 @@
  * https://github.com/jinganix/guess
  */
 
+import { cast } from "@helpers/utils/utils";
 import { ComponentScript } from "@helpers/wx/component.script";
 import {
   BehaviorOption,
@@ -40,9 +41,8 @@ import {
   PropertyOption,
   PropertyType,
 } from "@helpers/wx/wx.types";
-import { includes } from "lodash";
-import { cast } from "@helpers/utils/utils";
 import { appService } from "@modules/container";
+import { includes } from "lodash";
 
 type Method = (this: Script, ...args: unknown[]) => void;
 type Methods = Record<string, Method> & Script;
@@ -112,7 +112,6 @@ export interface ScriptedPage<TScript = ComponentScript>
     PageInstanceMethods<PageDataOption>,
     ScriptOption<TScript> {}
 
-// eslint-disable-next-line max-len
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging,@typescript-eslint/no-unused-vars
 export class ScriptedPage<TScript extends ComponentScript> {}
 
@@ -129,7 +128,6 @@ export interface ScriptedComponent<TScript = ComponentScript>
     Properties,
     ScriptOption<TScript> {}
 
-// eslint-disable-next-line max-len
 // eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging,@typescript-eslint/no-unused-vars
 export class ScriptedComponent<TScript extends ComponentScript> {}
 

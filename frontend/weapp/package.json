@@ -78,7 +78,7 @@
     "typescript-eslint": "^8.15.0",
     "weapp-tailwindcss": "^3.7.0",
     "webpack": "^5.96.1",
-    "webpack-cli": "^5.1.4",
+    "webpack-cli": "^6.0.0",
     "webpack-remove-empty-scripts": "^1.0.4",
     "windicss-webpack-plugin": "^1.8.0"
   },

@@ -31,6 +31,7 @@ cd guess
 If you have `docker` and `docker-compose` installed, you can start the backend service using the following command:
 
 ```shell
+./gradlew build
 docker-compose up --build
 ```
 

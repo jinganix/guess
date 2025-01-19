@@ -24,10 +24,12 @@ import org.testcontainers.utility.DockerImageName;
 /** Start a mysql docker container. */
 public class MysqlContainer extends MySQLContainer<MysqlContainer> {
 
+  private static final String VERSION = "9.1.0";
+
   /** Constructor. */
   public MysqlContainer() {
     super(
-        DockerImageName.parse(isArm64() ? "arm64v8/mysql:9.0.1" : "mysql:9.0.1")
+        DockerImageName.parse((isArm64() ? "arm64v8/mysql:" : "mysql:") + VERSION)
             .asCompatibleSubstituteFor("mysql"));
   }
 

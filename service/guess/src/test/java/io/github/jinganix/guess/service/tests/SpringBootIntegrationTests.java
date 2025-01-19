@@ -33,10 +33,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.boot.test.mock.mockito.SpyBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.bean.override.mockito.MockitoSpyBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -49,15 +49,15 @@ import org.springframework.web.context.WebApplicationContext;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public abstract class SpringBootIntegrationTests {
 
-  @SpyBean protected TokenService tokenService;
+  @MockitoSpyBean protected TokenService tokenService;
 
-  @SpyBean protected UidGenerator uidGenerator;
+  @MockitoSpyBean protected UidGenerator uidGenerator;
 
-  @SpyBean protected UtilsService utilsService;
+  @MockitoSpyBean protected UtilsService utilsService;
 
-  @SpyBean protected WeappCodeAuthenticator weappCodeAuthenticator;
+  @MockitoSpyBean protected WeappCodeAuthenticator weappCodeAuthenticator;
 
-  @SpyBean protected WeappProvider weappProvider;
+  @MockitoSpyBean protected WeappProvider weappProvider;
 
   @BeforeEach
   protected void commonSetup() {

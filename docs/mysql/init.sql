@@ -1,1 +1,0 @@
-CREATE DATABASE IF NOT EXISTS `guess` COLLATE utf8mb4_unicode_ci;

@@ -1,4 +1,4 @@
-<view wx:for="{{store.cacheKeys}}" wx:key="*this" class="mb-3">
+<view wx:for="{{cacheKeys}}" wx:key="*this" class="mb-3">
   <view class="bg-white border-t border-grey-3/50 pt-4 text-grey-1 text-sm">
     <view class="px-6" data-item="{{item}}" catch:tap="tapMoment">
       <moment-facade cache-key="{{item}}"/>
@@ -16,16 +16,16 @@
   </view>
 </view>
 
-<view wx:if="{{configStore.adCustomMomentList && store.cacheKeys.length < 2}}" class="mb-3">
+<view wx:if="{{configStore.adCustomMomentList && cacheKeys.length < 2}}" class="mb-3">
   <ad-custom unit-id="{{configStore.adCustomMomentList}}" ad-intervals="30"/>
 </view>
 
-<view wx:if="{{store.loading}}" class="w-full flex justify-center pt-3 pb-5">
+<view wx:if="{{loading}}" class="w-full flex justify-center pt-3 pb-5">
   <van-loading type="spinner" color="#1989fa"/>
 </view>
 
-<view wx:if="{{!store.loading && !store.more}}"
-  class='text-sm text-grey-1 text-center w-full pt-3 pb-5'>
+<view wx:if="{{!loading && !more}}"
+      class='text-sm text-grey-1 text-center w-full pt-3 pb-5'>
   <view>- 这里是底线 -</view>
 </view>
 

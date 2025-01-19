@@ -18,42 +18,32 @@
 
 import { CommentEditorScript } from "@comps/comment-editor/script";
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { Comment } from "@modules/comment/comment.types";
 import { cacheService, components, userStore } from "@modules/container";
 import { User } from "@modules/user/user.types";
+import { observable, observe } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  comment: DataPiker.spread<Comment>(["content", "created", "userId"]),
-  user: DataPiker.spread<User>(["nickname"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class CommentScript extends ComponentScript<Source> {
+export class CommentScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  cacheKey = "";
+  @observable accessor cacheKey = "";
+  @observable accessor comment: Comment | null = null;
+  @observable accessor user: User | null = null;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
+    observe(this, "cacheKey", ({ newValue }) => {
+      this.comment = cacheService.getByKey<Comment>(newValue);
+    });
+    observe(this, "comment", ({ newValue }) => {
+      this.user = newValue ? cacheService.get<User>(User, newValue.toUserId!) : null;
+    });
   }
 
   classId(): string {
     return CommentScript.CLASS_ID;
-  }
-
-  source(): Source {
-    if (!this.cacheKey) {
-      return { comment: Comment.INSTANCE, user: User.INSTANCE };
-    }
-    const comment = cacheService.getByKey<Comment>(this.cacheKey);
-    if (!comment.toUserId || comment.toUserId === comment.userId) {
-      return { comment, user: User.INSTANCE };
-    }
-    return { comment, user: cacheService.get<User>(User, comment.toUserId) };
   }
 
   tapComment(): void {

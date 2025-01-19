@@ -18,44 +18,25 @@
 
 import { cn } from "@helpers/utils/cn";
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
+import { intercept, observable } from "mobx";
+import { PICKS } from "./pick";
 
-const ICON_CLASS = "text-2xl text-grey-0";
-
-const CONNECTOR = new Connector({
-  store: DataPiker.spread<MovableButtonScript>(["iconClass"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class MovableButtonScript extends ComponentScript<Source> {
+export class MovableButtonScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  iconClass = "";
+  @observable accessor iconClass = "";
 
   constructor(comp: ScriptedComponent) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
+    intercept(this, "iconClass", (change) => {
+      change.newValue = cn("text-2xl text-grey-0", change.newValue);
+      return change;
+    });
   }
 
   classId(): string {
     return MovableButtonScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { store: this };
-  }
-
-  onPropertyChanged<K extends keyof MovableButtonScript>(
-    key: K,
-    value: MovableButtonScript[K],
-  ): void {
-    if (key === "iconClass") {
-      this.iconClass = cn(ICON_CLASS, value);
-    } else {
-      super.onPropertyChanged(key, value);
-    }
   }
 
   tapButton(): void {

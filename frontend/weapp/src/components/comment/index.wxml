@@ -1,22 +1,22 @@
 <wxs src="../../wxs/clsx.wxs" module="clsx"/>
 
 <view class="flex items-start">
-  <avatar userId="{{userId}}" root-class="w-8 h-8 rounded-full" icon-class="rounded-full"/>
+  <avatar userId="{{user.userId}}" root-class="w-8 h-8 rounded-full" icon-class="rounded-full"/>
 
   <view class="flex-1 ml-2">
-    <name-gender userId="{{userId}}" name-class="font-normal text-grey-1" catch:tap="tapComment"/>
+    <name-gender userId="{{user.userId}}" name-class="font-normal text-grey-1" catch:tap="tapComment"/>
 
     <view class="mt-2 text-base text-black-0 inline" catch:tap="tapComment">
-      <block wx:if="{{nickname}}">
+      <block wx:if="{{user.nickname}}">
         <text class="text-grey-2 text-sm">回复</text>
-        <text class="ml-1 text-grey-1 font-bold text-sm">{{nickname}}：</text>
+        <text class="ml-1 text-grey-1 font-bold text-sm">{{user.nickname}}：</text>
       </block>
-      {{content}}
+      {{comment.content}}
     </view>
 
     <view class="mt-2 flex justify-between items-center">
       <view class="text-sm text-grey-2">
-        {{created}}
+        {{comment.created}}
       </view>
 
       <view class="flex items-center gap-4">

@@ -1,19 +1,19 @@
 <wxs src="../../wxs/clsx.wxs" module="clsx"/>
 
-<block wx:if="{{status === 0}}">
+<block wx:if="{{moment.status === 0}}">
   <view class="flex items-start">
-    <avatar userId="{{userId}}" root-class="w-12 h-12"/>
+    <avatar userId="{{moment.userId}}" root-class="w-12 h-12"/>
 
     <view class="flex-1 ml-4">
-      <name-gender userId="{{userId}}" name-class="font-normal text-grey-1"/>
+      <name-gender userId="{{moment.userId}}" name-class="font-normal text-grey-1"/>
 
       <view class="mt-2 text-base text-black-0">
-        {{content}}
+        {{moment.content}}
       </view>
 
       <view class="mt-2 flex justify-between">
         <view class="text-sm text-grey-2">
-          {{created}}
+          {{moment.created}}
         </view>
 
         <more-options cacheKey="{{cacheKey}}"/>

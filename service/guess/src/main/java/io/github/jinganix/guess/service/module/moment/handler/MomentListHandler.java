@@ -21,7 +21,7 @@ package io.github.jinganix.guess.service.module.moment.handler;
 import static io.github.jinganix.guess.service.helper.Const.PAGE_SIZE;
 import static org.springframework.data.domain.Sort.Direction.DESC;
 
-import io.github.jinganix.guess.proto.service.moment.MomentFacadePb;
+import io.github.jinganix.guess.proto.service.moment.MomentDetailPb;
 import io.github.jinganix.guess.proto.service.moment.MomentListRequest;
 import io.github.jinganix.guess.proto.service.moment.MomentListResponse;
 import io.github.jinganix.guess.service.module.moment.MomentMapper;
@@ -96,7 +96,7 @@ public class MomentListHandler {
     return moments;
   }
 
-  private List<MomentFacadePb> toPbs(Long userId, List<Moment> moments) {
+  private List<MomentDetailPb> toPbs(Long userId, List<Moment> moments) {
     Set<Long> momentIds = moments.stream().map(Moment::getId).collect(Collectors.toSet());
     Map<Long, MomentAction> actionMap =
         momentActionRepository.findAllByUserIdAndMomentIdIn(userId, momentIds).stream()
@@ -106,7 +106,7 @@ public class MomentListHandler {
             moment -> {
               MomentAction action = actionMap.get(moment.getId());
               int answer = Objects.equals(moment.getUserId(), userId) ? moment.getAnswer() : 0;
-              MomentFacadePb pb = momentMapper.mapToPb(moment, action, answer);
+              MomentDetailPb pb = momentMapper.mapToPb(moment, action, answer);
               if (moment.getStatus() != MomentStatus.ACTIVE) {
                 pb.getMoment()
                     .setContent("")

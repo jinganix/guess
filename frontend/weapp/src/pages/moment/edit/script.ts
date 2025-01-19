@@ -19,9 +19,8 @@
 import { emitter } from "@helpers/event/emitter";
 import { httpService } from "@helpers/service/http.service";
 import { classId, trimContent } from "@helpers/utils/utils";
-import { ScriptedPage } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedPage } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { CustomEvent, Input } from "@helpers/wx/wx.types";
 import { components, userExtraStore } from "@modules/container";
 import {
@@ -30,6 +29,8 @@ import {
   MomentCreateResponse,
 } from "@proto/MomentProto";
 import { every, some } from "lodash";
+import { observable } from "mobx";
+import { PICKS } from "./pick";
 import { MomentListScript } from "../list/script";
 
 export class EditOptions {
@@ -39,39 +40,28 @@ export class EditOptions {
   option4 = "";
 }
 
-const CONNECTOR = new Connector({
-  store: DataPiker.align<MomentEditScript>(DataPiker.ALL),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class MomentEditScript extends ComponentScript<Source> {
+export class MomentEditScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  loading = false;
-  activeNames: string[] = [];
-  answer = 1;
-  answers: { text: string; value: number }[] = [
+  @observable accessor loading = false;
+  @observable accessor activeNames: string[] = [];
+  @observable accessor answer = 1;
+  @observable accessor answers: { text: string; value: number }[] = [
     { text: "选项1", value: 1 },
     { text: "选项2", value: 2 },
     { text: "选项3", value: 3 },
     { text: "选项4", value: 4 },
   ];
-  content = "";
-  optionKeys = [1, 2, 3, 4].map((e) => `option${e}`);
-  optionLen = 12;
-  options = new EditOptions();
+  @observable accessor content = "";
+  @observable accessor optionKeys = [1, 2, 3, 4].map((x) => `option${x}`);
+  @observable accessor optionLen = 12;
+  @observable accessor options = new EditOptions();
 
   constructor(comp: ScriptedPage) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
   }
 
   classId(): string {
     return MomentEditScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { store: this };
   }
 
   willUnmount(): void {

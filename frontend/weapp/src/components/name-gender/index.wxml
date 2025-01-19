@@ -2,8 +2,8 @@
 
 <view class="flex items-baseline">
   <view class="{{nameClass}}">
-    {{nickname}}
+    {{user.nickname}}
   </view>
-  <view wx:if="{{gender > 0}}"
-    class="ml-2 {{clsx(['if if-male text-blue-500', gender === 1], ['if if-female text-red-500', gender === 2])}}"/>
+  <view wx:if="{{user.gender > 0}}"
+    class="ml-2 {{clsx(['if if-male text-blue-500', user.gender === 1], ['if if-female text-red-500', user.gender === 2])}}"/>
 </view>

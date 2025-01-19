@@ -16,49 +16,32 @@
  * https://github.com/jinganix/guess
  */
 
-import { Dispose } from "@helpers/types/types";
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { CacheKey } from "@modules/cache/cache.service";
 import { Comment } from "@modules/comment/comment.types";
 import { cacheService, userStore } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
-import { UserStore } from "@modules/user/user.store";
+import { observable, observe } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  moment: DataPiker.spread<Moment>(["userId", "reported"]),
-  store: DataPiker.spread<PopupOptionsScript>(["show"]),
-  userStore: DataPiker.align<UserStore>(["userId"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class PopupOptionsScript extends ComponentScript<Source> {
+export class PopupOptionsScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  cacheKey = "";
-  show = false;
+  @observable accessor cacheKey = "";
+  @observable accessor show = false;
+  @observable accessor moment: Moment | null = null;
+  @observable accessor userStore = userStore;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
+    observe(this, "cacheKey", ({ newValue }) => {
+      this.moment = newValue ? cacheService.getByKey<Moment>(newValue) : null;
+    });
   }
 
   classId(): string {
     return PopupOptionsScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return {
-      moment: (this.cacheKey && cacheService.getByKey(this.cacheKey)) || Moment.INSTANCE,
-      store: this,
-      userStore,
-    };
-  }
-
-  connect(): Dispose[] {
-    return [];
   }
 
   willUnmount(): void {
@@ -70,7 +53,6 @@ export class PopupOptionsScript extends ComponentScript<Source> {
   open(cacheKey: string): void {
     this.cacheKey = cacheKey;
     this.show = true;
-    this.addDisposes(super.connect(), "connect");
   }
 
   onClose(): void {

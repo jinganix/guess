@@ -2,8 +2,8 @@
 
 <view class="{{rootClass}}">
   <image
-    class="{{clsx(['bg-yellow-0', !avatar], iconClass)}}"
-    src="{{avatar || '../../assets/images/anonymous.png'}}"
+    class="{{clsx(['bg-yellow-0', !user.avatar], iconClass)}}"
+    src="{{user.avatar || '../../assets/images/anonymous.png'}}"
     bind:tap="tapAvatar"
   />
 </view>

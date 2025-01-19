@@ -19,38 +19,27 @@
 import { emitter } from "@helpers/event/emitter";
 import { httpService } from "@helpers/service/http.service";
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { RewardedVideoAd } from "@helpers/wx/wx.types";
-import { ConfigStore } from "@modules/config/config.store";
 import { components, configStore } from "@modules/container";
 import { PuzzleDetailScript } from "@pages/puzzle/detail/script";
 import { PuzzleIncreaseLimitRequest, PuzzleIncreaseLimitResponse } from "@proto/PuzzleProto";
+import { observable } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  configStore: DataPiker.align<ConfigStore>(["puzzleDailyLimit", "puzzleLimitIncrease"]),
-  store: DataPiker.spread<PuzzleLimitScript>(["show"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class PuzzleLimitScript extends ComponentScript<Source> {
+export class PuzzleLimitScript extends ComponentScript {
   static readonly CLASS_ID = classId();
   private _videoAd: RewardedVideoAd | null = null;
-  show = false;
+  @observable accessor show = false;
+  @observable accessor configStore = configStore;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
   }
 
   classId(): string {
     return PuzzleLimitScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { configStore, store: this };
   }
 
   willUnmount(): void {

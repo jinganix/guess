@@ -20,37 +20,25 @@ import { PopoverShareScript } from "@comps/popup-share/script";
 import { UserEditScript } from "@comps/user-edit/script";
 import { Pages } from "@helpers/const";
 import { classId, formatUrl } from "@helpers/utils/utils";
-import { ScriptedPage } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
-import { ConfigStore } from "@modules/config/config.store";
+import { ScriptedPage } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { appService, components, configStore, userExtraStore, userStore } from "@modules/container";
-import { UserExtraStore } from "@modules/user/user.extra.store";
-import { UserStore } from "@modules/user/user.store";
 import { MomentCategory } from "@proto/MomentProto";
+import { observable } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  configStore: DataPiker.align<ConfigStore>(["adCustomMe"]),
-  userExtraStore: DataPiker.align<UserExtraStore>(["follow", "moment"]),
-  userStore: DataPiker.align<UserStore>(["userId"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class UserDetailScript extends ComponentScript<Source> {
+export class UserDetailScript extends ComponentScript {
   static readonly CLASS_ID = classId();
+  @observable accessor configStore = configStore;
+  @observable accessor userExtraStore = userExtraStore;
+  @observable accessor userStore = userStore;
 
   constructor(comp: ScriptedPage) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
   }
 
   classId(): string {
     return UserDetailScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { configStore, userExtraStore, userStore };
   }
 
   didMount(): void {

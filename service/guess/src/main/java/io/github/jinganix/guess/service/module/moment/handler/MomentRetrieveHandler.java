@@ -41,7 +41,7 @@ public class MomentRetrieveHandler {
 
   public MomentRetrieveResponse handle(Long userId, MomentRetrieveRequest request) {
     Moment moment = momentService.assertFindMoment(request.getId());
-    MomentAction action = momentActionRepository.findById(moment.getId()).orElse(null);
+    MomentAction action = momentActionRepository.findByUserIdAndMomentId(userId, moment.getId());
     int answer = Objects.equals(moment.getUserId(), userId) ? moment.getAnswer() : 0;
     return new MomentRetrieveResponse(momentMapper.mapToPb(moment, action, answer));
   }

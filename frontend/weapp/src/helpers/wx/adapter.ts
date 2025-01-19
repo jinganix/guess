@@ -17,25 +17,18 @@
  */
 
 import { cast } from "@helpers/utils/utils";
+import { ScriptedComponent, ScriptedPage } from "@helpers/wx/adapter.types";
 import { ComponentScript } from "@helpers/wx/component.script";
 import {
   BehaviorOption,
-  CompData,
-  CompDataOption,
-  CompInstanceMethods,
-  CompInstanceProperties,
   CompLifetimes,
   CompOptions,
-  CompOtherOption,
   CustomOption,
   FullProperty,
   ICustomShareContent,
   ICustomTimelineContent,
   MethodOption,
-  PageData,
   PageDataOption,
-  PageInstanceMethods,
-  PageInstanceProperties,
   PageLifetimes,
   PageOptions,
   PropertyOption,
@@ -80,7 +73,7 @@ export function componentMethods<T extends ComponentScript>(
       data[key] = property.value;
       const methodName = `observe${key.charAt(0).toUpperCase() + key.slice(1)}`;
       methods[methodName] = function (this: Script, newVal: unknown): unknown {
-        return this.script.onPropertyChanged(key, newVal);
+        return this.script.onPropertyChange(key, newVal);
       };
     }
   }
@@ -101,36 +94,6 @@ export function pageMethods<T extends ComponentScript>(obj: { prototype: T }): M
   };
 }
 
-interface ScriptOption<T extends ComponentScript> {
-  script: T;
-}
-
-export interface ScriptedPage<TScript = ComponentScript>
-  extends PageData<PageDataOption>,
-    PageLifetimes,
-    PageInstanceProperties,
-    PageInstanceMethods<PageDataOption>,
-    ScriptOption<TScript> {}
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging,@typescript-eslint/no-unused-vars
-export class ScriptedPage<TScript extends ComponentScript> {}
-
-interface Properties {
-  properties: PropertyOption;
-}
-
-export interface ScriptedComponent<TScript = ComponentScript>
-  extends CompData<CompDataOption>,
-    CompLifetimes,
-    CompOtherOption,
-    CompInstanceProperties,
-    CompInstanceMethods<CompDataOption>,
-    Properties,
-    ScriptOption<TScript> {}
-
-// eslint-disable-next-line @typescript-eslint/no-unsafe-declaration-merging,@typescript-eslint/no-unused-vars
-export class ScriptedComponent<TScript extends ComponentScript> {}
-
 export function componentLifetimes<T extends ComponentScript>(
   factory: (comp: ScriptedComponent<T>) => T,
   properties?: PropertyOption,
@@ -138,9 +101,10 @@ export function componentLifetimes<T extends ComponentScript>(
   return {
     attached(this: ScriptedComponent<T>) {
       this.script = factory(this);
+      this.script.observe();
       if (properties) {
-        Object.keys(properties).map((x) =>
-          this.script.onPropertyChanged(x, this.data ? this.data[x] : undefined),
+        Object.keys(properties).forEach((x) =>
+          this.script.onPropertyChange(x, this.data ? this.data[x] : undefined),
         );
       }
       this.script.didMount();
@@ -158,6 +122,7 @@ export function pageLifetimes<T extends ComponentScript>(
   return {
     onLoad(this: ScriptedPage<T>, query?: Record<string, string | undefined>) {
       this.script = factory(this);
+      this.script.observe();
       this.script.didMount(query);
     },
 
@@ -173,7 +138,7 @@ export function defaultComponent<T extends ComponentScript>(
   properties?: PropertyOption,
 ): CompOptions<PageDataOption, PropertyOption, MethodOption, BehaviorOption> {
   return {
-    data: factory(cast({})).initData(properties && Object.keys(properties)),
+    data: factory(cast(null)).defaultData(properties && Object.keys(properties)),
 
     lifetimes: componentLifetimes(factory, properties),
 
@@ -192,7 +157,7 @@ export function defaultPage<T extends ComponentScript>(
   factory: (comp: ScriptedPage<T>) => T,
 ): PageOptions<PageDataOption, CustomOption> {
   return {
-    data: factory(cast({})).initData(),
+    data: factory(cast(null)).defaultData(),
 
     ...pageLifetimes(factory),
 

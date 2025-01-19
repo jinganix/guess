@@ -2,13 +2,13 @@
 
 <view class="px-4 pt-4">
   <view class="flex">
-    <avatar userId="{{userId}}" root-class="w-12 h-12"/>
+    <avatar userId="{{moment.userId}}" root-class="w-12 h-12"/>
     <view class="flex-1 ml-2 flex flex-col justify-between">
-      <name-gender userId="{{userId}}"/>
+      <name-gender userId="{{moment.userId}}"/>
 
       <view class="flex justify-between items-center">
         <view class="text-xs text-grey-2">
-          {{created}}
+          {{moment.created}}
         </view>
 
         <more-options cacheKey="{{cacheKey}}"/>
@@ -17,22 +17,22 @@
   </view>
 
   <view class="mt-4 px-4 text-base text-grey-0">
-    {{content}}
+    {{moment.content}}
   </view>
 
-  <block wx:if="{{options.length > 0}}">
-    <view wx:if="{{correct}}" class="mt-4 grid grid-cols-2 gap-2">
+  <block wx:if="{{moment.options.length > 0}}">
+    <view wx:if="{{moment.correct}}" class="mt-4 grid grid-cols-2 gap-2">
       <view
-        wx:for="{{options}}"
+        wx:for="{{moment.options}}"
         wx:key="*this"
-        class="text-center p-1 nested-border nested-clip-tr-8 {{clsx(['font-bold bg-yellow-0', index + 1 === answer], ['bg-yellow-0/30', index + 1 !== answer])}}"
+        class="text-center p-1 nested-border nested-clip-tr-8 {{clsx(['font-bold bg-yellow-0', index + 1 === moment.answer], ['bg-yellow-0/30', index + 1 !== moment.answer])}}"
       >
         {{item}}
       </view>
     </view>
     <view wx:else class="mt-4 grid grid-cols-2 gap-2">
       <button
-        wx:for="{{options}}"
+        wx:for="{{moment.options}}"
         wx:key="*this"
         class="text-center p-1 text-base bg-yellow-0 nested-border nested-clip-tr-8"
         catch:tap="tapAnswer"

@@ -1,11 +1,11 @@
 <wxs src="../../wxs/clsx.wxs" module="clsx"/>
 
 <view
-  class="{{clsx(['text-yellow-0', followed], ['text-grey-2', !followed], 'flex items-center justify-center')}}"
+  class="{{clsx(['text-yellow-0', item.followed], ['text-grey-2', !item.followed], 'flex items-center justify-center')}}"
   catch:tap="tapIcon">
   <view
-    class="text-xl {{clsx(['if if-star-fill', followed], ['if if-star-line', !followed])}}"/>
+    class="text-xl {{clsx(['if if-star-fill', item.followed], ['if if-star-line', !item.followed])}}"/>
   <view class="ml-1 text-sm">
-    {{follow}}
+    {{item.follow}}
   </view>
 </view>

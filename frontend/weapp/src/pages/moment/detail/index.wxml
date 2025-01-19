@@ -1,12 +1,12 @@
 <view wx:if="{{!loading}}" class="flex flex-col justify-center">
   <view class="bg-yellow-0 w-full h-32">
     <view class="bg-white mx-4 min-h-full mt-8 clip-tr-12">
-      <moment-detail cache-key="{{cacheKey}}"/>
+      <moment-detail cache-key="{{moment.cacheKey}}"/>
 
       <view class="mt-2 py-1 grid grid-cols-3 border-t border-grey-3/50">
-        <icon-follow cache-key="{{cacheKey}}"/>
-        <icon-comment cache-key="{{cacheKey}}"/>
-        <icon-like cache-key="{{cacheKey}}"/>
+        <icon-follow cache-key="{{moment.cacheKey}}"/>
+        <icon-comment cache-key="{{moment.cacheKey}}"/>
+        <icon-like cache-key="{{moment.cacheKey}}"/>
       </view>
     </view>
 
@@ -16,10 +16,10 @@
 
     <view class="m-4 py-4 bg-white">
       <view class="text-sm text-black-1 font-bold pb-2 px-4">
-        {{comment}}条评论
+        {{moment.comment}}条评论
       </view>
 
-      <comment-list cacheKey="{{cacheKey}}"/>
+      <comment-list cacheKey="{{moment.cacheKey}}"/>
     </view>
   </view>
 </view>

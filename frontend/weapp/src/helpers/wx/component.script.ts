@@ -17,74 +17,54 @@
  */
 
 import { Dispose } from "@helpers/types/types";
-import { ScriptedComponent, ScriptedPage } from "@helpers/wx/adapter";
-import { Connector, publicKeys } from "@helpers/wx/connect";
+import { ScriptedComponent, ScriptedPage } from "@helpers/wx/adapter.types";
+import { Observer } from "@helpers/wx/observer";
+import { pickObservable } from "@helpers/wx/pick.obervable";
 import { components } from "@modules/container";
-import { fromPairs, omit } from "lodash";
-import { AnnotationsMap, makeObservable, observable } from "mobx";
+import { omit } from "lodash";
 
-export function makePublicObservable<T extends object>(obj: T): AnnotationsMap<T, never> {
-  return makeObservable(
-    obj,
-    fromPairs(publicKeys(obj).map((x) => [x, observable])) as AnnotationsMap<T, never>,
-  );
-}
-
-export abstract class ComponentScript<Source = object> {
+export abstract class ComponentScript {
   private static COUNTER = 1;
   private _disposes: Record<string, Dispose[]> = {};
   _scriptId = 1;
   _comp: ScriptedPage | ScriptedComponent;
-  _connector?: Connector<Source>;
+  _observer: Observer;
+  _picks: string[] = [];
 
-  protected constructor(comp: ScriptedPage | ScriptedComponent, connector?: Connector<Source>) {
+  protected constructor(comp: ScriptedPage | ScriptedComponent, picks: string[]) {
     this._scriptId = ComponentScript.COUNTER++;
     this._comp = comp;
-    this._connector = connector;
+    this._picks = picks;
+    this._observer = new Observer((path: string, value: unknown) => {
+      this._comp.setData({ [path]: value });
+    }, this._picks);
   }
 
-  onPropertyChanged(key: string, value: unknown): void {
-    if ((this as Record<string, unknown>)[key] !== value) {
-      (this as Record<string, unknown>)[key] = value;
-    }
-  }
-
-  addDisposes(disposes: Dispose[], key?: string): void {
-    if (key) {
-      const values = this._disposes[key] || [];
-      values.forEach((x) => x());
-      this._disposes[key] = disposes;
-    } else {
-      this._disposes[""] || (this._disposes[""] = []);
-      this._disposes[""].push(...disposes);
-    }
+  onPropertyChange(key: string, value: unknown): void {
+    const obj = this as Record<string, unknown>;
+    obj[key] = value;
   }
 
   abstract classId(): string;
 
-  abstract source(): Source;
-
-  initData(excludes?: string[]): Record<string, unknown> {
-    if (!this._connector) {
-      return {};
-    }
-    const data = this._connector.pick(this.source());
+  defaultData(excludes?: string[]): Record<string, unknown> {
+    const data = pickObservable(this, this._picks);
     return excludes && excludes.length ? omit(data, excludes) : data;
   }
 
-  connect(): Dispose[] {
-    return this._connector?.connect((x) => this._comp.setData(x), this.source(), true) ?? [];
+  observe(): void {
+    this._observer.observe(this);
   }
 
   didMount(_query?: Record<string, string | undefined>): void {
-    components.set(this as ComponentScript);
-    this.addDisposes(this.connect());
+    components.set(this);
   }
 
   willUnmount(): void {
-    components.remove(this as ComponentScript);
+    components.remove(this);
     Object.values(this._disposes).map((v) => v.map((x) => x()));
     this._disposes = {};
+    this._observer.dispose();
   }
 
   get scriptId(): number {

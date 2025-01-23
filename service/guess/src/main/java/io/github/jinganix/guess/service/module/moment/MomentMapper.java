@@ -20,7 +20,7 @@ package io.github.jinganix.guess.service.module.moment;
 
 import io.github.jinganix.guess.proto.service.moment.MomentActionPb;
 import io.github.jinganix.guess.proto.service.moment.MomentCreateRequest;
-import io.github.jinganix.guess.proto.service.moment.MomentFacadePb;
+import io.github.jinganix.guess.proto.service.moment.MomentDetailPb;
 import io.github.jinganix.guess.proto.service.moment.MomentPb;
 import io.github.jinganix.guess.service.module.moment.model.Moment;
 import io.github.jinganix.guess.service.module.moment.model.MomentAction;
@@ -41,7 +41,7 @@ public abstract class MomentMapper {
   public abstract MomentPb mapToPb(Moment moment);
 
   @Mapping(target = "answer", source = "answer")
-  public abstract MomentFacadePb mapToPb(Moment moment, MomentAction action, int answer);
+  public abstract MomentDetailPb mapToPb(Moment moment, MomentAction action, int answer);
 
   public abstract void update(@MappingTarget Moment moment, MomentCreateRequest request);
 }

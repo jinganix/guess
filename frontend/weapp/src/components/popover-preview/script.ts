@@ -17,32 +17,22 @@
  */
 
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
+import { observable } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  store: DataPiker.spread<PopoverPreviewScript>(["show"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class PopoverPreviewScript extends ComponentScript<Source> {
+export class PopoverPreviewScript extends ComponentScript {
   static readonly CLASS_ID = classId();
   private _timer = 0;
-  show = false;
+  @observable accessor show = false;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
   }
 
   classId(): string {
     return PopoverPreviewScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { store: this };
   }
 
   open(): void {

@@ -17,13 +17,15 @@
         class="flex justify-center items-center flex-1 bg-yellow-0 nested-border nested-clip-tr-8 text-grey-0 text-base py-2"
         catch:tap="tapRepo"
       >
-        <text class="mr-1 if if-file-copy-2-fill"/>项目源码
+        <text class="mr-1 if if-file-copy-2-fill"/>
+        项目源码
       </view>
       <view
         class="flex justify-center items-center flex-1 bg-yellow-0 clip-tr-8 text-grey-0 text-base py-2"
         catch:tap="tapInvite"
       >
-        <text class="mr-1 if if-share-forward-line"/>邀请猜题
+        <text class="mr-1 if if-share-forward-line"/>
+        邀请猜题
       </view>
     </view>
 

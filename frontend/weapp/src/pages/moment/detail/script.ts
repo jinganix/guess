@@ -21,51 +21,30 @@ import { CommentListScript } from "@comps/comment-list/script";
 import { tryInitializeModules } from "@helpers/module/module.initializer";
 import { Replay } from "@helpers/promise/replay";
 import { httpService } from "@helpers/service/http.service";
-import { Dispose } from "@helpers/types/types";
 import { classId } from "@helpers/utils/utils";
-import { ScriptedPage } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedPage } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { TappedEvent } from "@helpers/wx/wx.types";
-import { ConfigStore } from "@modules/config/config.store";
 import { cacheService, components, configStore } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
 import { MomentRetrieveRequest, MomentRetrieveResponse } from "@proto/MomentProto";
+import { observable } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  configStore: DataPiker.align<ConfigStore>(["adCustomMomentDetail"]),
-  moment: DataPiker.spread<Moment>(["cacheKey", "comment"]),
-  store: DataPiker.spread<MomentDetailScript>(["loading"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class MomentDetailScript extends ComponentScript<Source> {
+export class MomentDetailScript extends ComponentScript {
   static readonly CLASS_ID = classId();
   replay: Replay<void> = new Replay<void>();
-  loading = true;
-  momentId = "";
-  moment: Moment | null = null;
+  @observable accessor loading = true;
+  @observable accessor momentId = "";
+  @observable accessor moment: Moment | null = null;
+  @observable accessor configStore = configStore;
 
   constructor(comp: ScriptedPage) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
   }
 
   classId(): string {
     return MomentDetailScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return {
-      configStore,
-      moment: this.moment || Moment.INSTANCE,
-      store: this,
-    };
-  }
-
-  connect(): Dispose[] {
-    return [];
   }
 
   didMount({ momentId }: { momentId: string }): void {
@@ -100,7 +79,6 @@ export class MomentDetailScript extends ComponentScript<Source> {
       }
     });
     this.loading = false;
-    this.addDisposes(super.connect(), "connect");
   }
 
   onDeleted(momentId: string): void {

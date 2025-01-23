@@ -18,43 +18,29 @@
 
 import { httpService } from "@helpers/service/http.service";
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { CacheKey } from "@modules/cache/cache.service";
 import { Comment } from "@modules/comment/comment.types";
 import { CommentListRequest, CommentListResponse, ICommentFacadePb } from "@proto/CommentProto";
+import { observable, observe } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  store: DataPiker.spread<CommentListScript>(["cacheKeys", "loading", "more"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class CommentListScript extends ComponentScript<Source> {
+export class CommentListScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  cacheKey = "";
-  loading = true;
-  more = true;
-  comments: Comment[] = [];
-  cacheKeys: string[] = [];
+  @observable accessor cacheKey = "";
+  @observable accessor loading = true;
+  @observable accessor more = true;
+  @observable accessor comments: Comment[] = [];
+  @observable accessor cacheKeys: string[] = [];
 
   constructor(comp: ScriptedComponent) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
+    observe(this, "cacheKey", () => void this.fetchData(true));
   }
 
   classId(): string {
     return CommentListScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { store: this };
-  }
-
-  didMount(): void {
-    super.didMount();
-    void this.fetchData(true);
   }
 
   async fetchData(reset: boolean): Promise<void> {

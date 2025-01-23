@@ -17,7 +17,7 @@
  */
 
 import { PopoverPreviewScript } from "@comps/popover-preview/script";
-import { PageDataOption, MethodOption, PropertyOption, BehaviorOption } from "@helpers/wx/wx.types";
+import { BehaviorOption, MethodOption, PageDataOption, PropertyOption } from "@helpers/wx/wx.types";
 import { components } from "@modules/container";
 
 Component<PageDataOption, PropertyOption, MethodOption, BehaviorOption>({

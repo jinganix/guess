@@ -23,7 +23,7 @@ import { CacheKey } from "@modules/cache/cache.service";
 import { CacheItem } from "@modules/cache/cache.types";
 import { cacheService, userExtraStore, userStore } from "@modules/container";
 import {
-  IMomentFacadePb,
+  IMomentDetailPb,
   MomentAnswerRequest,
   MomentAnswerResponse,
   MomentDeleteRequest,
@@ -40,7 +40,6 @@ import { makeAutoObservable } from "mobx";
 
 export class Moment implements CacheItem {
   static readonly CLASS_ID = classId();
-  static readonly INSTANCE = new Moment();
   cacheKey = "";
   id = "";
   userId = "";
@@ -66,7 +65,7 @@ export class Moment implements CacheItem {
     return CacheKey.fromType(Moment, this.id);
   }
 
-  static fromPb(pb: IMomentFacadePb): Moment {
+  static fromPb(pb: IMomentDetailPb): Moment {
     return cacheService.getOrCreate(Moment, pb.moment.id).update(pb);
   }
 
@@ -74,7 +73,7 @@ export class Moment implements CacheItem {
     Object.assign(this, moment);
   }
 
-  update({ moment, action, answer }: IMomentFacadePb): Moment {
+  update({ moment, action, answer }: IMomentDetailPb): Moment {
     this.id = moment.id;
     this.cacheKey = this.toKey().toString();
     this.userId = moment.userId;

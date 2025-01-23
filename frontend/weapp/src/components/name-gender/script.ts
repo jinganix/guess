@@ -18,47 +18,31 @@
 
 import { cn } from "@helpers/utils/cn";
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { cacheService } from "@modules/container";
 import { User } from "@modules/user/user.types";
+import { intercept, observable, observe } from "mobx";
+import { PICKS } from "./pick";
 
-const NAME_CLASS = "text-base font-bold text-grey-0";
-
-const CONNECTOR = new Connector({
-  store: DataPiker.spread<NameGenderScript>(["nameClass"]),
-  user: DataPiker.spread<User>(["nickname", "gender"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class NameGenderScript extends ComponentScript<Source> {
+export class NameGenderScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  userId = "";
-  nameClass = "";
+  @observable accessor userId = "";
+  @observable accessor user: User | null = null;
+  @observable accessor nameClass = "";
 
   constructor(comp: ScriptedComponent) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
+    intercept(this, "nameClass", (change) => {
+      change.newValue = cn("text-base font-bold text-grey-0", change.newValue);
+      return change;
+    });
+    observe(this, "userId", ({ newValue }) => {
+      this.user = newValue ? cacheService.get(User, newValue) : null;
+    });
   }
 
   classId(): string {
     return NameGenderScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return {
-      store: this,
-      user: (this.userId && cacheService.get(User, this.userId)) || User.INSTANCE,
-    };
-  }
-
-  onPropertyChanged<K extends keyof NameGenderScript>(key: K, value: NameGenderScript[K]): void {
-    if (key === "nameClass") {
-      this.nameClass = cn(NAME_CLASS, value);
-    } else {
-      super.onPropertyChanged(key, value);
-    }
   }
 }

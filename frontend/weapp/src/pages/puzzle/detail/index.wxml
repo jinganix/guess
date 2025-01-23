@@ -1,8 +1,9 @@
 <wxs src="../../../wxs/clsx.wxs" module="clsx"/>
 
 <block wx:if="{{!configStore.preview}}">
-  <view wx:if="{{!store.loading}}" class="flex flex-col justify-center">
-    <block wx:if="{{!store.content}}">
+
+  <view wx:if="{{!loading}}" class="flex flex-col justify-center">
+    <block wx:if="{{!content}}">
       <view class="bg-white clip-tr-12 p-4 mt-4 mx-4 text-lg text-grey-0">
         您已完成所有题目，敬请期待更多！
       </view>
@@ -14,21 +15,21 @@
 
     <view wx:else class="bg-yellow-0 w-full h-28">
       <view class="mt-4 mx-8 flex justify-between">
-        <view class="text-base text-black-1 font-bold text-left">题目{{store.id}}</view>
+        <view class="text-base text-black-1 font-bold text-left">题目{{id}}</view>
         <view class="flex items-center text-grey-0 font-bold">
           <view class="if if-flashlight-fill text-base"></view>
-          <view class="text-base">{{store.limit}}</view>
+          <view class="text-base">{{limit}}</view>
         </view>
       </view>
 
       <view class="bg-white clip-tr-12 p-4 mt-4 mx-4">
         <view class="text-base text-grey-0">
-          {{store.content}}
+          {{content}}
         </view>
 
         <view class="flex flex-col items-center">
           <van-image
-            wx:for="{{store.images}}"
+            wx:for="{{images}}"
             wx:key="index"
             src="{{item}}"
             class="mt-4"
@@ -40,7 +41,7 @@
 
       <view class="mt-4 px-4 grid grid-cols-2 gap-2">
         <button
-          wx:for="{{store.options}}"
+          wx:for="{{options}}"
           wx:key="index"
           class="text-center py-1 text-base bg-yellow-0 nested-border nested-clip-tr-8"
           catch:tap="tapAnswer"
@@ -55,13 +56,15 @@
           class="bg-yellow-0 text-grey-0 clip-tr-8 text-sm py-2 px-4 flex items-center"
           catch:tap="tapHint"
         >
-          <text class="mr-1 if if-question-fill"></text>答案提示
+          <text class="mr-1 if if-question-fill"></text>
+          答案提示
         </button>
         <button
           class="bg-yellow-0 text-grey-0 clip-tr-8 text-sm py-2 px-4 flex items-center"
           catch:tap="tapRanking"
         >
-          <text class="mr-1 if if-trophy-fill"></text>排行榜
+          <text class="mr-1 if if-trophy-fill"></text>
+          排行榜
         </button>
 
         <view class="flex items-center">
@@ -86,7 +89,7 @@
     </view>
   </view>
 
-  <view wx:if="{{store.loading}}" class="flex flex-col justify-center">
+  <view wx:if="{{loading}}" class="flex flex-col justify-center">
     <view class="bg-yellow-0 w-full h-32">
       <view class="animate-pulse bg-grey-3 h-8 w-48 m-4"></view>
 

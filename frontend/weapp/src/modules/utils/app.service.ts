@@ -31,11 +31,6 @@ export class AppService {
   }
 
   share(route: string): ICustomShareContent | void {
-    console.log({
-      imageUrl: `${relativePrefix(route)}assets/images/puzzle.png`,
-      path: `${Pages.PUZZLE_DETAIL}`,
-      title: "看图猜成语",
-    });
     return {
       imageUrl: `${relativePrefix(route)}assets/images/puzzle.png`,
       path: `${Pages.PUZZLE_DETAIL}`,

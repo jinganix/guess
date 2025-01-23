@@ -36,7 +36,6 @@ import { makeAutoObservable } from "mobx";
 
 export class Comment implements CacheItem {
   static readonly CLASS_ID = classId();
-  static readonly INSTANCE = new Comment();
   cacheKey = "";
   id = "";
   momentId = "";

@@ -18,25 +18,22 @@
 
 import { PopupOptionsScript } from "@comps/popup-options/script";
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { components } from "@modules/container";
+import { observable } from "mobx";
+import { PICKS } from "./pick";
 
 export class MoreOptionsScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  cacheKey = "";
+  @observable accessor cacheKey = "";
 
   constructor(comp: ScriptedComponent) {
-    super(comp);
-    makePublicObservable(this);
+    super(comp, PICKS);
   }
 
   classId(): string {
     return MoreOptionsScript.CLASS_ID;
-  }
-
-  source(): object {
-    return {};
   }
 
   tapDots(): void {

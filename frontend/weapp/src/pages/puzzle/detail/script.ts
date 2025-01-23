@@ -24,11 +24,9 @@ import { tryInitializeModules } from "@helpers/module/module.initializer";
 import { Replay } from "@helpers/promise/replay";
 import { httpService } from "@helpers/service/http.service";
 import { classId, trimContent } from "@helpers/utils/utils";
-import { ScriptedPage } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedPage } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { InterstitialAd, TappedEvent } from "@helpers/wx/wx.types";
-import { ConfigStore } from "@modules/config/config.store";
 import { components, configStore } from "@modules/container";
 import {
   IPuzzlePb,
@@ -37,36 +35,27 @@ import {
   PuzzleRetrieveRequest,
   PuzzleRetrieveResponse,
 } from "@proto/PuzzleProto";
+import { observable } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  configStore: DataPiker.align<ConfigStore>(["adCustomPuzzleReply", "preview"]),
-  store: DataPiker.align<PuzzleDetailScript>(DataPiker.ALL),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class PuzzleDetailScript extends ComponentScript<Source> {
+export class PuzzleDetailScript extends ComponentScript {
   static readonly CLASS_ID = classId();
   private _replay: Replay<void> = new Replay<void>();
   private _interstitialAd: InterstitialAd | null = null;
-  loading = true;
-  id = 0;
-  content = "";
-  images: string[] = [];
-  options: string[] = [];
-  limit = 0;
+  @observable accessor loading = true;
+  @observable accessor id = 0;
+  @observable accessor content = "";
+  @observable accessor images: string[] = [];
+  @observable accessor options: string[] = [];
+  @observable accessor limit = 0;
+  @observable accessor configStore = configStore;
 
-  constructor(page: ScriptedPage<PuzzleDetailScript>) {
-    super(page, CONNECTOR);
-    makePublicObservable(this);
+  constructor(comp: ScriptedPage<PuzzleDetailScript>) {
+    super(comp, PICKS);
   }
 
   classId(): string {
     return PuzzleDetailScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { configStore, store: this };
   }
 
   didMount(): void {

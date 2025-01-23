@@ -30,7 +30,6 @@ function randName(id: string): string {
 
 export class User implements CacheItem {
   static readonly CLASS_ID = classId();
-  static readonly INSTANCE = new User();
   cacheKey = "";
   id = "";
   avatar = "";
@@ -60,7 +59,7 @@ export class User implements CacheItem {
   }
 
   update(pb: IUserPb): User {
-    this.id = pb.id;
+    this.id = pb.id ?? "";
     this.cacheKey = this.toKey().toString();
     this.avatar = pb.avatar ?? "";
     this.gender = pb.gender ?? 0;

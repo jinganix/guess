@@ -1,6 +1,6 @@
-<block wx:if="{{!store.loading}}">
+<block wx:if="{{!loading}}">
   <block
-    wx:for="{{store.rankings}}"
+    wx:for="{{rankings}}"
     wx:key="userId"
     data-item="{{item}}"
   >
@@ -23,8 +23,8 @@
     </view>
   </block>
 
-  <view wx:if="{{configStore.adCustomPuzzleRanking && store.rankings.length < 3}}"
-    class="mx-4 mt-2">
+  <view wx:if="{{configStore.adCustomPuzzleRanking && rankings.length < 3}}"
+        class="mx-4 mt-2">
     <ad-custom unit-id="{{configStore.adCustomPuzzleRanking}}" ad-intervals="30"/>
   </view>
 
@@ -33,7 +33,7 @@
   </view>
 </block>
 
-<view wx:if="{{store.loading}}" class="flex flex-col justify-center">
+<view wx:if="{{loading}}" class="flex flex-col justify-center">
   <view wx:for="{{3}}" wx:key="index" class="flex bg-white mx-4 p-4 mt-4 items-center">
     <view class="animate-pulse bg-grey-3/50 h-10 w-8"></view>
     <view class="animate-pulse bg-grey-3/50 h-16 w-16 ml-4"></view>

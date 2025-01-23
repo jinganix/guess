@@ -18,7 +18,6 @@
 
 import { cast } from "@helpers/utils/utils";
 import { PuzzleDetailScript } from "@pages/puzzle/detail/script";
-import { configStore } from "../../../modules/container";
 
 describe("PuzzleDetailScript", () => {
   beforeEach(() => jest.useFakeTimers());
@@ -28,19 +27,8 @@ describe("PuzzleDetailScript", () => {
   describe("classId", () => {
     describe("when called", () => {
       it("then return a class Id", () => {
-        const script = new PuzzleDetailScript(cast({}));
+        const script = new PuzzleDetailScript(cast(null));
         expect(script.classId()).not.toBeNull();
-      });
-    });
-  });
-
-  describe("source", () => {
-    describe("when called", () => {
-      it("then return", () => {
-        const script = new PuzzleDetailScript(cast({}));
-        const source = script.source();
-        expect(source.configStore).toEqual(configStore);
-        expect(source.store).toEqual(script);
       });
     });
   });

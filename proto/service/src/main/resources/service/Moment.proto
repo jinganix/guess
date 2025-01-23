@@ -52,12 +52,6 @@ message MomentPb {
   required int64 createdAt = 12;
 }
 
-message MomentFacadePb {
-  required MomentPb moment = 1;
-  required MomentActionPb action = 2;
-  required int32 answer = 3;
-}
-
 message MomentDetailPb {
   required MomentPb moment = 1;
   required MomentActionPb action = 2;
@@ -77,7 +71,7 @@ message MomentListRequest {
 
 message MomentListResponse {
   required bool more = 1;
-  repeated MomentFacadePb moments = 2;
+  repeated MomentDetailPb moments = 2;
 }
 
 message MomentDeleteRequest {
@@ -107,7 +101,7 @@ message MomentCreateRequest {
 }
 
 message MomentCreateResponse {
-  required MomentFacadePb moment = 1;
+  required MomentDetailPb moment = 1;
 }
 
 message MomentRetrieveRequest {
@@ -120,7 +114,7 @@ message MomentRetrieveRequest {
 }
 
 message MomentRetrieveResponse {
-  required MomentFacadePb moment = 1;
+  required MomentDetailPb moment = 1;
 }
 
 message MomentAnswerRequest {

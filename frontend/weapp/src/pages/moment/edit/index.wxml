@@ -13,15 +13,15 @@
         auto-height="true"
       />
       <view class="w-full text-right text-sm text-grey-1">
-        {{store.content.length}}/140
+        {{content.length}}/140
       </view>
     </view>
 
     <view class="mt-4 px-6">
-      <van-collapse value="{{ store.activeNames }}" catch:change="onCollapse">
+      <van-collapse value="{{activeNames}}" catch:change="onCollapse">
         <van-collapse-item title="编辑问题（可选）" name="1">
           <view
-            wx:for="{{store.optionKeys}}"
+            wx:for="{{optionKeys}}"
             wx:key="*this"
             class="flex items-center border-b border-grey-3/50 last:border-0 p-2"
           >
@@ -29,19 +29,19 @@
               class="text-base flex-1 h-8 pr-4 text-grey-0"
               catch:input="onInputOption"
               data-key="{{item}}"
-              data-len="{{store.optionLen}}"
+              data-len="{{optionLen}}"
               placeholder="{{'请输入选项' + (index + 1) + '...'}}"
-              value="{{store.options[item]}}"
+              value="{{options[item]}}"
             />
-            <view class="text-grey-1 text-base">{{store.options[item].length || 0}}/{{store.optionLen}}</view>
+            <view class="text-grey-1 text-base">{{options[item].length || 0}}/{{optionLen}}</view>
           </view>
 
           <view class="mt-4 mx-4 flex items-center">
             <view class="mr-4 text-base text-grey-0">答案：</view>
             <van-dropdown-menu custom-class="dropdown" direction="up">
               <van-dropdown-item
-                value="{{store.answer}}"
-                options="{{store.answers}}"
+                value="{{answer}}"
+                options="{{answers}}"
                 catch:change="onDropdownChange"
               />
             </van-dropdown-menu>

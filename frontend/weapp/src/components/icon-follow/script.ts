@@ -17,33 +17,27 @@
  */
 
 import { classId } from "@helpers/utils/utils";
-import { ScriptedComponent } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedComponent } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { cacheService } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
+import { observable, observe } from "mobx";
+import { PICKS } from "./pick";
 
-const CONNECTOR = new Connector({
-  moment: DataPiker.spread<Moment>(["follow", "followed"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class IconFollowScript extends ComponentScript<Source> {
+export class IconFollowScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  cacheKey = "";
+  @observable accessor cacheKey = "";
+  @observable accessor item: Moment | null = null;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
+    observe(this, "cacheKey", ({ newValue }) => {
+      this.item = newValue ? cacheService.getByKey<Moment>(this.cacheKey) : null;
+    });
   }
 
   classId(): string {
     return IconFollowScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { moment: (this.cacheKey && cacheService.getByKey(this.cacheKey)) || Moment.INSTANCE };
   }
 
   async tapIcon(): Promise<void> {

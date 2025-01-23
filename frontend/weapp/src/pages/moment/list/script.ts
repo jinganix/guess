@@ -20,22 +20,22 @@ import { Pages } from "@helpers/const";
 import { tryInitializeModules } from "@helpers/module/module.initializer";
 import { httpService } from "@helpers/service/http.service";
 import { classId, formatUrl } from "@helpers/utils/utils";
-import { ScriptedPage } from "@helpers/wx/adapter";
-import { ComponentScript, makePublicObservable } from "@helpers/wx/component.script";
-import { Connector, DataPiker, SourceType } from "@helpers/wx/connect";
+import { ScriptedPage } from "@helpers/wx/adapter.types";
+import { ComponentScript } from "@helpers/wx/component.script";
 import { TappedEvent } from "@helpers/wx/wx.types";
 import { CacheKey } from "@modules/cache/cache.service";
-import { ConfigStore } from "@modules/config/config.store";
 import { configStore } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
 import {
-  IMomentFacadePb,
+  IMomentDetailPb,
   MomentCategory,
   MomentListRequest,
   MomentListResponse,
   MomentStatus,
 } from "@proto/MomentProto";
 import { find } from "lodash";
+import { observable } from "mobx";
+import { PICKS } from "./pick";
 
 const CATEGORIES = {
   [MomentCategory.ALL]: "动态",
@@ -43,32 +43,21 @@ const CATEGORIES = {
   [MomentCategory.FOLLOWED]: "我的关注",
 };
 
-const CONNECTOR = new Connector({
-  configStore: DataPiker.align<ConfigStore>(["adCustomMomentList"]),
-  store: DataPiker.align<MomentListScript>(["loading", "moments", "more", "cacheKeys"]),
-});
-
-interface Source extends SourceType<typeof CONNECTOR> {}
-
-export class MomentListScript extends ComponentScript<Source> {
+export class MomentListScript extends ComponentScript {
   static readonly CLASS_ID = classId();
-  category = MomentCategory.ALL;
-  loading = true;
-  more = true;
-  moments: Moment[] = [];
-  cacheKeys: string[] = [];
+  @observable accessor category = MomentCategory.ALL;
+  @observable accessor loading = true;
+  @observable accessor more = true;
+  @observable accessor moments: Moment[] = [];
+  @observable accessor cacheKeys: string[] = [];
+  @observable accessor configStore = configStore;
 
   constructor(comp: ScriptedPage) {
-    super(comp, CONNECTOR);
-    makePublicObservable(this);
+    super(comp, PICKS);
   }
 
   classId(): string {
     return MomentListScript.CLASS_ID;
-  }
-
-  source(): Source {
-    return { configStore, store: this };
   }
 
   didMount({ category }: { category?: string }): void {
@@ -125,11 +114,11 @@ export class MomentListScript extends ComponentScript<Source> {
     this.cacheKeys = this.moments.map((x) => x.cacheKey);
   }
 
-  append(items: Moment[], pbs: IMomentFacadePb[]): void {
+  append(items: Moment[], pbs: IMomentDetailPb[]): void {
     this.updateMoments([...items, ...pbs.map((x) => Moment.fromPb(x))]);
   }
 
-  prepend(pb: IMomentFacadePb): void {
+  prepend(pb: IMomentDetailPb): void {
     this.updateMoments([Moment.fromPb(pb), ...this.moments]);
   }
 

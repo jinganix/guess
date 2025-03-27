@@ -31,7 +31,7 @@
     "@types/mini-css-extract-plugin": "^2.5.1",
     "@types/node": "^22.10.8",
     "@types/sax": "^1.2.7",
-    "@types/url-join": "^4.0.3",
+    "@types/url-join": "^5.0.0",
     "@types/webpack": "^5.28.5",
     "@typescript-eslint/eslint-plugin": "^8.21.0",
     "@typescript-eslint/parser": "^8.21.0",

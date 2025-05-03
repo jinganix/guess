@@ -1,6 +1,6 @@
 services:
   guess-mysql:
-    image: mysql:9.2.0
+    image: mysql:9.3.0
     command: --innodb-buffer-pool-size=32M --innodb_log_buffer_size=512K
     environment:
       MYSQL_ROOT_PASSWORD: root

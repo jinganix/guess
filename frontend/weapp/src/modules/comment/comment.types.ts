@@ -41,7 +41,7 @@ export class Comment implements CacheItem {
   momentId = "";
   content = "";
   userId = "";
-  toUserId? = "";
+  toUserId?: string | null = "";
   like = 0;
   liked = false;
   reported = false;

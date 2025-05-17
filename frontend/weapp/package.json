@@ -95,7 +95,7 @@
     "lodash": "^4.17.21",
     "lru-cache": "^11.1.0",
     "mobx": "^6.13.7",
-    "tailwind-merge": "^2.6.0",
+    "tailwind-merge": "^3.0.0",
     "webpb": "^0.0.24"
   }
 }

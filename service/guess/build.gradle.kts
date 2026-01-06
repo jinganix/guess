@@ -35,7 +35,7 @@ group = "io.github.jinganix.guess"
 version = "${versionWebpb}-SNAPSHOT"
 
 java {
-  sourceCompatibility = JavaVersion.VERSION_21
+  sourceCompatibility = JavaVersion.VERSION_24
 }
 
 dependencies {

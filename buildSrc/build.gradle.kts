@@ -7,7 +7,7 @@ plugins {
   `maven-publish`
 }
 
-val javaVersion = JavaVersion.VERSION_21
+val javaVersion = JavaVersion.VERSION_24
 
 java {
   sourceCompatibility = javaVersion

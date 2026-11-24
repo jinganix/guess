@@ -13,7 +13,7 @@
     "dev": "npm run clean && npm run proto && webpack --config webpack/webpack.config.ts --watch --progress --mode development --env dev",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "proto": "webpb generate -o generated/proto -I ../../proto/service/src/main/resources -I ../../proto/imports/src/main/resources ../../proto/service/src/main/resources/service/Auth.proto ../../proto/service/src/main/resources/service/Comment.proto ../../proto/service/src/main/resources/service/Error.proto ../../proto/service/src/main/resources/service/Moment.proto ../../proto/service/src/main/resources/service/Puzzle.proto ../../proto/service/src/main/resources/service/User.proto",
+    "proto": "webpb generate -o generated/proto -I ../../proto/api/src/main/resources -I ../../proto/imports/src/main/resources ../../proto/api/src/main/resources/service/Auth.proto ../../proto/api/src/main/resources/service/Comment.proto ../../proto/api/src/main/resources/service/Error.proto ../../proto/api/src/main/resources/service/Moment.proto ../../proto/api/src/main/resources/service/Puzzle.proto ../../proto/api/src/main/resources/service/User.proto",
     "start": "npm run dev",
     "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
     "verify:vendor": "bash ../../scripts/verify-vendor.sh"

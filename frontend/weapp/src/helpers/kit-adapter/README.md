@@ -50,7 +50,7 @@ git clone --depth 1 <kit-url> .tmp/code-kit   # 或复用本地 kit 检出
 cp -r .tmp/code-kit/tool/vendor .tmp/vendor-tool
 # 将本次 roots（见上 + vendor-lock.json files[].originPath）写回 .tmp/vendor-tool/vendor.json
 bash .tmp/vendor-tool/vendor.sh helper-utils \
-  --target service/guess/src/main/java/io/github/jinganix/guess \
+  --target service/src/main/java/io/github/jinganix/guess \
   --kit-dir .tmp/code-kit --package io.github.jinganix.guess
 # kit-adopt 新增单元（精确文件 roots；注意 tool 的闭包会对同包/传递导入展开，
 # 本次 4 个单元经人工核减为精确文件集后落盘，见 .tmp/kit-adopt/verdicts.tsv；
@@ -58,7 +58,7 @@ bash .tmp/vendor-tool/vendor.sh helper-utils \
 # 门禁搜模块根，kit 侧 TOOL_VERSION 再 bump）再走标准流程）：
 for u in setup-argument helper-auth-token helper-uid helper-enumeration; do
   bash .tmp/vendor-tool/vendor.sh "$u" \
-    --target service/guess/src/main/java/io/github/jinganix/guess \
+    --target service/src/main/java/io/github/jinganix/guess \
     --kit-dir .tmp/code-kit --package io.github.jinganix.guess
 done
 # per-target 原生落盘：tool 直接以最终 import 根为 target 写 vendor/、.vendor/、
@@ -69,7 +69,7 @@ bash .tmp/vendor-tool/vendor.sh helpers-pure --target frontend/weapp/src \
 # 加 DO NOT EDIT 头 + QuerySource 补丁 + base 镜像 + lock hash 刷新。
 bash scripts/vendor-apply-headers.sh
 bash .tmp/vendor-tool/lib/verify.sh collect-licenses --host frontend/weapp/src --kit-dir .tmp/code-kit
-bash .tmp/vendor-tool/lib/verify.sh collect-licenses --host service/guess/src/main/java/io/github/jinganix/guess --kit-dir .tmp/code-kit
+bash .tmp/vendor-tool/lib/verify.sh collect-licenses --host service/src/main/java/io/github/jinganix/guess --kit-dir .tmp/code-kit
 # 合并为根 THIRD-PARTY-NOTICES（dest 前缀子树路径），删除两处子树内副本
 ```
 

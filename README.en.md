@@ -3,14 +3,14 @@
 
 [中文版本](README.md)
 
-# Guess
+# Guess Riddles
 
-The source code of the 'Guess Who I Am' Wechat miniprogram, you can [scan to experience](#qr-code) the miniprogram
+The source code of the 'Guess Riddles' Wechat miniprogram, you can [scan to experience](#qr-code) the miniprogram
 
 - Frontend development using `TypeScript` with `webpack` for building and bundling
 - Backend development using `Java` and `Spring` framework with `Gradle` for building and packaging
 
-> Quick start: `frontend/weapp` (miniprogram frontend) + `service` (Java backend); backend runs with `./gradlew service:guess:bootRun`, miniprogram runs with `cd frontend/weapp && npm install && npm start` (import `frontend/weapp/dist` into devtools); scan the miniprogram QR code in [Scan to experience](#qr-code) (`docs/qrcode.jpg`), see [Running the Project](#running-the-project) for details.
+> Quick start: `frontend/weapp` (miniprogram frontend) + `service` (Java backend); backend runs with `./gradlew service:bootRun`, miniprogram runs with `cd frontend/weapp && npm install && npm start` (import `frontend/weapp/dist` into devtools); scan the miniprogram QR code in [Scan to experience](#qr-code) (`docs/qrcode.jpg`), see [Running the Project](#running-the-project) for details.
 
 ## Running the Project
 
@@ -25,7 +25,7 @@ cd guess
 
 #### Running with docker-compose
 
-- Copy the [application-local.yml.example](service/guess/src/main/resources/application-local.yml.example) file to `application-local.yml` in the same directory and fill in the real values (that file is not tracked; use environment variables in production)
+- Copy the [application-local.yml.example](service/src/main/resources/application-local.yml.example) file to `application-local.yml` in the same directory and fill in the real values (that file is not tracked; use environment variables in production)
 
 - core.weapp.app-id: The `app-id` of the WeChat mini-program
 - core.weapp.app-secret: The `app-secret` of the WeChat mini-program
@@ -52,13 +52,13 @@ Modify the copied `application-local.yml` file to configure the backend services
 The following command can be used to start the backend services on a Linux or macOS system:
 
 ```shell
-./gradlew service:guess:bootRun
+./gradlew service:bootRun
 ```
 
 The following command can be used to start the backend services on a Windows system:
 
 ```shell
-./gradlew.bat service:guess:bootRun
+./gradlew.bat service:bootRun
 ```
 
 ### Frontend

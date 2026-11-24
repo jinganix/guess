@@ -30,7 +30,9 @@ import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import org.springframework.stereotype.Component;
 
-@Component
+// shortcut: explicit bean name only to avoid clashing with the vendored copy
+// (same default name 'utilsService'); drop this class when callers migrate.
+@Component("hostUtilsService")
 public class UtilsService {
 
   public static final long OFFSET_MILLIS = TimeZone.getDefault().getRawOffset();

@@ -18,7 +18,7 @@ if [ "${SKIP_CHECKS:-0}" = "1" ]; then
 fi
 
 echo "== [1/2] 后端：编译 + 格式检查 =="
-./gradlew :service:guess:compileTestJava spotlessCheck
+./gradlew :service:compileTestJava spotlessCheck
 
 echo "== [2/2] 前端：lint + 单测 =="
 if [ ! -d frontend/weapp/node_modules ]; then

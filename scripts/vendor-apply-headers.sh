@@ -25,7 +25,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 TARGETS=(
   "frontend/weapp/src"
-  "service/guess/src/main/java/io/github/jinganix/guess"
+  "service/src/main/java/io/github/jinganix/guess"
 )
 
 command -v jq >/dev/null 2>&1 || { echo "vendor-apply-headers: jq is required" >&2; exit 2; }

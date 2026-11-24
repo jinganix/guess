@@ -13,7 +13,7 @@ services:
       retries: 10
 
   guess-service:
-    build: service/guess
+    build: service
     image: guess/service
     depends_on:
       guess-mysql:

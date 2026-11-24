@@ -74,7 +74,7 @@ dependencies {
   implementation("org.testcontainers:testcontainers:${versionTestContainers}")
   protobuf(project(":proto:imports"))
   protobuf(project(":proto:internal"))
-  protobuf(project(":proto:service"))
+  protobuf(project(":proto:api"))
   runtimeOnly("com.mysql:mysql-connector-j")
   testAnnotationProcessor("org.projectlombok:lombok:$versionLombok")
   testAnnotationProcessor("org.mapstruct:mapstruct-processor:${versionMapstruct}")

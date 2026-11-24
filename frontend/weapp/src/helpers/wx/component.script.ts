@@ -18,9 +18,9 @@
 
 import { Dispose } from "@helpers/types/types";
 import { ScriptedComponent, ScriptedPage } from "@helpers/wx/adapter.types";
+import { components } from "@helpers/wx/components";
 import { Observer, getObservableKeys } from "@helpers/wx/observer";
 import { pickObservable } from "@helpers/wx/pick.obervable";
-import { components } from "@modules/container";
 import omit from "lodash/omit";
 
 export abstract class ComponentScript {

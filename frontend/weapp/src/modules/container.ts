@@ -16,7 +16,7 @@
  * https://github.com/jinganix/guess
  */
 
-import { Components } from "@helpers/wx/components";
+import { components } from "@helpers/wx/components";
 import { CacheService } from "@modules/cache/cache.service";
 import { CommentCache } from "@modules/cache/comment.cache";
 import { MomentCache } from "@modules/cache/moment.cache";
@@ -31,7 +31,7 @@ import { AppService } from "@modules/utils/app.service";
 
 export const appService = new AppService();
 export const cacheService = new CacheService();
-export const components = new Components();
+export { components };
 export const configStore = new ConfigStore();
 export const userExtraStore = new UserExtraStore();
 export const userStore = new UserStore();

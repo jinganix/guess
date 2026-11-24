@@ -53,16 +53,34 @@ describe("pick-loader", () => {
 
   it("warns and leaves the file untouched on unparsable expressions", () => {
     const source = `constructor(comp) { super(comp); }`;
-    const { result, warnings } = runLoader(source, fixture("unparsable", "script.ts"));
+    const { deps, result, warnings } = runLoader(source, fixture("unparsable", "script.ts"));
     expect(result).toBe(source);
     expect(warnings).toHaveLength(1);
     expect(warnings[0]).toMatch(/a %% b/);
+    expect(deps).toEqual([fixture("unparsable", "index.wxml")]);
+  });
+
+  it("does not treat $ in picks as replacement patterns", () => {
+    const source = `constructor(comp) { super(comp); }`;
+    const { result } = runLoader(source, fixture("dollar", "script.ts"));
+    expect(result).toContain(`super(comp, ["a$$b"])`);
   });
 
   it("skips injection with the fullBind option", () => {
     const source = `constructor(comp) { super(comp); }`;
     const { result } = runLoader(source, fixture("basic", "script.ts"), { fullBind: true });
     expect(result).toBe(source);
+  });
+
+  it("treats only FULL_BIND=1/true as enabled", () => {
+    process.env.FULL_BIND = "0";
+    try {
+      const source = `constructor(comp) { super(comp); }`;
+      const { result } = runLoader(source, fixture("basic", "script.ts"));
+      expect(result).toContain(`super(comp, ["show","title"])`);
+    } finally {
+      delete process.env.FULL_BIND;
+    }
   });
 
   it("skips injection with the FULL_BIND env switch", () => {

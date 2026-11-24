@@ -11,11 +11,19 @@ const { extractPicks } = require("./extract");
 
 const SUPER_CALL = /super\s*\(\s*comp\s*\)/;
 
+function fullBindEnabled(options) {
+  if (options.fullBind) {
+    return true;
+  }
+  const flag = (process.env.FULL_BIND ?? "").toLowerCase();
+  return flag === "1" || flag === "true";
+}
+
 module.exports = function loader(source) {
   const options =
     (typeof this.getOptions === "function" ? this.getOptions() : getOptions(this)) || {};
   const callback = this.async();
-  if (options.fullBind || process.env.FULL_BIND) {
+  if (fullBindEnabled(options)) {
     callback(null, source);
     return;
   }
@@ -27,6 +35,9 @@ module.exports = function loader(source) {
   if (!fs.existsSync(wxmlPath)) {
     callback(null, source);
     return;
+  }
+  if (typeof this.addDependency === "function") {
+    this.addDependency(wxmlPath);
   }
   let picks;
   try {
@@ -40,8 +51,11 @@ module.exports = function loader(source) {
     callback(null, source);
     return;
   }
-  if (typeof this.addDependency === "function") {
-    this.addDependency(wxmlPath);
-  }
-  callback(null, source.replace(SUPER_CALL, `super(comp, ${JSON.stringify(picks)})`));
+  const injected = `super(comp, ${JSON.stringify(picks)})`;
+  // Replacement function: picks may contain `$` (e.g. `a$$b`),
+  // which String.replace would interpret as a pattern.
+  callback(
+    null,
+    source.replace(SUPER_CALL, () => injected),
+  );
 };

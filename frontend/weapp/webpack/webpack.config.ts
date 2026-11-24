@@ -133,9 +133,10 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
           use: ["ts-loader", "source-map-loader"],
         },
         {
-          // Runs before ts-loader (rightmost first): rewrites `super(comp)`
+          // Runs before ts-loader regardless of rule order: rewrites `super(comp)`
           // with picks derived from the sibling index.wxml. Skipped files
           // fall back to full binding at runtime.
+          enforce: "pre",
           include: [SRC_DIR],
           test: /[\\/]script\.ts$/,
           use: [pickLoader()],

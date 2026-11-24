@@ -19,6 +19,14 @@ function fullBindEnabled(options) {
   return flag === "1" || flag === "true";
 }
 
+function strictPickEnabled(options) {
+  if (options.strictPick) {
+    return true;
+  }
+  const flag = (process.env.STRICT_PICK ?? "").toLowerCase();
+  return flag === "1" || flag === "true";
+}
+
 module.exports = function loader(source) {
   const options =
     (typeof this.getOptions === "function" ? this.getOptions() : getOptions(this)) || {};
@@ -43,11 +51,14 @@ module.exports = function loader(source) {
   try {
     picks = extractPicks(fs.readFileSync(wxmlPath, "utf-8"));
   } catch (error) {
-    this.emitWarning(
-      new Error(
-        `[pick-loader] ${path.relative(process.cwd(), wxmlPath)}: ${error.message}; falling back to full binding`,
-      ),
+    const err = new Error(
+      `[pick-loader] ${path.relative(process.cwd(), wxmlPath)}: ${error.message}; falling back to full binding`,
     );
+    if (strictPickEnabled(options)) {
+      callback(err);
+      return;
+    }
+    this.emitWarning(err);
     callback(null, source);
     return;
   }

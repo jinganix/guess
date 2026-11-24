@@ -10,21 +10,22 @@
 - 前端使用`Typescript`开发，用`webpack`构建打包
 - 后端使用`Java`和`Spring`框架开发，用`gradle`构建打包
 
+> 速览：架构为 `frontend/weapp`（小程序前端）+ `service`（Java 后端）；后端跑 `./gradlew service:guess:bootRun`，小程序跑 `cd frontend/weapp && npm install && npm start`（工具导入 `frontend/weapp/dist`）；小程序码见[扫码体验](#qr-code)（`docs/qrcode.jpg`），详情见[运行项目](#运行项目)。
+
 ## 运行项目
 
-你需要先拉取项目源码，切换到项目根目录，使用gradle构建项目
+你需要先拉取项目源码并切换到项目根目录
 
 ```shell
 git clone git@github.com:jinganix/guess.git
 cd guess
-./gradlew build
 ```
 
 ### 后端
 
 #### 通过docker-compose运行
 
-修改[application-local.yml](service/guess/src/main/resources/application-local.yml)以运行项目后端服务
+复制[application-local.yml.example](service/guess/src/main/resources/application-local.yml.example)为同目录下的`application-local.yml`再填真实值（该文件不入库；生产用环境变量覆盖）
 
 - core.weapp.app-id: 微信小程序的`app-id`
 - core.weapp.app-secret: 微信小程序的`app-secret`
@@ -40,7 +41,7 @@ docker-compose up --build
 
 你需要安装jdk，对应的版本在[.tool-versions](.tool-versions)，并启动mysql数据库
 
-修改[application-local.yml](service/guess/src/main/resources/application-local.yml)以运行项目后端服务
+同样复制`application-local.yml.example`为`application-local.yml`再填以下配置（或直接设同名环境变量）
 
 - core.weapp.app-id: 微信小程序的`app-id`
 - core.weapp.app-secret: 微信小程序的`app-secret`

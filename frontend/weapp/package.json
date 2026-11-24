@@ -5,11 +5,15 @@
   "private": true,
   "scripts": {
     "build": "npm run lint && npm run clean && npm run proto && webpack --config webpack/webpack.config.ts --progress --mode production --env prod",
+    "check": "tsc --noEmit && eslint src && npm run check:wxml",
+    "check:wxml": "node scripts/check-wxml-bind.js",
     "clean": "rimraf ./build/* ./dist/*",
+    "dev": "npm run clean && npm run proto && webpack --config webpack/webpack.config.ts --watch --progress --mode development --env dev",
+    "gen:component": "node scripts/gen-component.js",
     "dev": "npm run clean && npm run proto && webpack --config webpack/webpack.config.ts --watch --progress --mode development --env dev",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "proto": "../../gradlew generateProto",
+    "proto": "webpb generate -o generated/proto -I ../../proto/service/src/main/resources -I ../../proto/imports/src/main/resources ../../proto/service/src/main/resources/service/Auth.proto ../../proto/service/src/main/resources/service/Comment.proto ../../proto/service/src/main/resources/service/Error.proto ../../proto/service/src/main/resources/service/Moment.proto ../../proto/service/src/main/resources/service/Puzzle.proto ../../proto/service/src/main/resources/service/User.proto",
     "start": "npm run dev",
     "test": "jest --forceExit --coverage --verbose --detectOpenHandles"
   },

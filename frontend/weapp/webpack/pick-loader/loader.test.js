@@ -94,6 +94,16 @@ describe("pick-loader", () => {
     }
   });
 
+  it("fails hard on unparsable expressions with STRICT_PICK=1", () => {
+    process.env.STRICT_PICK = "1";
+    try {
+      const source = `constructor(comp) { super(comp); }`;
+      expect(() => runLoader(source, fixture("unparsable", "script.ts"))).toThrow(/a %% b/);
+    } finally {
+      delete process.env.STRICT_PICK;
+    }
+  });
+
   it("rewrites only the first super(comp) call", () => {
     const source = `class A { constructor(comp) { super(comp); } }
 class B { constructor(comp) { super(comp); } }`;

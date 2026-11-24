@@ -24,7 +24,7 @@ import org.testcontainers.utility.DockerImageName;
 /** Start a mysql docker container. */
 public class MysqlContainer extends MySQLContainer {
 
-  private static final String VERSION = "9.1.0";
+  private static final String VERSION = "26.10.0";
 
   /** Constructor. */
   public MysqlContainer() {

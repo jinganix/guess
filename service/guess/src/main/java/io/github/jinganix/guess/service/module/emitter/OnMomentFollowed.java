@@ -18,10 +18,8 @@
 
 package io.github.jinganix.guess.service.module.emitter;
 
-import io.github.jinganix.guess.service.module.moment.model.MomentAction;
-
 public abstract class OnMomentFollowed extends AbstractEmitter {
 
   @Override
-  public abstract void momentFollowed(MomentAction action);
+  public abstract void momentFollowed(Long userId, boolean followed);
 }

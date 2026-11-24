@@ -20,7 +20,6 @@ package io.github.jinganix.guess.service.module.user.event;
 
 import io.github.jinganix.guess.service.helper.utils.UtilsService;
 import io.github.jinganix.guess.service.module.emitter.OnMomentFollowed;
-import io.github.jinganix.guess.service.module.moment.model.MomentAction;
 import io.github.jinganix.guess.service.module.user.repository.UserExtraRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -34,12 +33,12 @@ public class OnMomentFollowedUpdateUserExtra extends OnMomentFollowed {
   private final UtilsService utilsService;
 
   @Override
-  public void momentFollowed(MomentAction action) {
+  public void momentFollowed(Long userId, boolean followed) {
     long millis = utilsService.currentTimeMillis();
-    if (action.isFollowed()) {
-      userExtraRepository.incrFollow(action.getUserId(), millis);
+    if (followed) {
+      userExtraRepository.incrFollow(userId, millis);
     } else {
-      userExtraRepository.decrFollow(action.getUserId(), millis);
+      userExtraRepository.decrFollow(userId, millis);
     }
   }
 }

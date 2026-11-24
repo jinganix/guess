@@ -70,7 +70,7 @@ public class CommentReportHandler {
           }
           commentRepository.save(comment);
           if (comment.getStatus() == REPORTED) {
-            emitter.commentReported(comment);
+            emitter.commentReported(comment.getMomentId(), comment.getStatus() == REPORTED);
           }
           return new CommentReportResponse(action.isReported(), comment.getStatus() == REPORTED);
         });

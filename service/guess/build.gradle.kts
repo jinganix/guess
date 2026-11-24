@@ -11,6 +11,7 @@ import utils.Vers.versionJwt
 import utils.Vers.versionLombok
 import utils.Vers.versionMapstruct
 import utils.Vers.versionPeashooter
+import utils.Vers.versionSpringModulith
 import utils.Vers.versionTestContainers
 import utils.Vers.versionWebpb
 
@@ -69,6 +70,7 @@ dependencies {
   implementation("org.springframework.boot:spring-boot-starter-webflux")
   implementation("org.springframework.data:spring-data-commons")
   implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")
+  implementation("org.springframework.modulith:spring-modulith-api:${versionSpringModulith}")
   implementation("org.testcontainers:testcontainers:${versionTestContainers}")
   protobuf(project(":proto:imports"))
   protobuf(project(":proto:internal"))
@@ -79,6 +81,7 @@ dependencies {
   testCompileOnly("org.projectlombok:lombok:$versionLombok")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-webmvc-test")
+  testImplementation("org.springframework.modulith:spring-modulith-starter-test:${versionSpringModulith}")
   testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.testcontainers:testcontainers-junit-jupiter:${versionTestContainers}")
   testImplementation("org.testcontainers:testcontainers-mysql:${versionTestContainers}")

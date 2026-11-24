@@ -18,10 +18,12 @@
 
 package io.github.jinganix.guess.service.module.emitter;
 
-import io.github.jinganix.guess.service.module.moment.model.Moment;
-
 public abstract class OnMomentDeleted extends AbstractEmitter {
 
   @Override
-  public abstract void momentDeleted(Moment moment);
+  /**
+   * Moment deletion. {@code wasReported} carries the pre-delete status snapshot so the
+   * reported-delete listener keeps its exact condition without receiving the entity.
+   */
+  public abstract void momentDeleted(Long userId, boolean wasReported);
 }

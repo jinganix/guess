@@ -19,8 +19,6 @@
 package io.github.jinganix.guess.service.module.moment.event;
 
 import io.github.jinganix.guess.service.helper.utils.UtilsService;
-import io.github.jinganix.guess.service.module.comment.model.Comment;
-import io.github.jinganix.guess.service.module.comment.model.CommentStatus;
 import io.github.jinganix.guess.service.module.emitter.OnCommentReported;
 import io.github.jinganix.guess.service.module.moment.repository.MomentRepository;
 import lombok.RequiredArgsConstructor;
@@ -37,9 +35,9 @@ public class OnCommentReportedUpdateMoment extends OnCommentReported {
 
   @Override
   @Transactional
-  public void commentReported(Comment comment) {
-    if (comment.getStatus() == CommentStatus.REPORTED) {
-      momentRepository.decrComment(comment.getMomentId(), utilsService.currentTimeMillis());
+  public void commentReported(Long momentId, boolean reported) {
+    if (reported) {
+      momentRepository.decrComment(momentId, utilsService.currentTimeMillis());
     }
   }
 }

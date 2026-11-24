@@ -18,30 +18,29 @@
 
 package io.github.jinganix.guess.service.module.emitter;
 
-import io.github.jinganix.guess.service.module.comment.model.Comment;
-import io.github.jinganix.guess.service.module.moment.model.Moment;
-import io.github.jinganix.guess.service.module.moment.model.MomentAction;
-import io.github.jinganix.guess.service.module.user.model.User;
-
 abstract class AbstractEmitter {
 
   public int order() {
     return 0;
   }
 
-  void commentCreated(Comment comment) {}
+  void commentCreated(Long momentId) {}
 
-  void commentDeleted(Comment comment) {}
+  void commentDeleted(Long momentId) {}
 
-  void commentReported(Comment comment) {}
+  void commentReported(Long momentId, boolean reported) {}
 
-  void momentCreated(Moment moment) {}
+  void momentCreated(Long userId) {}
 
-  void momentDeleted(Moment moment) {}
+  /**
+   * Moment deletion. {@code wasReported} carries the pre-delete status snapshot so the
+   * reported-delete listener keeps its exact condition without receiving the entity.
+   */
+  void momentDeleted(Long userId, boolean wasReported) {}
 
-  void momentFollowed(MomentAction action) {}
+  void momentFollowed(Long userId, boolean followed) {}
 
-  void momentReported(Moment moment) {}
+  void momentReported(Long userId, boolean reported) {}
 
-  void userCreated(User user) {}
+  void userCreated(Long userId) {}
 }

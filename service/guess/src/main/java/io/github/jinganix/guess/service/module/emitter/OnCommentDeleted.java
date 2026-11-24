@@ -18,10 +18,8 @@
 
 package io.github.jinganix.guess.service.module.emitter;
 
-import io.github.jinganix.guess.service.module.comment.model.Comment;
-
 public abstract class OnCommentDeleted extends AbstractEmitter {
 
   @Override
-  public abstract void commentDeleted(Comment comment);
+  public abstract void commentDeleted(Long momentId);
 }

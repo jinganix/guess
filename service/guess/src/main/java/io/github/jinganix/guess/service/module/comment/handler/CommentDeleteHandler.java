@@ -59,7 +59,7 @@ public class CommentDeleteHandler {
         () -> {
           long millis = utilsService.currentTimeMillis();
           commentRepository.setStatusById(comment.getId(), CommentStatus.DELETED, millis);
-          emitter.commentDeleted(comment);
+          emitter.commentDeleted(comment.getMomentId());
           return new CommentDeleteResponse();
         });
   }

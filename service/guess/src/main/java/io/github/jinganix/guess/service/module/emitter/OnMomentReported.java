@@ -18,10 +18,8 @@
 
 package io.github.jinganix.guess.service.module.emitter;
 
-import io.github.jinganix.guess.service.module.moment.model.Moment;
-
 public abstract class OnMomentReported extends AbstractEmitter {
 
   @Override
-  public abstract void momentReported(Moment moment);
+  public abstract void momentReported(Long userId, boolean reported);
 }

@@ -102,7 +102,7 @@ public class MomentCreateHandler {
                 .setUpdatedAt(millis);
     momentMapper.update(moment, request);
     momentRepository.save(moment);
-    emitter.momentCreated(moment);
+    emitter.momentCreated(moment.getUserId());
     return new MomentCreateResponse(momentMapper.mapToPb(moment, null, moment.getAnswer()));
   }
 }

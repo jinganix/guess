@@ -93,7 +93,7 @@ public class WeappCodeAuthenticator implements Authenticator {
 
       userRepository.save(user);
       userWeappRepository.save(userWeapp);
-      emitter.userCreated(user);
+      emitter.userCreated(user.getId());
     } else if (!Objects.equals(userWeapp.getAppId(), appId)) {
       long userId = userWeapp.getUserId();
       User user = createUser(userId);

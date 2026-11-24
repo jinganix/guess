@@ -20,8 +20,6 @@ package io.github.jinganix.guess.service.module.user.event;
 
 import io.github.jinganix.guess.service.helper.utils.UtilsService;
 import io.github.jinganix.guess.service.module.emitter.OnMomentDeleted;
-import io.github.jinganix.guess.service.module.moment.model.Moment;
-import io.github.jinganix.guess.service.module.moment.model.MomentStatus;
 import io.github.jinganix.guess.service.module.user.repository.UserExtraRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -35,9 +33,9 @@ public class OnMomentReportedUpdateUserExtra extends OnMomentDeleted {
   private final UtilsService utilsService;
 
   @Override
-  public void momentDeleted(Moment moment) {
-    if (moment.getStatus() == MomentStatus.REPORTED) {
-      userExtraRepository.decrMoment(moment.getUserId(), utilsService.currentTimeMillis());
+  public void momentDeleted(Long userId, boolean reported) {
+    if (reported) {
+      userExtraRepository.decrMoment(userId, utilsService.currentTimeMillis());
     }
   }
 }

@@ -20,7 +20,6 @@ package io.github.jinganix.guess.service.module.user.event;
 
 import io.github.jinganix.guess.service.helper.utils.UtilsService;
 import io.github.jinganix.guess.service.module.emitter.OnUserCreated;
-import io.github.jinganix.guess.service.module.user.model.User;
 import io.github.jinganix.guess.service.module.user.model.UserExtra;
 import io.github.jinganix.guess.service.module.user.repository.UserExtraRepository;
 import lombok.RequiredArgsConstructor;
@@ -35,12 +34,12 @@ public class OnUserCreatedCreateUserExtra extends OnUserCreated {
   private final UtilsService utilsService;
 
   @Override
-  public void userCreated(User user) {
+  public void userCreated(Long userId) {
     long millis = utilsService.currentTimeMillis();
     UserExtra extra =
         (UserExtra)
             new UserExtra()
-                .setId(user.getId())
+                .setId(userId)
                 .setFollow(0)
                 .setMoment(0)
                 .setCreatedAt(millis)

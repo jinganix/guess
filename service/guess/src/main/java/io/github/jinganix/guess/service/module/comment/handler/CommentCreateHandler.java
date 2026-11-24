@@ -111,7 +111,7 @@ public class CommentCreateHandler {
         comment.getMomentId(),
         () -> {
           commentRepository.save(comment);
-          emitter.commentCreated(comment);
+          emitter.commentCreated(comment.getMomentId());
           return new CommentCreateResponse(commentMapper.mapToPb(comment, null));
         });
   }

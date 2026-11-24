@@ -20,7 +20,6 @@ package io.github.jinganix.guess.service.module.user.event;
 
 import io.github.jinganix.guess.service.helper.utils.UtilsService;
 import io.github.jinganix.guess.service.module.emitter.OnMomentCreated;
-import io.github.jinganix.guess.service.module.moment.model.Moment;
 import io.github.jinganix.guess.service.module.user.repository.UserExtraRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -34,7 +33,7 @@ public class OnMomentCreatedUpdateUserExtra extends OnMomentCreated {
   private final UtilsService utilsService;
 
   @Override
-  public void momentCreated(Moment moment) {
-    userExtraRepository.incrMoment(moment.getUserId(), utilsService.currentTimeMillis());
+  public void momentCreated(Long userId) {
+    userExtraRepository.incrMoment(userId, utilsService.currentTimeMillis());
   }
 }

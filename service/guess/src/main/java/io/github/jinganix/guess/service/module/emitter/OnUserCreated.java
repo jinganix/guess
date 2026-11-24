@@ -18,10 +18,8 @@
 
 package io.github.jinganix.guess.service.module.emitter;
 
-import io.github.jinganix.guess.service.module.user.model.User;
-
 public abstract class OnUserCreated extends AbstractEmitter {
 
   @Override
-  public abstract void userCreated(User user);
+  public abstract void userCreated(Long userId);
 }

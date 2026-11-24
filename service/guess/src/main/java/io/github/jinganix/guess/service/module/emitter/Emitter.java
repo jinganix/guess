@@ -18,10 +18,6 @@
 
 package io.github.jinganix.guess.service.module.emitter;
 
-import io.github.jinganix.guess.service.module.comment.model.Comment;
-import io.github.jinganix.guess.service.module.moment.model.Moment;
-import io.github.jinganix.guess.service.module.moment.model.MomentAction;
-import io.github.jinganix.guess.service.module.user.model.User;
 import jakarta.annotation.PostConstruct;
 import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
@@ -79,42 +75,42 @@ public class Emitter extends AbstractEmitter {
   }
 
   @Override
-  public void commentCreated(Comment comment) {
-    this.emit(commentCreated, emitter -> emitter.commentCreated(comment));
+  public void commentCreated(Long momentId) {
+    this.emit(commentCreated, emitter -> emitter.commentCreated(momentId));
   }
 
   @Override
-  public void commentDeleted(Comment comment) {
-    this.emit(commentDeleted, emitter -> emitter.commentDeleted(comment));
+  public void commentDeleted(Long momentId) {
+    this.emit(commentDeleted, emitter -> emitter.commentDeleted(momentId));
   }
 
   @Override
-  public void commentReported(Comment comment) {
-    this.emit(commentReported, emitter -> emitter.commentReported(comment));
+  public void commentReported(Long momentId, boolean reported) {
+    this.emit(commentReported, emitter -> emitter.commentReported(momentId, reported));
   }
 
   @Override
-  public void momentCreated(Moment moment) {
-    this.emit(momentCreated, emitter -> emitter.momentCreated(moment));
+  public void momentCreated(Long userId) {
+    this.emit(momentCreated, emitter -> emitter.momentCreated(userId));
   }
 
   @Override
-  public void momentDeleted(Moment moment) {
-    this.emit(momentDeleted, emitter -> emitter.momentDeleted(moment));
+  public void momentDeleted(Long userId, boolean wasReported) {
+    this.emit(momentDeleted, emitter -> emitter.momentDeleted(userId, wasReported));
   }
 
   @Override
-  public void momentFollowed(MomentAction action) {
-    this.emit(momentFollowed, emitter -> emitter.momentFollowed(action));
+  public void momentFollowed(Long userId, boolean followed) {
+    this.emit(momentFollowed, emitter -> emitter.momentFollowed(userId, followed));
   }
 
   @Override
-  public void momentReported(Moment moment) {
-    this.emit(momentReported, emitter -> emitter.momentReported(moment));
+  public void momentReported(Long userId, boolean reported) {
+    this.emit(momentReported, emitter -> emitter.momentReported(userId, reported));
   }
 
   @Override
-  public void userCreated(User user) {
-    this.emit(userCreated, emitter -> emitter.userCreated(user));
+  public void userCreated(Long userId) {
+    this.emit(userCreated, emitter -> emitter.userCreated(userId));
   }
 }

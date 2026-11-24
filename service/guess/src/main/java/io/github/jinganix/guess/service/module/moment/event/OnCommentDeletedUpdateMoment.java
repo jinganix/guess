@@ -19,7 +19,6 @@
 package io.github.jinganix.guess.service.module.moment.event;
 
 import io.github.jinganix.guess.service.helper.utils.UtilsService;
-import io.github.jinganix.guess.service.module.comment.model.Comment;
 import io.github.jinganix.guess.service.module.emitter.OnCommentDeleted;
 import io.github.jinganix.guess.service.module.moment.repository.MomentRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,7 +35,7 @@ public class OnCommentDeletedUpdateMoment extends OnCommentDeleted {
 
   @Override
   @Transactional
-  public void commentDeleted(Comment comment) {
-    momentRepository.decrComment(comment.getMomentId(), utilsService.currentTimeMillis());
+  public void commentDeleted(Long momentId) {
+    momentRepository.decrComment(momentId, utilsService.currentTimeMillis());
   }
 }

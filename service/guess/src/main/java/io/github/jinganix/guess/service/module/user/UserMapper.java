@@ -18,16 +18,13 @@
 
 package io.github.jinganix.guess.service.module.user;
 
-import io.github.jinganix.guess.proto.internal.auth.WeappUserPb;
 import io.github.jinganix.guess.proto.service.user.ConfigPb;
 import io.github.jinganix.guess.proto.service.user.UserExtraPb;
 import io.github.jinganix.guess.proto.service.user.UserPb;
 import io.github.jinganix.guess.service.helper.utils.ConfigProperties;
-import io.github.jinganix.guess.service.module.auth.model.UserWeapp;
 import io.github.jinganix.guess.service.module.user.model.User;
 import io.github.jinganix.guess.service.module.user.model.UserExtra;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 /** Mapper for proto messages. */
 @Mapper(componentModel = "spring")
@@ -36,9 +33,6 @@ public interface UserMapper {
   UserPb mapToPb(User user);
 
   UserExtraPb mapToPb(UserExtra extra);
-
-  @Mapping(target = "id", source = "userId")
-  WeappUserPb mapToPb(UserWeapp userWeapp);
 
   /**
    * Mapping from {@link ConfigProperties} to {@link ConfigPb}.

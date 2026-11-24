@@ -62,7 +62,7 @@ public class MomentReportHandler {
     }
     momentRepository.save(moment);
     if (moment.getStatus() == REPORTED) {
-      emitter.momentReported(moment);
+      emitter.momentReported(moment.getUserId(), moment.getStatus() == REPORTED);
     }
     return new MomentReportResponse(action.isReported(), moment.getStatus() == REPORTED);
   }

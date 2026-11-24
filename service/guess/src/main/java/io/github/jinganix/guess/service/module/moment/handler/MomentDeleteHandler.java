@@ -53,7 +53,7 @@ public class MomentDeleteHandler {
     }
     long millis = utilsService.currentTimeMillis();
     momentRepository.setStatusById(moment.getId(), MomentStatus.DELETED, millis);
-    emitter.momentDeleted(moment);
+    emitter.momentDeleted(moment.getUserId(), moment.getStatus() == MomentStatus.REPORTED);
     return new MomentDeleteResponse();
   }
 }

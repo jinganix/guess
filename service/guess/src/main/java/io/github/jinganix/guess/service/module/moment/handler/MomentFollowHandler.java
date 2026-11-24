@@ -67,7 +67,7 @@ public class MomentFollowHandler {
       momentActionRepository.save((MomentAction) action.setFollowed(true).setUpdatedAt(millis));
       momentRepository.incrFollow(momentId, millis);
     }
-    emitter.momentFollowed(action);
+    emitter.momentFollowed(action.getUserId(), action.isFollowed());
     return new MomentFollowResponse(action.isFollowed());
   }
 }

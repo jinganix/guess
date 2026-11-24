@@ -180,10 +180,12 @@ export type {
   VideoContext,
 };
 
-export interface TriggeredEvent<Detail extends IAnyObject | number | string = IAnyObject>
-  extends BaseEvent<IAnyObject, IAnyObject, IAnyObject> {
+export interface TriggeredEvent<
+  Detail extends IAnyObject | number | string = IAnyObject,
+> extends BaseEvent<IAnyObject, IAnyObject, IAnyObject> {
   detail: Detail;
 }
 
-export interface TappedEvent<CurrentTargetDataset extends IAnyObject = IAnyObject>
-  extends BaseEvent<IAnyObject, CurrentTargetDataset, IAnyObject> {}
+export interface TappedEvent<
+  CurrentTargetDataset extends IAnyObject = IAnyObject,
+> extends BaseEvent<IAnyObject, CurrentTargetDataset, IAnyObject> {}

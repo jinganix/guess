@@ -23,7 +23,8 @@ interface Properties {
 }
 
 export interface ScriptedPage<TScript = ComponentScript>
-  extends PageData<PageDataOption>,
+  extends
+    PageData<PageDataOption>,
     PageLifetimes,
     PageInstanceProperties,
     PageInstanceMethods<PageDataOption>,
@@ -33,7 +34,8 @@ export interface ScriptedPage<TScript = ComponentScript>
 export class ScriptedPage<TScript extends ComponentScript> {}
 
 export interface ScriptedComponent<TScript = ComponentScript>
-  extends CompData<CompDataOption>,
+  extends
+    CompData<CompDataOption>,
     CompLifetimes,
     CompOtherOption,
     CompInstanceProperties,

@@ -21,11 +21,12 @@
       "@helpers/*": ["src/helpers/*"],
       "@modules/*": ["src/modules/*"],
       "@pages/*": ["src/pages/*"],
-      "@proto/*": ["build/generated/source/proto/main/ts/*"]
+      "@proto/*": ["build/generated/sources/proto/main/ts/*"]
     },
     "typeRoots": [
       "global.d.ts",
-      "node_modules/@types"
+      "node_modules/@types",
+      "node_modules"
     ]
   },
   "include": [

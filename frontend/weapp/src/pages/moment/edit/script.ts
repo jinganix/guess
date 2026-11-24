@@ -30,8 +30,8 @@ import {
 } from "@proto/MomentProto";
 import { every, some } from "lodash";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 import { MomentListScript } from "../list/script";
+import { PICKS } from "./pick";
 
 export class EditOptions {
   option1 = "";

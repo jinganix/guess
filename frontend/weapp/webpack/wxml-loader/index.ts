@@ -1,6 +1,6 @@
 import * as sax from "sax";
 import { Context, Script } from "vm";
-import * as Minifier from "html-minifier";
+import { minify } from "html-minifier-terser";
 import { getOptions, isUrlRequest, urlToRequest } from "loader-utils";
 import { startsWith } from "lodash";
 import * as path from "path";
@@ -115,9 +115,9 @@ export default function loader(
 
   parser.onend = (): void => {
     try {
-      void Promise.all(requests.map((request) => replaceRequest(request))).then(() => {
+      void Promise.all(requests.map((request) => replaceRequest(request))).then(async () => {
         if (minimize) {
-          content = Minifier.minify(content, {
+          content = await minify(content, {
             ...defaultMinimizeConf,
           });
         }

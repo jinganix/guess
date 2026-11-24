@@ -1,4 +1,4 @@
-@import 'src/styles/theme';
+@use "../../../styles/theme" as *;
 
 Page {
   background-color: $color-background;

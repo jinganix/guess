@@ -43,5 +43,4 @@ module.exports = {
   roots: ["<rootDir>"],
   setupFiles: ["./__tests__/setup.wx.ts"],
   testMatch: ["<rootDir>/src/**/__tests__/**/*.{js,ts}", "<rootDir>/src/**/*.{spec,test}.{js,ts}"],
-  watchPlugins: ["jest-watch-typeahead/filename", "jest-watch-typeahead/testname"],
 };

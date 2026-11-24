@@ -1,7 +1,7 @@
 import * as webpack from "webpack";
 import { ModuleOptions, RuleSetUseItem } from "webpack";
 import * as path from "path";
-import { UnifiedWebpackPluginV5 } from "weapp-tailwindcss/webpack";
+import { WeappTailwindcss } from "weapp-tailwindcss/webpack";
 import TsconfigPathsPlugin from "tsconfig-paths-webpack-plugin";
 import TerserPlugin = require("terser-webpack-plugin");
 import MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -152,16 +152,6 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
         },
         {
           include: [SRC_DIR],
-          test: /\.less$/,
-          use: [
-            MiniCssExtractPlugin.loader,
-            wxssLoader({ rpx: true }),
-            "css-loader",
-            "less-loader",
-          ],
-        },
-        {
-          include: [SRC_DIR],
           test: /\.(scss)$/,
           use: [
             {
@@ -178,10 +168,13 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
             {
               loader: "sass-loader",
               options: {
-                api: "legacy",
+                api: "modern",
                 sassOptions: {
-                  // https://sass-lang.com/documentation/js-api/interfaces/options/#loadPaths not working
-                  includePaths: [path.resolve("src", "styles"), path.resolve("src")],
+                  loadPaths: [
+                    path.resolve("src", "styles"),
+                    path.resolve("src"),
+                    path.resolve("node_modules"),
+                  ],
                 },
               },
             },
@@ -273,7 +266,9 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
         include: "app.js",
         raw: true,
       }),
-      new UnifiedWebpackPluginV5(),
+      new WeappTailwindcss({
+        cssEntries: [path.resolve(SRC_DIR, "styles/tailwind.scss")],
+      }),
     ],
     resolve: {
       extensions: [".ts", ".js", ".wxs"],

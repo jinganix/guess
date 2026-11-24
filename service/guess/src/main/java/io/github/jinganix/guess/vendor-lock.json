@@ -1,16 +1,9 @@
 {
   "kitSha": "6e62ecb9756df2aad5829162f26ebf8840a392ea",
-  "vendorJsonHash": "3667c818305e9d2f59002e8e228dff7417d5aae560705f8c3e2b9e7573f2ccc9",
+  "vendorJsonHash": "d023f752cf28a01645adb8a869d76b82895f873d527e0ddc433e1b9e9adbdc6f",
   "toolVersion": "2",
   "supportMode": "buyout",
   "files": [
-    {
-      "originPath": "service/arch-rules/src/main/java/io/github/jinganix/kit/arch/KitArchitectureRules.java",
-      "destPath": "vendor/kit/arch/KitArchitectureRules.java",
-      "baseHash": "02558fd09161053d939ca5ebf56d6ab56bae65796a0e56fd42b6b535d898ce0d",
-      "destHash": "02558fd09161053d939ca5ebf56d6ab56bae65796a0e56fd42b6b535d898ce0d",
-      "generated": false
-    },
     {
       "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/auth/token/JwtToken.java",
       "destPath": "vendor/kit/helper/auth/token/JwtToken.java",

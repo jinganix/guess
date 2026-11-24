@@ -3,7 +3,6 @@ import com.google.protobuf.gradle.protobuf
 import com.google.protobuf.gradle.remove
 import utils.Props
 import utils.Vers
-import utils.Vers.versionArchUnit
 import utils.Vers.versionCaffeine
 import utils.Vers.versionCommonsLang3
 import utils.Vers.versionJackson
@@ -78,8 +77,6 @@ dependencies {
   testAnnotationProcessor("org.projectlombok:lombok:$versionLombok")
   testAnnotationProcessor("org.mapstruct:mapstruct-processor:${versionMapstruct}")
   testCompileOnly("org.projectlombok:lombok:$versionLombok")
-  compileOnly("com.tngtech.archunit:archunit:${versionArchUnit}")
-  testImplementation("com.tngtech.archunit:archunit:${versionArchUnit}")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
   testImplementation("org.springframework.boot:spring-boot-webmvc-test")
   testImplementation("org.springframework.security:spring-security-test")

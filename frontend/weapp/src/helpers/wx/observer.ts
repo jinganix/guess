@@ -45,11 +45,11 @@ export function getObservableKeys(obj: object, includes?: string[]): string[] {
 export class Observer {
   disposers: ListenerDispose[] = [];
   listener: Listener;
-  picks: string[] = [];
+  picks?: string[];
 
-  constructor(listener: Listener, picks: string[] = []) {
+  constructor(listener: Listener, picks?: string[]) {
     this.listener = listener;
-    this.picks = picks.map((x) => String(x));
+    this.picks = picks?.map((x) => String(x));
   }
 
   observe<T extends object = object>(obj: T, path = "", keys?: string[], fire = false): void {
@@ -72,9 +72,12 @@ export class Observer {
             });
             // TODO: Handle array observation
             if (typeof newValue === "object" && !Array.isArray(newValue) && newValue !== null) {
+              // No picks means full binding: observe every nested observable.
               const includes = this.picks
-                .filter((x) => x.startsWith(`${target}.`))
-                .map((x) => x.substring(x.lastIndexOf(".") + 1));
+                ? this.picks
+                    .filter((x) => x.startsWith(`${target}.`))
+                    .map((x) => x.substring(x.lastIndexOf(".") + 1))
+                : undefined;
               const keys = getObservableKeys(newValue, includes);
               this.observe(newValue, target, keys, false);
               this.listener(target, pick(newValue, keys));

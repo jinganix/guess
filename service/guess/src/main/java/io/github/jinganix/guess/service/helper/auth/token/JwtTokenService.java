@@ -22,6 +22,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import io.github.jinganix.guess.service.helper.utils.UtilsService;
 import io.github.jinganix.guess.vendor.kit.helper.auth.token.JwtToken;
 import java.nio.charset.StandardCharsets;
 import java.util.Collections;
@@ -46,16 +47,21 @@ public class JwtTokenService implements TokenService {
 
   private final Algorithm algorithm;
 
-  private final JWTVerifier verifier;
+  private final JWTVerifier jwtVerifier;
+
+  private final UtilsService utilsService;
 
   public JwtTokenService(
-      @Value("${core.issuer}") String issuer, @Value("${core.jwt-secret}") String jwtSecret) {
+      @Value("${core.issuer}") String issuer,
+      @Value("${core.jwt-secret}") String jwtSecret,
+      UtilsService utilsService) {
+    this.utilsService = utilsService;
     if (jwtSecret == null || jwtSecret.getBytes(StandardCharsets.UTF_8).length < 32) {
       throw new IllegalStateException("core.jwt-secret must be at least 32 bytes");
     }
     this.issuer = issuer;
     this.algorithm = Algorithm.HMAC256(jwtSecret);
-    this.verifier = JWT.require(algorithm).withIssuer(issuer).build();
+    this.jwtVerifier = JWT.require(algorithm).withIssuer(issuer).build();
   }
 
   @Override
@@ -71,8 +77,9 @@ public class JwtTokenService implements TokenService {
 
   public JwtToken decode(String text) {
     try {
-      DecodedJWT jwt = verifier.verify(text);
-      if (jwt.getIssuedAt().getTime() < System.currentTimeMillis() - TimeUnit.DAYS.toMillis(7)) {
+      DecodedJWT jwt = jwtVerifier.verify(text);
+      if (jwt.getIssuedAt().getTime()
+          < utilsService.currentTimeMillis() - TimeUnit.DAYS.toMillis(7)) {
         return null;
       }
       List<String> authorities = jwt.getClaim(SCOPES).asList(String.class);

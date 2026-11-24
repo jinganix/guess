@@ -29,6 +29,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -38,6 +39,7 @@ public class AuthLoginHandler {
 
   private final AuthService authService;
 
+  @Transactional
   public AuthTokenResponse handle(AuthLoginRequest request) {
     try {
       Authentication authentication =

@@ -24,6 +24,7 @@ import io.github.jinganix.guess.service.helper.utils.ConfigProperties;
 import io.github.jinganix.guess.service.module.user.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -33,6 +34,7 @@ public class UserConfigHandler {
 
   private final UserMapper userMapper;
 
+  @Transactional(readOnly = true)
   public UserConfigResponse handle() {
     ConfigPb configPb = userMapper.mapToPb(configProperties);
     return new UserConfigResponse(configPb);

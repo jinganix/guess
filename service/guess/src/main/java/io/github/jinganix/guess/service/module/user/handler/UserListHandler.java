@@ -26,6 +26,7 @@ import io.github.jinganix.guess.service.module.user.repository.UserRepository;
 import java.util.stream.StreamSupport;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -35,6 +36,7 @@ public class UserListHandler {
 
   private final UserRepository userRepository;
 
+  @Transactional(readOnly = true)
   public UserListResponse handle(UserListRequest request) {
     Iterable<User> users = userRepository.findAllById(request.getIds());
     return new UserListResponse(

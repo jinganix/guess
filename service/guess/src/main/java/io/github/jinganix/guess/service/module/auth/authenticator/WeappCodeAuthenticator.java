@@ -99,7 +99,9 @@ public class WeappCodeAuthenticator implements Authenticator {
       User user = createUser(userId);
       userRepository.save(user);
     } else {
-      userWeapp.setSessionKey(response.getSessionKey()).setUpdatedAt(System.currentTimeMillis());
+      userWeapp
+          .setSessionKey(response.getSessionKey())
+          .setUpdatedAt(utilsService.currentTimeMillis());
       userWeappRepository.save(userWeapp);
     }
     return new UserAuthenticationToken(

@@ -16,7 +16,7 @@
  * https://github.com/jinganix/guess
  */
 
-package io.github.jinganix.guess.service.module.puzzle.config;
+package io.github.jinganix.guess.service.module.puzzle.model;
 
 import java.util.List;
 import lombok.Getter;

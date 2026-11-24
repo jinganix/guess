@@ -15,6 +15,7 @@ toolVersion: 2
 - frontend/weapp/src/vendor/kit/helpers/utils/lru-cache.ts <- frontend/shared/src/helpers/utils/lru-cache.ts @ 6e62ecb9756d [license: none]
 - frontend/weapp/src/vendor/kit/helpers/utils/query-params.ts <- frontend/shared/src/helpers/utils/query-params.ts @ 6e62ecb9756d [license: none]
 - frontend/weapp/src/vendor/kit/helpers/utils/rg-text.ts <- frontend/shared/src/helpers/utils/rg-text.ts @ 6e62ecb9756d [license: none]
+- service/guess/src/main/java/io/github/jinganix/guess/vendor/kit/arch/KitArchitectureRules.java <- service/arch-rules/src/main/java/io/github/jinganix/kit/arch/KitArchitectureRules.java @ 6e62ecb9756d [license: none]
 - service/guess/src/main/java/io/github/jinganix/guess/vendor/kit/helper/auth/token/JwtToken.java <- service/core/src/main/java/io/github/jinganix/kit/helper/auth/token/JwtToken.java @ 6e62ecb9756d [license: none]
 - service/guess/src/main/java/io/github/jinganix/guess/vendor/kit/helper/enumeration/EnumMapper.java <- service/core/src/main/java/io/github/jinganix/kit/helper/enumeration/EnumMapper.java @ 6e62ecb9756d [license: none]
 - service/guess/src/main/java/io/github/jinganix/guess/vendor/kit/helper/enumeration/IntegerEnumMapper.java <- service/core/src/main/java/io/github/jinganix/kit/helper/enumeration/IntegerEnumMapper.java @ 6e62ecb9756d [license: none]

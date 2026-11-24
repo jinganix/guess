@@ -19,12 +19,13 @@
 package io.github.jinganix.guess.service.module.puzzle.handler;
 
 import io.github.jinganix.guess.proto.service.puzzle.PuzzleHintResponse;
-import io.github.jinganix.guess.service.module.puzzle.config.PuzzleCfg;
-import io.github.jinganix.guess.service.module.puzzle.config.PuzzleCfgService;
 import io.github.jinganix.guess.service.module.puzzle.model.PuzzleAction;
+import io.github.jinganix.guess.service.module.puzzle.model.PuzzleCfg;
+import io.github.jinganix.guess.service.module.puzzle.model.PuzzleCfgService;
 import io.github.jinganix.guess.service.module.puzzle.repository.PuzzleActionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -34,6 +35,7 @@ public class PuzzleHintHandler {
 
   private final PuzzleActionRepository puzzleActionRepository;
 
+  @Transactional(readOnly = true)
   public PuzzleHintResponse handle(Long userId) {
     PuzzleAction action = puzzleActionRepository.findByUserId(userId);
     int level = action == null ? 0 : action.getLevel();

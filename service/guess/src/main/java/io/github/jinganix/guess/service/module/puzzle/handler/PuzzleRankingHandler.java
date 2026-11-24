@@ -30,6 +30,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -39,6 +40,7 @@ public class PuzzleRankingHandler {
 
   private final PuzzleActionRepository puzzleActionRepository;
 
+  @Transactional(readOnly = true)
   public PuzzleRankingResponse handle() {
     List<PuzzleAction> actions = puzzleActionRepository.findAll(TOP_20_PAGEABLE);
     int rank = 1;

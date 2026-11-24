@@ -31,6 +31,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -42,6 +43,7 @@ public class AuthTokenHandler {
 
   private final UserRepository userRepository;
 
+  @Transactional
   public AuthTokenResponse handle(AuthTokenRequest request) {
     String refreshToken = request.getRefreshToken();
     if (StringUtils.isEmpty(refreshToken)) {

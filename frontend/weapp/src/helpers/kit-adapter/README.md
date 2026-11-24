@@ -19,6 +19,12 @@
   `TokenService`/`JwtTokenService`/`JwtTokenAuthenticator` 改线到 `vendor.kit`。
 - `setup-argument`（Java）：`vendor/kit/setup/argument/AnnotationFinder.java`，宿主
   同名副本已删（逻辑与 kit 一致，仅包头不同）。
+- `arch-rules`（Java，测试域）：`vendor/kit/arch/KitArchitectureRules.java`（单文件零同包，
+  仅依赖 archunit + spring 注解）；宿主新增 `HostArchitectureTest` 全量接线 host-defaults
+  规则（faces=`module`，时钟规则用 scoped 过载：`Snowflake.getMillis` 与宿主时钟源除外，
+  见测试注释），另修 12 个 handler `@Transactional`、3 处注入命名、时钟改走 `UtilsService`、
+  `puzzle/config` 并入 `model`、`MomentListHandler` 掩码逻辑收进 `MomentMapper#mapToListPb`。
+  注意 kit 侧 `generic-check` G1 会误报 archunit 自身 `core.domain` 包（工具假阳性，kit 跟进项）。
 - `helpers-pure`（TS，依赖零子集）：`src/vendor/kit/helpers/{utils,collection}/**`
   共 11 个文件，见 `src/vendor-lock.json` 的 `files[].originPath`。
 

@@ -29,6 +29,7 @@ import io.github.jinganix.guess.service.module.user.model.UserStatus;
 import io.github.jinganix.guess.service.module.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -40,6 +41,7 @@ public class UserUpdateHandler {
 
   private final UtilsService utilsService;
 
+  @Transactional
   public UserUpdateResponse handle(Long userId, UserUpdateRequest request) {
     long millis = utilsService.currentTimeMillis();
     User user =

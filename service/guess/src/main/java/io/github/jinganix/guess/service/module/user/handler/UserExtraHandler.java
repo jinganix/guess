@@ -26,6 +26,7 @@ import io.github.jinganix.guess.service.module.user.model.UserExtra;
 import io.github.jinganix.guess.service.module.user.repository.UserExtraRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -35,6 +36,7 @@ public class UserExtraHandler {
 
   private final UserExtraRepository userExtraRepository;
 
+  @Transactional(readOnly = true)
   public UserExtraResponse handle(Long userId) {
     UserExtra extra =
         userExtraRepository

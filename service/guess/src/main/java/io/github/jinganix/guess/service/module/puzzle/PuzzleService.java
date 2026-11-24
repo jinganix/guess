@@ -33,7 +33,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class PuzzleService {
 
-  private final ConfigProperties config;
+  private final ConfigProperties configProperties;
 
   private final PuzzleActionRepository puzzleActionRepository;
 
@@ -43,10 +43,10 @@ public class PuzzleService {
 
   public Integer puzzleLimit(PuzzleAction puzzle) {
     if (puzzle == null) {
-      return config.getPuzzleDailyLimit();
+      return configProperties.getPuzzleDailyLimit();
     }
-    return config.getPuzzleDailyLimit()
-        + puzzle.getIncreaseTimes() * config.getPuzzleLimitIncrease()
+    return configProperties.getPuzzleDailyLimit()
+        + puzzle.getIncreaseTimes() * configProperties.getPuzzleLimitIncrease()
         - puzzle.getDailyAttempts();
   }
 

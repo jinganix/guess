@@ -26,6 +26,7 @@ import io.github.jinganix.guess.service.module.user.model.User;
 import io.github.jinganix.guess.service.module.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -35,6 +36,7 @@ public class UserCurrentHandler {
 
   private final UserRepository userRepository;
 
+  @Transactional(readOnly = true)
   public UserCurrentResponse handle(Long userId) {
     User user =
         userRepository

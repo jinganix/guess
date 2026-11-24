@@ -36,6 +36,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -49,6 +50,7 @@ public class CommentListHandler {
 
   private final CommentRepository commentRepository;
 
+  @Transactional(readOnly = true)
   public CommentListResponse handle(Long userId, CommentListRequest request) {
     List<Comment> comments;
     if (request.getId() == null) {

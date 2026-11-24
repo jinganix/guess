@@ -27,7 +27,6 @@ import io.github.jinganix.guess.proto.service.moment.MomentListResponse;
 import io.github.jinganix.guess.service.module.moment.MomentMapper;
 import io.github.jinganix.guess.service.module.moment.model.Moment;
 import io.github.jinganix.guess.service.module.moment.model.MomentAction;
-import io.github.jinganix.guess.service.module.moment.model.MomentStatus;
 import io.github.jinganix.guess.service.module.moment.repository.MomentActionRepository;
 import io.github.jinganix.guess.service.module.moment.repository.MomentRepository;
 import java.util.ArrayList;
@@ -41,6 +40,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -54,6 +54,7 @@ public class MomentListHandler {
 
   private final MomentRepository momentRepository;
 
+  @Transactional(readOnly = true)
   public MomentListResponse handle(Long userId, MomentListRequest request) {
     List<Moment> moments =
         switch (request.getCategory()) {
@@ -105,16 +106,7 @@ public class MomentListHandler {
         .map(moment -> {
           MomentAction action = actionMap.get(moment.getId());
           int answer = Objects.equals(moment.getUserId(), userId) ? moment.getAnswer() : 0;
-          MomentDetailPb pb = momentMapper.mapToPb(moment, action, answer);
-          if (moment.getStatus() != MomentStatus.ACTIVE) {
-            pb.getMoment()
-                .setContent("")
-                .setOption1("")
-                .setOption2("")
-                .setOption3("")
-                .setOption4("");
-          }
-          return pb;
+          return momentMapper.mapToListPb(moment, action, answer);
         })
         .toList();
   }

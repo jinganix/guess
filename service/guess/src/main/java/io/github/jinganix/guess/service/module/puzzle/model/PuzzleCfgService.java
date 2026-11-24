@@ -16,7 +16,7 @@
  * https://github.com/jinganix/guess
  */
 
-package io.github.jinganix.guess.service.module.puzzle.config;
+package io.github.jinganix.guess.service.module.puzzle.model;
 
 import io.github.jinganix.guess.service.helper.fake.FakeRandom;
 import java.io.IOException;
@@ -36,7 +36,7 @@ public class PuzzleCfgService {
 
   private final LinkedHashMap<Integer, PuzzleCfg> cfgMap = new LinkedHashMap<>();
 
-  private final MultiValueMap<Integer, String> answersMap = new LinkedMultiValueMap<>();
+  private final MultiValueMap<Integer, String> multiValueMap = new LinkedMultiValueMap<>();
 
   private PuzzleCfgService(ObjectMapper objectMapper) throws IOException {
     String filename = "/config/puzzle.json";
@@ -50,7 +50,7 @@ public class PuzzleCfgService {
         PuzzleCfg cfg = cfgList.get(i);
         cfg.setId(i + 1);
         cfgMap.put(cfg.getId(), cfg);
-        answersMap.add(cfg.getType(), cfg.getAnswer());
+        multiValueMap.add(cfg.getType(), cfg.getAnswer());
       }
     }
   }
@@ -60,7 +60,7 @@ public class PuzzleCfgService {
   }
 
   public String randomAnswer(Integer type, long seed) {
-    List<String> answers = answersMap.get(type);
+    List<String> answers = multiValueMap.get(type);
     return answers.get(FakeRandom.nextInt(seed, 0, answers.size()));
   }
 }

@@ -19,7 +19,7 @@
 package io.github.jinganix.guess.service.module.puzzle;
 
 import io.github.jinganix.guess.proto.service.puzzle.PuzzlePb;
-import io.github.jinganix.guess.service.module.puzzle.config.PuzzleCfg;
+import io.github.jinganix.guess.service.module.puzzle.model.PuzzleCfg;
 import java.util.List;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;

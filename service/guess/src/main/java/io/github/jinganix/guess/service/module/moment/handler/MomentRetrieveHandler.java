@@ -28,6 +28,7 @@ import io.github.jinganix.guess.service.module.moment.repository.MomentActionRep
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 @Component
 @RequiredArgsConstructor
@@ -39,6 +40,7 @@ public class MomentRetrieveHandler {
 
   private final MomentService momentService;
 
+  @Transactional(readOnly = true)
   public MomentRetrieveResponse handle(Long userId, MomentRetrieveRequest request) {
     Moment moment = momentService.assertFindMoment(request.getId());
     MomentAction action = momentActionRepository.findByUserIdAndMomentId(userId, moment.getId());

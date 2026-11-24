@@ -8,6 +8,7 @@ import kotlin.reflect.full.memberProperties
 object Vers {
   private var initialized = false
 
+  lateinit var versionArchUnit: String
   lateinit var versionCaffeine: String
   lateinit var versionCommonsLang3: String
   lateinit var versionCoverallsGradlePlugin: String

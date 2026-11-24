@@ -24,6 +24,7 @@ import io.github.jinganix.guess.proto.service.moment.MomentDetailPb;
 import io.github.jinganix.guess.proto.service.moment.MomentPb;
 import io.github.jinganix.guess.service.module.moment.model.Moment;
 import io.github.jinganix.guess.service.module.moment.model.MomentAction;
+import io.github.jinganix.guess.service.module.moment.model.MomentStatus;
 import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -42,6 +43,18 @@ public abstract class MomentMapper {
 
   @Mapping(target = "answer", source = "answer")
   public abstract MomentDetailPb mapToPb(Moment moment, MomentAction action, int answer);
+
+  /**
+   * List-view mapping: non-active moments expose no content/options (masking used to live inline in
+   * the list handler; mappers own all Pb writes, see mapper rules).
+   */
+  public MomentDetailPb mapToListPb(Moment moment, MomentAction action, int answer) {
+    MomentDetailPb pb = mapToPb(moment, action, answer);
+    if (moment.getStatus() != MomentStatus.ACTIVE) {
+      pb.getMoment().setContent("").setOption1("").setOption2("").setOption3("").setOption4("");
+    }
+    return pb;
+  }
 
   public abstract void update(@MappingTarget Moment moment, MomentCreateRequest request);
 }

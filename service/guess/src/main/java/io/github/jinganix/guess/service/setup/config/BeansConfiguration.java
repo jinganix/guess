@@ -29,12 +29,11 @@ import java.time.Duration;
 import java.util.concurrent.Executors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
-import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomizer;
+import org.springframework.boot.tomcat.TomcatProtocolHandlerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.task.support.TaskExecutorAdapter;
-import org.springframework.http.client.ReactorResourceFactory;
 import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.netty.http.client.HttpClient;
@@ -55,9 +54,9 @@ public class BeansConfiguration {
   }
 
   @Bean
-  WebClient.Builder webClientBuilder(ReactorResourceFactory resourceFactory) {
+  WebClient.Builder webClientBuilder() {
     HttpClient httpClient =
-        HttpClient.create(resourceFactory.getConnectionProvider())
+        HttpClient.create()
             .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
             .responseTimeout(Duration.ofSeconds(10));
     return WebClient.builder().clientConnector(new ReactorClientHttpConnector(httpClient));

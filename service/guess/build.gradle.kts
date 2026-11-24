@@ -5,14 +5,12 @@ import utils.Props
 import utils.Vers
 import utils.Vers.versionCaffeine
 import utils.Vers.versionCommonsLang3
-import utils.Vers.versionFlyway
 import utils.Vers.versionJackson
+import utils.Vers.versionJacksonAnnotations
 import utils.Vers.versionJwt
 import utils.Vers.versionLombok
 import utils.Vers.versionMapstruct
-import utils.Vers.versionMysqlConnector
 import utils.Vers.versionPeashooter
-import utils.Vers.versionProtobufJava
 import utils.Vers.versionTestContainers
 import utils.Vers.versionWebpb
 
@@ -40,22 +38,22 @@ dependencies {
   annotationProcessor("org.mapstruct:mapstruct-processor:${versionMapstruct}")
   compileOnly("org.projectlombok:lombok:$versionLombok")
   implementation("com.auth0:java-jwt:${versionJwt}")
-  implementation("com.fasterxml.jackson.core:jackson-annotations")
-  implementation("com.fasterxml.jackson.core:jackson-core")
-  implementation("com.fasterxml.jackson.core:jackson-databind")
-  implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml")
-  implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310")
+  implementation("com.fasterxml.jackson.core:jackson-annotations:${versionJacksonAnnotations}")
+  implementation("tools.jackson.core:jackson-core:${versionJackson}")
+  implementation("tools.jackson.core:jackson-databind:${versionJackson}")
+  implementation("tools.jackson.dataformat:jackson-dataformat-xml:${versionJackson}")
   implementation("com.github.ben-manes.caffeine:caffeine:${versionCaffeine}")
-  implementation("com.google.protobuf:protobuf-java:${versionProtobufJava}")
+  implementation("com.google.protobuf:protobuf-java")
   implementation("io.github.jinganix.peashooter:peashooter:${versionPeashooter}")
   implementation("io.github.jinganix.webpb:webpb-proto:${versionWebpb}")
   implementation("io.github.jinganix.webpb:webpb-runtime:${versionWebpb}")
   implementation("org.apache.commons:commons-lang3:${versionCommonsLang3}")
-  implementation("org.flywaydb:flyway-core:${versionFlyway}")
-  implementation("org.flywaydb:flyway-mysql:${versionFlyway}")
+  implementation("org.flywaydb:flyway-core")
+  implementation("org.flywaydb:flyway-mysql")
   implementation("org.mapstruct:mapstruct:${versionMapstruct}")
   implementation("org.springframework.boot:spring-boot-configuration-processor")
   implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+  implementation("org.springframework.boot:spring-boot-starter-flyway")
   implementation("org.springframework.boot:spring-boot-starter-security")
   implementation("org.springframework.boot:spring-boot-starter-validation")
   implementation("org.springframework.boot:spring-boot-starter-web")
@@ -66,11 +64,12 @@ dependencies {
   protobuf(project(":proto:imports"))
   protobuf(project(":proto:internal"))
   protobuf(project(":proto:service"))
-  runtimeOnly("com.mysql:mysql-connector-j:${versionMysqlConnector}")
+  runtimeOnly("com.mysql:mysql-connector-j")
   testAnnotationProcessor("org.projectlombok:lombok:$versionLombok")
   testAnnotationProcessor("org.mapstruct:mapstruct-processor:${versionMapstruct}")
   testCompileOnly("org.projectlombok:lombok:$versionLombok")
   testImplementation("org.springframework.boot:spring-boot-starter-test")
+  testImplementation("org.springframework.boot:spring-boot-webmvc-test")
   testImplementation("org.springframework.security:spring-security-test")
   testImplementation("org.testcontainers:testcontainers-junit-jupiter:${versionTestContainers}")
   testImplementation("org.testcontainers:testcontainers-mysql:${versionTestContainers}")
@@ -79,7 +78,7 @@ dependencies {
 
 dependencyManagement {
   imports {
-    mavenBom("com.fasterxml.jackson:jackson-bom:${versionJackson}")
+    mavenBom("tools.jackson:jackson-bom:${versionJackson}")
   }
 }
 
@@ -89,7 +88,6 @@ tasks.withType<Test> {
 
 tasks.bootJar {
   archiveFileName.set("guess-service.jar")
-  launchScript()
 }
 
 tasks.test {

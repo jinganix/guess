@@ -24,12 +24,10 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.server.resource.web.authentication.BearerTokenAuthenticationFilter;
@@ -48,10 +46,6 @@ public class SecurityConfiguration {
 
   private final AuthenticationEntryPoint authenticationEntryPoint;
 
-  private final Customizer<
-          AuthorizeHttpRequestsConfigurer<HttpSecurity>.AuthorizationManagerRequestMatcherRegistry>
-      httpRequestsCustomizer;
-
   @Bean
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
@@ -62,7 +56,9 @@ public class SecurityConfiguration {
       HttpSecurity security, AuthenticationManager authenticationManager) throws Exception {
     security.authenticationManager(authenticationManager);
 
-    security.authorizeHttpRequests(httpRequestsCustomizer);
+    // Authorization rules come from AuthorizeExchangeCustomizer, which Spring Security 7
+    // auto-applies as a top-level customizer. Do not call authorizeHttpRequests here again:
+    // the registry rejects rules configured after anyRequest.
     security.addFilter(new BearerTokenAuthenticationFilter(authenticationManager));
 
     security.exceptionHandling(spec -> spec.authenticationEntryPoint(authenticationEntryPoint));

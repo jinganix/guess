@@ -23,11 +23,13 @@ import io.github.jinganix.guess.service.helper.data.LongToDateConverter;
 import jakarta.persistence.Convert;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 @Entity
+@Table(name = "puzzle_action")
 @Getter
 @Setter
 @Accessors(chain = true)

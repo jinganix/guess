@@ -30,7 +30,7 @@
     "@types/jest": "^30.0.0",
     "@types/loader-utils": "^2.0.6",
     "@types/mini-css-extract-plugin": "^2.5.1",
-    "@types/node": "^24.0.0",
+    "@types/node": "^26.0.0",
     "@types/sax": "^1.2.7",
     "@types/url-join": "^5.0.0",
     "@types/webpack": "^5.28.5",

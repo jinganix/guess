@@ -18,6 +18,8 @@
 
 package io.github.jinganix.guess.service.helper.auth.token;
 
+import io.github.jinganix.guess.vendor.kit.helper.auth.token.JwtToken;
+
 public interface TokenService {
 
   String generate(Long userId, String uuid, String... scopes);

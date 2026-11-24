@@ -18,6 +18,7 @@
 
 package io.github.jinganix.guess.service.helper.uid;
 
+import io.github.jinganix.guess.vendor.kit.helper.uid.UidGenerator;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

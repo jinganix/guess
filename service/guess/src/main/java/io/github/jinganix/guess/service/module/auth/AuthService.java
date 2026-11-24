@@ -20,11 +20,11 @@ package io.github.jinganix.guess.service.module.auth;
 
 import io.github.jinganix.guess.proto.service.auth.AuthTokenResponse;
 import io.github.jinganix.guess.service.helper.auth.token.TokenService;
-import io.github.jinganix.guess.service.helper.uid.UidGenerator;
 import io.github.jinganix.guess.service.helper.utils.UtilsService;
 import io.github.jinganix.guess.service.module.auth.model.GrantedRole;
 import io.github.jinganix.guess.service.module.auth.model.UserToken;
 import io.github.jinganix.guess.service.module.auth.repository.UserTokenRepository;
+import io.github.jinganix.guess.vendor.kit.helper.uid.UidGenerator;
 import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

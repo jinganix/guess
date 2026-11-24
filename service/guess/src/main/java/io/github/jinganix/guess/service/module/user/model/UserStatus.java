@@ -18,7 +18,7 @@
 
 package io.github.jinganix.guess.service.module.user.model;
 
-import io.github.jinganix.guess.service.helper.enumeration.IntegerEnumMapper;
+import io.github.jinganix.guess.vendor.kit.helper.enumeration.IntegerEnumMapper;
 import io.github.jinganix.webpb.runtime.enumeration.Enumeration;
 import jakarta.persistence.AttributeConverter;
 

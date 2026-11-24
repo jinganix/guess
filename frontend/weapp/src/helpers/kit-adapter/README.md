@@ -4,11 +4,21 @@
 本目录是宿主在 vendor 区之外写的平台适配层：允许且正规，不叫 `overrides`，
 绝不反向修改 `vendor/kit`。
 
-## vendored 单元（kit `c32c22eb4ddd`，toolVersion 1，supportMode buyout）
+## vendored 单元（kit `6e62ecb9`，toolVersion 2，supportMode buyout）
 
 - `helper-utils`（Java）：`service/.../guess/vendor/kit/helper/utils/**`
  （`KitTimeZone`、`MonthRangeUtils`、`UtilsService`），包前缀已改写为
   `io.github.jinganix.guess.vendor.kit`。
+- `helper-enumeration`（Java，kit-adopt 替换宿主副本）：`vendor/kit/helper/enumeration/**`
+  （`EnumMapper`、`IntegerEnumMapper`，`StringEnumMapper` 为同包闭包附带，未被宿主引用），
+  宿主 `service/helper/enumeration/*` 已删，引用改线到 `vendor.kit`。
+- `helper-uid`（Java）：`vendor/kit/helper/uid/UidGenerator.java`，宿主
+  `SnowflakeGenerator` 改为实现 vendored 接口；`Snowflake`/`SnowflakeGenerator`/
+  `UidUtils` 未 vendor（闭包外宿主已有等价实现 / 需未声明的 `jakarta.annotation`）。
+- `helper-auth-token`（Java）：`vendor/kit/helper/auth/token/JwtToken.java`，宿主
+  `TokenService`/`JwtTokenService`/`JwtTokenAuthenticator` 改线到 `vendor.kit`。
+- `setup-argument`（Java）：`vendor/kit/setup/argument/AnnotationFinder.java`，宿主
+  同名副本已删（逻辑与 kit 一致，仅包头不同）。
 - `helpers-pure`（TS，依赖零子集）：`src/vendor/kit/helpers/{utils,collection}/**`
   共 11 个文件，见 `src/vendor-lock.json` 的 `files[].originPath`。
 
@@ -42,6 +52,15 @@ cp -r .tmp/code-kit/tool/vendor .tmp/vendor-tool
 bash .tmp/vendor-tool/vendor.sh helper-utils \
   --target service/guess/src/main/java/io/github/jinganix/guess \
   --kit-dir .tmp/code-kit --package io.github.jinganix.guess
+# kit-adopt 新增单元（精确文件 roots；注意 tool 的闭包会对同包/传递导入展开，
+# 本次 4 个单元经人工核减为精确文件集后落盘，见 .tmp/kit-adopt/verdicts.tsv；
+# 若直接跑 vendor.sh 会因闭包膨胀/第三方门禁搜索根失败，需先修 tool（closure 精确化 +
+# 门禁搜模块根，kit 侧 TOOL_VERSION 再 bump）再走标准流程）：
+for u in setup-argument helper-auth-token helper-uid helper-enumeration; do
+  bash .tmp/vendor-tool/vendor.sh "$u" \
+    --target service/guess/src/main/java/io/github/jinganix/guess \
+    --kit-dir .tmp/code-kit --package io.github.jinganix.guess
+done
 # per-target 原生落盘：tool 直接以最终 import 根为 target 写 vendor/、.vendor/、
 # vendor-lock.json，无需事后 mv（相对路径即最终路径，hash 稳定）。
 bash .tmp/vendor-tool/vendor.sh helpers-pure --target frontend/weapp/src \

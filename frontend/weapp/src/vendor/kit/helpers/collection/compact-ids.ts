@@ -1,4 +1,4 @@
-// DO NOT EDIT: GENERATED FROM kit@c32c22eb4ddd729c36ecc8ee2c28362a54bf417a by tool/vendor (toolVersion 1). Host edits belong outside vendor/kit. See vendor-lock.json.
+// DO NOT EDIT: GENERATED FROM kit@6e62ecb9756df2aad5829162f26ebf8840a392ea by tool/vendor (toolVersion 2). Host edits belong outside vendor/kit. See vendor-lock.json.
 /**
  * Drop ids that must not reach the server. A table row with no id (`pb.id ?? ""`)
  * otherwise turns a whole delete batch into `ids:[""]`, which the server rejects —

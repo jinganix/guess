@@ -19,7 +19,7 @@
 package io.github.jinganix.guess.service.setup.config;
 
 import io.github.jinganix.guess.service.helper.uid.SnowflakeGenerator;
-import io.github.jinganix.guess.service.helper.uid.UidGenerator;
+import io.github.jinganix.guess.vendor.kit.helper.uid.UidGenerator;
 import io.github.jinganix.peashooter.Tracer;
 import io.github.jinganix.peashooter.trace.DefaultTracer;
 import io.github.jinganix.webpb.runtime.mvc.WebpbRequestBodyAdvice;

@@ -20,6 +20,7 @@ package io.github.jinganix.guess.service.helper.auth.token;
 
 import io.github.jinganix.guess.service.helper.auth.authenticator.Authenticator;
 import io.github.jinganix.guess.service.module.auth.model.GrantedRole;
+import io.github.jinganix.guess.vendor.kit.helper.auth.token.JwtToken;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;

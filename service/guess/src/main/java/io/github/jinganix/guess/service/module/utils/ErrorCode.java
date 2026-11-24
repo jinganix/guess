@@ -18,8 +18,8 @@
 
 package io.github.jinganix.guess.service.module.utils;
 
-import io.github.jinganix.guess.service.helper.enumeration.IntegerEnumMapper;
 import io.github.jinganix.guess.service.helper.exception.BusinessErrorCode;
+import io.github.jinganix.guess.vendor.kit.helper.enumeration.IntegerEnumMapper;
 import io.github.jinganix.webpb.runtime.enumeration.Enumeration;
 
 public enum ErrorCode implements BusinessErrorCode, Enumeration<Integer> {

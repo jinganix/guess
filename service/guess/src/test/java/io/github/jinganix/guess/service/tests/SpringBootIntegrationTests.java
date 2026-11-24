@@ -23,10 +23,10 @@ import static org.mockito.Mockito.when;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 
 import io.github.jinganix.guess.service.helper.auth.token.TokenService;
-import io.github.jinganix.guess.service.helper.uid.UidGenerator;
 import io.github.jinganix.guess.service.helper.utils.UtilsService;
 import io.github.jinganix.guess.service.module.auth.authenticator.WeappCodeAuthenticator;
 import io.github.jinganix.guess.service.module.wechat.WeappProvider;
+import io.github.jinganix.guess.vendor.kit.helper.uid.UidGenerator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;

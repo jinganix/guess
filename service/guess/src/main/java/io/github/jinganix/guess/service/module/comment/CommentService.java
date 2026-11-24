@@ -20,12 +20,12 @@ package io.github.jinganix.guess.service.module.comment;
 
 import io.github.jinganix.guess.proto.service.error.ErrorCode;
 import io.github.jinganix.guess.service.helper.exception.ApiException;
-import io.github.jinganix.guess.service.helper.uid.UidGenerator;
 import io.github.jinganix.guess.service.module.comment.model.Comment;
 import io.github.jinganix.guess.service.module.comment.model.CommentAction;
 import io.github.jinganix.guess.service.module.comment.model.CommentStatus;
 import io.github.jinganix.guess.service.module.comment.repository.CommentActionRepository;
 import io.github.jinganix.guess.service.module.comment.repository.CommentRepository;
+import io.github.jinganix.guess.vendor.kit.helper.uid.UidGenerator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

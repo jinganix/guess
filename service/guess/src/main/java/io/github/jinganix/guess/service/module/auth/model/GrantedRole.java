@@ -18,7 +18,7 @@
 
 package io.github.jinganix.guess.service.module.auth.model;
 
-import io.github.jinganix.guess.service.helper.enumeration.EnumMapper;
+import io.github.jinganix.guess.vendor.kit.helper.enumeration.EnumMapper;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 

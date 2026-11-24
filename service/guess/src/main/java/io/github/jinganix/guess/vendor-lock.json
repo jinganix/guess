@@ -1,0 +1,29 @@
+{
+  "kitSha": "c32c22eb4ddd729c36ecc8ee2c28362a54bf417a",
+  "vendorJsonHash": "6c16ed5537a7b6b5304c6c0510abbf7f3b2b61877b794b43373edc5f1f30a683",
+  "toolVersion": "1",
+  "supportMode": "buyout",
+  "files": [
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/utils/KitTimeZone.java",
+      "destPath": "vendor/kit/helper/utils/KitTimeZone.java",
+      "baseHash": "a19dc5a3f64bcb60c4da93e10e470c0615780e03ebb988f87c9d98e433fd3f60",
+      "destHash": "a19dc5a3f64bcb60c4da93e10e470c0615780e03ebb988f87c9d98e433fd3f60",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/utils/MonthRangeUtils.java",
+      "destPath": "vendor/kit/helper/utils/MonthRangeUtils.java",
+      "baseHash": "c0bb532f7cfa787d09a72cf50fded61d3c3984430a624891d5f85c0a642b064d",
+      "destHash": "c0bb532f7cfa787d09a72cf50fded61d3c3984430a624891d5f85c0a642b064d",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/utils/UtilsService.java",
+      "destPath": "vendor/kit/helper/utils/UtilsService.java",
+      "baseHash": "afc9128083ca0396303fff59df9d5775f9576838d41de7c306d5129a95508381",
+      "destHash": "afc9128083ca0396303fff59df9d5775f9576838d41de7c306d5129a95508381",
+      "generated": false
+    }
+  ]
+}

@@ -32,6 +32,15 @@ java {
   sourceCompatibility = JavaVersion.VERSION_25
 }
 
+sourceSets {
+  // Vendored kit base snapshots are read-only tool artifacts, not sources.
+  main {
+    java {
+      exclude("**/.vendor/**")
+    }
+  }
+}
+
 dependencies {
   annotationProcessor("io.github.jinganix.webpb:webpb-processor:${versionWebpb}")
   annotationProcessor("org.projectlombok:lombok:$versionLombok")
@@ -134,7 +143,7 @@ val versionGoogleJavaFormat: String by project
 spotless {
   java {
     googleJavaFormat(versionGoogleJavaFormat)
-    targetExclude("build/**/*.java")
+    targetExclude("build/**/*.java", "src/main/java/**/vendor/**/*.java")
   }
 }
 

@@ -27,7 +27,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /** Application. */
 @EnableConfigurationProperties
 @EnableTransactionManagement
-@SpringBootApplication(exclude = TaskExecutionAutoConfiguration.class)
+@SpringBootApplication(
+    exclude = TaskExecutionAutoConfiguration.class,
+    // Vendored kit beans live outside the default scan root (.service):
+    // io.github.jinganix.guess.vendor.kit (read-only, see vendor-lock.json).
+    // Narrowing is proven safe: every compilable stereotype bean lives under
+    // io.github.jinganix.guess.service.* except the vendored UtilsService above
+    // (.vendor/base copies are excluded from compilation in build.gradle.kts);
+    // no beans sit directly under io.github.jinganix.guess. Guarded by
+    // VendoredKitWiringTest.
+    scanBasePackages = {"io.github.jinganix.guess.service", "io.github.jinganix.guess.vendor.kit"})
 public class GuessApplication {
 
   /**

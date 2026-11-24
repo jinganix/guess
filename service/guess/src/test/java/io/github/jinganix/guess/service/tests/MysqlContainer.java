@@ -18,11 +18,11 @@
 
 package io.github.jinganix.guess.service.tests;
 
-import org.testcontainers.containers.MySQLContainer;
+import org.testcontainers.mysql.MySQLContainer;
 import org.testcontainers.utility.DockerImageName;
 
 /** Start a mysql docker container. */
-public class MysqlContainer extends MySQLContainer<MysqlContainer> {
+public class MysqlContainer extends MySQLContainer {
 
   private static final String VERSION = "9.1.0";
 

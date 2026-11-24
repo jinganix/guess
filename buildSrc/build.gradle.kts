@@ -36,7 +36,6 @@ for (key in properties.stringPropertyNames()) {
 
 val versionCoverallsGradlePlugin: String by project
 val versionDependencyManagementPlugin: String by project
-val versionFreemarker: String by project
 val versionGradleVersionsPlugin: String by project
 val versionJacocoAgent: String by project
 val versionProtobufGradlePlugin: String by project
@@ -49,7 +48,6 @@ dependencies {
   implementation("com.github.kt3k.coveralls:com.github.kt3k.coveralls.gradle.plugin:${versionCoverallsGradlePlugin}")
   implementation("com.google.protobuf:protobuf-gradle-plugin:${versionProtobufGradlePlugin}")
   implementation("io.spring.gradle:dependency-management-plugin:${versionDependencyManagementPlugin}")
-  implementation("org.freemarker:freemarker:${versionFreemarker}")
   implementation("org.jacoco:org.jacoco.agent:${versionJacocoAgent}")
   implementation("org.springframework.boot:spring-boot-gradle-plugin:${versionSpringBootGradlePlugin}")
   implementation(kotlin("script-runtime"))

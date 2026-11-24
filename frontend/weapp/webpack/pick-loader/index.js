@@ -12,7 +12,8 @@ const { extractPicks } = require("./extract");
 const SUPER_CALL = /super\s*\(\s*comp\s*\)/;
 
 module.exports = function loader(source) {
-  const options = (typeof this.getOptions === "function" ? this.getOptions() : getOptions(this)) || {};
+  const options =
+    (typeof this.getOptions === "function" ? this.getOptions() : getOptions(this)) || {};
   const callback = this.async();
   if (options.fullBind || process.env.FULL_BIND) {
     callback(null, source);
@@ -32,7 +33,9 @@ module.exports = function loader(source) {
     picks = extractPicks(fs.readFileSync(wxmlPath, "utf-8"));
   } catch (error) {
     this.emitWarning(
-      new Error(`[pick-loader] ${path.relative(process.cwd(), wxmlPath)}: ${error.message}; falling back to full binding`),
+      new Error(
+        `[pick-loader] ${path.relative(process.cwd(), wxmlPath)}: ${error.message}; falling back to full binding`,
+      ),
     );
     callback(null, source);
     return;

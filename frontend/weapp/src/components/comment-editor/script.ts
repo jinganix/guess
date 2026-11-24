@@ -27,7 +27,6 @@ import { cacheService, components } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
 import { CommentCreateRequest, CommentCreateResponse } from "@proto/CommentProto";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class CommentEditorScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -38,7 +37,7 @@ export class CommentEditorScript extends ComponentScript {
   @observable accessor show = false;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

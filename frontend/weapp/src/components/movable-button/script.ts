@@ -21,14 +21,13 @@ import { classId } from "@helpers/utils/utils";
 import { ScriptedComponent } from "@helpers/wx/adapter.types";
 import { ComponentScript } from "@helpers/wx/component.script";
 import { intercept, observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class MovableButtonScript extends ComponentScript {
   static readonly CLASS_ID = classId();
   @observable accessor iconClass = "";
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
     intercept(this, "iconClass", (change) => {
       change.newValue = cn("text-2xl text-grey-0", change.newValue);
       return change;

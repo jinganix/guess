@@ -20,7 +20,6 @@ import { classId } from "@helpers/utils/utils";
 import { ScriptedComponent } from "@helpers/wx/adapter.types";
 import { ComponentScript } from "@helpers/wx/component.script";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class PopoverPreviewScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -28,7 +27,7 @@ export class PopoverPreviewScript extends ComponentScript {
   @observable accessor show = false;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

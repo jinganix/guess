@@ -26,7 +26,6 @@ import { components, configStore } from "@modules/container";
 import { PuzzleDetailScript } from "@pages/puzzle/detail/script";
 import { PuzzleIncreaseLimitRequest, PuzzleIncreaseLimitResponse } from "@proto/PuzzleProto";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class PuzzleLimitScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -35,7 +34,7 @@ export class PuzzleLimitScript extends ComponentScript {
   @observable accessor configStore = configStore;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

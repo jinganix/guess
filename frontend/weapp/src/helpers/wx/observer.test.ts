@@ -7,9 +7,9 @@ jest.mock("@modules/container", () => ({
   components: { remove: jest.fn(), set: jest.fn() },
 }));
 
+import { ScriptedComponent } from "./adapter.types";
 import { ComponentScript } from "./component.script";
 import { Observer } from "./observer";
-import { ScriptedComponent } from "./adapter.types";
 
 class Box {
   user = { avatar: "a", nick: "n" };

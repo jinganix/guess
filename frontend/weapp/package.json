@@ -4,12 +4,11 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "npm run pick && npm run lint && npm run clean && npm run proto && webpack --config webpack/webpack.config.ts --progress --mode production --env prod",
+    "build": "npm run lint && npm run clean && npm run proto && webpack --config webpack/webpack.config.ts --progress --mode production --env prod",
     "clean": "rimraf ./build/* ./dist/*",
-    "dev": "npm run pick && npm run clean && npm run proto && webpack --config webpack/webpack.config.ts --watch --progress --mode development --env dev",
+    "dev": "npm run clean && npm run proto && webpack --config webpack/webpack.config.ts --watch --progress --mode development --env dev",
     "lint": "eslint src",
     "lint:fix": "eslint src --fix",
-    "pick": "node pick.js",
     "proto": "../../gradlew generateProto",
     "start": "npm run dev",
     "test": "jest --forceExit --coverage --verbose --detectOpenHandles"

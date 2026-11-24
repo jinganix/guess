@@ -100,6 +100,14 @@ const wxmlLoader = (options?: {
   };
 };
 
+// Injects wxml binding paths into `super(comp)` calls of script.ts files.
+// Reads the FULL_BIND env switch itself; no options needed.
+const pickLoader = (): RuleSetUseItem => {
+  return {
+    loader: path.resolve("webpack/pick-loader/index.js"),
+  };
+};
+
 export default (env: string | { dev: boolean }): webpack.Configuration => {
   const isDev: boolean = typeof env === "string" ? env !== "prod" : env.dev;
   const { environment }: { environment: Environment } = requireFile(
@@ -123,6 +131,14 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
           include: [SRC_DIR, path.resolve("build")],
           test: /\.(ts|tsx)$/,
           use: ["ts-loader", "source-map-loader"],
+        },
+        {
+          // Runs before ts-loader (rightmost first): rewrites `super(comp)`
+          // with picks derived from the sibling index.wxml. Skipped files
+          // fall back to full binding at runtime.
+          include: [SRC_DIR],
+          test: /[\\/]script\.ts$/,
+          use: [pickLoader()],
         },
         {
           include: [SRC_DIR, VANT_DIR],

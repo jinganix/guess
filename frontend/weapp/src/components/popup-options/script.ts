@@ -24,7 +24,6 @@ import { Comment } from "@modules/comment/comment.types";
 import { cacheService, userStore } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
 import { observable, observe } from "mobx";
-import { PICKS } from "./pick";
 
 export class PopupOptionsScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -34,7 +33,7 @@ export class PopupOptionsScript extends ComponentScript {
   @observable accessor userStore = userStore;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
     observe(this, "cacheKey", ({ newValue }) => {
       this.moment = newValue ? cacheService.getByKey<Moment>(newValue) : null;
     });

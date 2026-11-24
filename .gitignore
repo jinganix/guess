@@ -9,3 +9,4 @@ LOG_DIR_IS_UNDEFINED
 build
 logs
 node_modules
+*.tsbuildinfo

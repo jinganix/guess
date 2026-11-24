@@ -25,7 +25,6 @@ import { ComponentScript } from "@helpers/wx/component.script";
 import { appService, components, configStore, userExtraStore, userStore } from "@modules/container";
 import { MomentCategory } from "@proto/MomentProto";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class UserDetailScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -34,7 +33,7 @@ export class UserDetailScript extends ComponentScript {
   @observable accessor userStore = userStore;
 
   constructor(comp: ScriptedPage) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

@@ -24,7 +24,6 @@ import { Comment } from "@modules/comment/comment.types";
 import { cacheService, components, userStore } from "@modules/container";
 import { User } from "@modules/user/user.types";
 import { observable, observe } from "mobx";
-import { PICKS } from "./pick";
 
 export class CommentScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -33,7 +32,7 @@ export class CommentScript extends ComponentScript {
   @observable accessor user: User | null = null;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
     observe(this, "cacheKey", ({ newValue }) => {
       this.comment = cacheService.getByKey<Comment>(newValue);
     });

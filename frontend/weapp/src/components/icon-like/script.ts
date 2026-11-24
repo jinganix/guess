@@ -25,7 +25,6 @@ import { Comment } from "@modules/comment/comment.types";
 import { cacheService } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
 import { observable, observe } from "mobx";
-import { PICKS } from "./pick";
 
 interface Like {
   like: number;
@@ -38,7 +37,7 @@ export class IconLikeScript extends ComponentScript {
   @observable accessor item: Like | null = null;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
     observe(this, "cacheKey", ({ newValue }) => {
       this.item = newValue ? cacheService.getByKey<Like & CacheItem>(this.cacheKey) : null;
     });

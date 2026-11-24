@@ -31,7 +31,6 @@ import {
 import { every, some } from "lodash";
 import { observable } from "mobx";
 import { MomentListScript } from "../list/script";
-import { PICKS } from "./pick";
 
 export class EditOptions {
   option1 = "";
@@ -57,7 +56,7 @@ export class MomentEditScript extends ComponentScript {
   @observable accessor options = new EditOptions();
 
   constructor(comp: ScriptedPage) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

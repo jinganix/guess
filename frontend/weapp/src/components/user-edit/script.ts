@@ -26,7 +26,6 @@ import { cacheService, userStore } from "@modules/container";
 import { User } from "@modules/user/user.types";
 import { UserUpdateRequest, UserUpdateResponse } from "@proto/UserProto";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export type Gender = 0 | 1 | 2;
 
@@ -39,7 +38,7 @@ export class UserEditScript extends ComponentScript {
   @observable accessor show = false;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

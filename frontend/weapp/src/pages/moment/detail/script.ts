@@ -29,7 +29,6 @@ import { cacheService, components, configStore } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
 import { MomentRetrieveRequest, MomentRetrieveResponse } from "@proto/MomentProto";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class MomentDetailScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -40,7 +39,7 @@ export class MomentDetailScript extends ComponentScript {
   @observable accessor configStore = configStore;
 
   constructor(comp: ScriptedPage) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

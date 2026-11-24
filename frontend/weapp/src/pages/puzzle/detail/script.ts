@@ -36,7 +36,6 @@ import {
   PuzzleRetrieveResponse,
 } from "@proto/PuzzleProto";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class PuzzleDetailScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -51,7 +50,7 @@ export class PuzzleDetailScript extends ComponentScript {
   @observable accessor configStore = configStore;
 
   constructor(comp: ScriptedPage<PuzzleDetailScript>) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

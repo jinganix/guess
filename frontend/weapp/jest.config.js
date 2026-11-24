@@ -42,5 +42,5 @@ module.exports = {
   rootDir: "./",
   roots: ["<rootDir>"],
   setupFiles: ["./__tests__/setup.wx.ts"],
-  testMatch: ["<rootDir>/src/**/__tests__/**/*.{js,ts}", "<rootDir>/src/**/*.{spec,test}.{js,ts}"],
+  testMatch: ["<rootDir>/src/**/__tests__/**/*.{js,ts}", "<rootDir>/src/**/*.{spec,test}.{js,ts}", "<rootDir>/webpack/**/*.{spec,test}.{js,ts}"],
 };

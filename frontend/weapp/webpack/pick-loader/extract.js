@@ -125,7 +125,9 @@ function extractPicks(wxml) {
     try {
       extractAccessExpressions(code, variables);
     } catch (error) {
-      throw new Error(`failed to parse binding expression ${JSON.stringify(code)}: ${error.message}`);
+      throw new Error(
+        `failed to parse binding expression ${JSON.stringify(code)}: ${error.message}`,
+      );
     }
     for (const variable of variables) {
       // `wx:for` loop variables (e.g. `item`) are intentionally kept:

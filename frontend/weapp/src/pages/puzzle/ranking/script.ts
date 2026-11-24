@@ -26,7 +26,6 @@ import { configStore } from "@modules/container";
 import { Ranking } from "@modules/ranking/ranking.types";
 import { IPuzzleRankPb, PuzzleRankingRequest, PuzzleRankingResponse } from "@proto/PuzzleProto";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class PuzzleRankingScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -36,7 +35,7 @@ export class PuzzleRankingScript extends ComponentScript {
   @observable accessor configStore = configStore;
 
   constructor(comp: ScriptedPage) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

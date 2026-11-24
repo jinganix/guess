@@ -33,10 +33,7 @@ describe("extractPicks", () => {
 
   it("collects computed non-literal keys in addition to the base path", () => {
     expect(extractPicks(`<input value="{{options[item]}}"/>`)).toEqual(["item", "options"]);
-    expect(extractPicks(`<view>{{options[item.key]}}</view>`)).toEqual([
-      "item.key",
-      "options",
-    ]);
+    expect(extractPicks(`<view>{{options[item.key]}}</view>`)).toEqual(["item.key", "options"]);
   });
 
   it("ignores numeric computed keys", () => {
@@ -49,10 +46,7 @@ describe("extractPicks", () => {
 
   it("drops trailing paths after a computed object", () => {
     // real case: {{options[item].length || 0}} -> options + item
-    expect(extractPicks(`<view>{{options[item].length || 0}}</view>`)).toEqual([
-      "item",
-      "options",
-    ]);
+    expect(extractPicks(`<view>{{options[item].length || 0}}</view>`)).toEqual(["item", "options"]);
   });
 
   it("excludes JS globals used as identifiers", () => {

@@ -136,3 +136,9 @@ expect(out).toContain(`super(comp, ["show"])`);
 ## Execution Log
 
 - Task 1 golden-check（删文件前）：26 个 `src/**/pick.ts`（含 `more-options` 空数组，共 27 个 pick.ts？实为 27 个文件 27/27）逐个对比 `extractPicks(index.wxml)`，27/27 一致。唯一语义增强：`options[item].length` 在老逻辑丢 `item`，新逻辑保留（`edit` 页因另有 `options[item]` 本来就含 `item`，无 diff）。
+
+## Execution Log (review fix pass)
+
+- Reviewer（fresh Agent）结论已重定级并处理：`addDependency` 前移到 parse 之前（dev 下修 wxml 也能触发重编）✓；`String.replace` 改 replacement 函数（`{{a$$b}}` 实测塌过）✓；rule 加 `enforce: "pre"`（不再依赖跨 rule 顺序假设）✓；`FULL_BIND` 严格判断仅 `1/true`（`FULL_BIND=0` 不再生效）✓；新增 `golden.test.js` snapshot 把 27 个真实 wxml 的抽取结果钉在仓库里（脚本核对与基线旧 pick.ts 27/27 一致）✓。
+- 不修（Minor→deferred）：`super(comp)` 正则可能命中注释/字符串、多 component 同文件只改第一处；wxs `module = "x"` 空格写法漏检；`}}` 在字符串字面量里截断（安全方向：warning+全量）；计算 key 里 `options[fmt(x)]` 会多收 `fmt`（无害未知名）；`[]` 与 `undefined` 在 Observer 等价但在 defaultData 不等价（保留老 quirk）；`webpack/pick-loader/*.js` 不在 `eslint src` 门禁内（沿袭老 pick.js）；`script.tsx`/改名构造参数会静默全量。
+- 预先存在、与本分支无关：`src/pages/puzzle/detail/scripts.test.ts` 在基线 `f7de263` 同样失败（container↔comment-list 循环依赖），本分支 44/44 其余全绿。

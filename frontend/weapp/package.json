@@ -15,7 +15,8 @@
     "lint:fix": "eslint src --fix",
     "proto": "webpb generate -o generated/proto -I ../../proto/service/src/main/resources -I ../../proto/imports/src/main/resources ../../proto/service/src/main/resources/service/Auth.proto ../../proto/service/src/main/resources/service/Comment.proto ../../proto/service/src/main/resources/service/Error.proto ../../proto/service/src/main/resources/service/Moment.proto ../../proto/service/src/main/resources/service/Puzzle.proto ../../proto/service/src/main/resources/service/User.proto",
     "start": "npm run dev",
-    "test": "jest --forceExit --coverage --verbose --detectOpenHandles"
+    "test": "jest --forceExit --coverage --verbose --detectOpenHandles",
+    "verify:vendor": "bash ../../scripts/verify-vendor.sh"
   },
   "keywords": [
     "weapp",

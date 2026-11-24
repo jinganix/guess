@@ -16,7 +16,7 @@
  * https://github.com/jinganix/guess
  */
 
-import { pick } from "lodash";
+import pick from "lodash/pick";
 import { isObservableProp, observe } from "mobx";
 
 export type Listener = (path: string, value: unknown) => void;

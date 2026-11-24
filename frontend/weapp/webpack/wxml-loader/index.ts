@@ -1,11 +1,11 @@
 import * as sax from "sax";
 import { Context, Script } from "vm";
 import { minify } from "html-minifier-terser";
-import { getOptions, isUrlRequest, urlToRequest } from "loader-utils";
+import { isUrlRequest, urlToRequest } from "loader-utils";
 import { startsWith } from "lodash";
 import * as path from "path";
 import * as webpack from "webpack";
-import { cast, moduleLoader } from "../utils";
+import { moduleLoader } from "../utils";
 
 interface Request {
   endIndex: number;
@@ -13,7 +13,7 @@ interface Request {
   startIndex: number;
 }
 
-interface Options {
+export interface WxmlLoaderOptions {
   enforceRelativePath?: boolean;
   minimize?: boolean;
   publicPath?: string;
@@ -44,32 +44,24 @@ const defaultMinimizeConf = {
   removeStyleLinkTypeAttributes: true,
 };
 
-function getPublicPath(ctx: Record<string, unknown>): string {
-  const property = "publicPath";
-  const options: { output: Record<string, string> } = cast(ctx["options"]);
-  if (options && options.output && property in options.output) {
-    return options.output[property];
-  }
-  const compilation: { outputOptions: Record<string, string> } = cast(ctx["_compilation"]);
-  if (compilation && compilation.outputOptions && property in compilation.outputOptions) {
-    return compilation.outputOptions[property];
-  }
-  return "";
+function getPublicPath(ctx: webpack.LoaderContext<WxmlLoaderOptions>): string {
+  const publicPath = ctx._compilation?.outputOptions?.publicPath;
+  return typeof publicPath === "string" ? publicPath : "";
 }
 
 export default function loader(
-  this: webpack.LoaderContext<Options>,
+  this: webpack.LoaderContext<WxmlLoaderOptions>,
   source: string | Buffer,
-): string | Buffer | void | undefined {
+): void {
   let content = source.toString();
   const callback = this.async();
   const { resourcePath, context } = this;
 
-  const options: Options = getOptions(cast(this)) || {};
-  const root = (options.root as string) ?? path.resolve(context);
-  const publicPath = (options.publicPath as string) ?? getPublicPath(cast(this));
-  const enforceRelativePath = (options.enforceRelativePath as boolean) ?? false;
-  const minimize = (options.minimize as boolean) ?? false;
+  const options = this.getOptions() || {};
+  const root = options.root ?? path.resolve(context);
+  const publicPath = options.publicPath ?? getPublicPath(this);
+  const enforceRelativePath = options.enforceRelativePath ?? false;
+  const minimize = options.minimize ?? false;
 
   const requests: Request[] = [];
 
@@ -83,8 +75,7 @@ export default function loader(
     return ensureStartsWithDot(source);
   };
 
-  const replaceRequest = async ({ request, startIndex, endIndex }: Request): Promise<void> => {
-    const module: string = await moduleLoader.loadModule(this, request);
+  const applyModule = (module: string, { startIndex, endIndex }: Request): void => {
     if (!module) {
       return;
     }
@@ -101,12 +92,17 @@ export default function loader(
 
   const parser = sax.parser(false, { lowercase: true });
 
+  // WXML is a fragment: sax stops after the first top-level node, so wrap
+  // the content in a synthetic root and subtract its length from positions.
+  const wrapperOpen = "<root>";
+  const positionOffset = wrapperOpen.length;
+
   parser.onattribute = ({ name, value }): void => {
     if (!value || name != "src" || /{{/.test(value) || !isUrlRequest(value, root)) {
       return;
     }
 
-    const endIndex: number = parser.position - 1;
+    const endIndex: number = parser.position - 1 - positionOffset;
     const startIndex: number = endIndex - value.length;
     const request: string = urlToRequest(value, root);
 
@@ -114,19 +110,28 @@ export default function loader(
   };
 
   parser.onend = (): void => {
-    try {
-      void Promise.all(requests.map((request) => replaceRequest(request))).then(async () => {
-        if (minimize) {
-          content = await minify(content, {
-            ...defaultMinimizeConf,
-          });
-        }
-        callback(null, content);
-      });
-    } catch (err) {
-      callback(err as Error, content);
-    }
+    (async () => {
+      // Load in parallel, then apply back-to-front in document order so
+      // earlier replacements never shift the recorded indices of later ones.
+      // Requests are stored in reverse document order: applying them as
+      // stored keeps every slice aligned. The map reuses one load for
+      // repeated src values, which ModuleLoader would otherwise dedupe to "".
+      const unique = [...new Set(requests.map(({ request }) => request))];
+      const loaded = await Promise.all(
+        unique.map((request) => moduleLoader.loadModule(this, request)),
+      );
+      const modules = new Map(unique.map((request, i) => [request, loaded[i]]));
+      for (const { request, startIndex, endIndex } of requests) {
+        applyModule(modules.get(request) ?? "", { endIndex, request, startIndex });
+      }
+      if (minimize) {
+        content = await minify(content, {
+          ...defaultMinimizeConf,
+        });
+      }
+      callback(null, content);
+    })().catch((err: Error) => callback(err, content));
   };
 
-  parser.write(content).close();
+  parser.write(`${wrapperOpen}${content}</root>`).close();
 }

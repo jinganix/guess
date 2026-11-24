@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch" = "master" ]; then
+  echo "Never commit to [$branch] directly"
+  exit 1
+fi
+
+ROOT=$(git rev-parse --show-toplevel)
+# Live dev keys must never be committed, even force-added past .gitignore.
+if git diff --cached --name-only | grep -qE '(^|/)\.env\.local$'; then
+  echo "Refusing to commit .env.local (live dev key)"
+  exit 1
+fi
+# application-local.yml holds real local credentials and is untracked on purpose.
+if git diff --cached --name-only | grep -qE 'application-local\.yml$'; then
+  echo "Refusing to commit application-local.yml (real local credentials)"
+  exit 1
+fi
+"$ROOT/docs/scripts/check.sh"

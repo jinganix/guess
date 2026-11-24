@@ -4,14 +4,19 @@
 // Files without a match, with explicit picks, with a missing/unparsable wxml,
 // or under FULL_BIND are passed through: the runtime then binds everything
 // (see ComponentScript), so correctness never depends on this loader.
-const fs = require("fs");
-const path = require("path");
-const { getOptions } = require("loader-utils");
-const { extractPicks } = require("./extract");
+import * as fs from "fs";
+import * as path from "path";
+import * as webpack from "webpack";
+import { extractPicks } from "./extract";
+
+export interface PickLoaderOptions {
+  fullBind?: boolean;
+  strictPick?: boolean;
+}
 
 const SUPER_CALL = /super\s*\(\s*comp\s*\)/;
 
-function fullBindEnabled(options) {
+function fullBindEnabled(options: PickLoaderOptions): boolean {
   if (options.fullBind) {
     return true;
   }
@@ -19,7 +24,7 @@ function fullBindEnabled(options) {
   return flag === "1" || flag === "true";
 }
 
-function strictPickEnabled(options) {
+function strictPickEnabled(options: PickLoaderOptions): boolean {
   if (options.strictPick) {
     return true;
   }
@@ -27,9 +32,11 @@ function strictPickEnabled(options) {
   return flag === "1" || flag === "true";
 }
 
-module.exports = function loader(source) {
-  const options =
-    (typeof this.getOptions === "function" ? this.getOptions() : getOptions(this)) || {};
+export default function loader(
+  this: webpack.LoaderContext<PickLoaderOptions>,
+  source: string,
+): void {
+  const options = this.getOptions() || {};
   const callback = this.async();
   if (fullBindEnabled(options)) {
     callback(null, source);
@@ -47,12 +54,13 @@ module.exports = function loader(source) {
   if (typeof this.addDependency === "function") {
     this.addDependency(wxmlPath);
   }
-  let picks;
+  let picks: string[];
   try {
     picks = extractPicks(fs.readFileSync(wxmlPath, "utf-8"));
   } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
     const err = new Error(
-      `[pick-loader] ${path.relative(process.cwd(), wxmlPath)}: ${error.message}; falling back to full binding`,
+      `[pick-loader] ${path.relative(process.cwd(), wxmlPath)}: ${message}; falling back to full binding`,
     );
     if (strictPickEnabled(options)) {
       callback(err);
@@ -65,8 +73,5 @@ module.exports = function loader(source) {
   const injected = `super(comp, ${JSON.stringify(picks)})`;
   // Replacement function: picks may contain `$` (e.g. `a$$b`),
   // which String.replace would interpret as a pattern.
-  callback(
-    null,
-    source.replace(SUPER_CALL, () => injected),
-  );
-};
+  callback(null, source.replace(SUPER_CALL, () => injected));
+}

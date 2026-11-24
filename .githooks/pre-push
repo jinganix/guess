@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+if [ "$branch" = "master" ]; then
+  echo "Never push to [$branch] directly"
+  exit 1
+fi
+
+# HEAD only says where we stand: the refspecs say what actually lands on the
+# remote. `git push origin foo:master` (or `:master` to delete it) from a
+# feature branch must be rejected too. stdin lines: <local ref> <sha> <remote ref> <sha>.
+if [ ! -t 0 ]; then
+  while read -r _local_ref _local_sha remote_ref _remote_sha; do
+    case "$remote_ref" in
+      refs/heads/master)
+        echo "Never push to [master] directly"
+        exit 1
+        ;;
+    esac
+  done
+fi
+
+ROOT=$(git rev-parse --show-toplevel)
+"$ROOT/docs/scripts/check.sh"

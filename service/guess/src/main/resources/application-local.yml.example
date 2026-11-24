@@ -1,0 +1,14 @@
+# 本地开发配置模板：复制为同目录下的 application-local.yml 后再填真实值
+#   cp application-local.yml.example application-local.yml
+# 真实 application-local.yml 不入库（见 .gitignore）；生产一律用环境变量覆盖。
+core:
+  url:
+    db-mysql: ${CORE_URL_DB_MYSQL:jdbc:mysql://127.0.0.1:3306/guess}
+  weapp:
+    app-id: ${CORE_WEAPP_APP_ID:fake-app-id}
+    app-secret: ${CORE_WEAPP_APP_SECRET:fake-app-secret}
+
+spring:
+  datasource:
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root}

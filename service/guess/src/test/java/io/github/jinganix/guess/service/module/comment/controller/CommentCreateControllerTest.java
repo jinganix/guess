@@ -129,22 +129,21 @@ class CommentCreateControllerTest extends SpringBootIntegrationTests {
         testHelper
             .request(UID_1, new CommentCreateRequest(UID_1, null, "aaaaaa"))
             .andExpect(status().isOk())
-            .andExpect(
-                result ->
-                    assertThat(testHelper.deserialize(result, CommentCreateResponse.class))
-                        .usingRecursiveComparison()
-                        .isEqualTo(
-                            new CommentCreateResponse()
-                                .setComment(
-                                    new CommentFacadePb()
-                                        .setComment(
-                                            new CommentPb()
-                                                .setId(UID_1)
-                                                .setMomentId(UID_1)
-                                                .setContent("aaaaaa")
-                                                .setLike(0)
-                                                .setUserId(UID_1)
-                                                .setCreatedAt(MILLIS)))));
+            .andExpect(result ->
+                assertThat(testHelper.deserialize(result, CommentCreateResponse.class))
+                    .usingRecursiveComparison()
+                    .isEqualTo(
+                        new CommentCreateResponse()
+                            .setComment(
+                                new CommentFacadePb()
+                                    .setComment(
+                                        new CommentPb()
+                                            .setId(UID_1)
+                                            .setMomentId(UID_1)
+                                            .setContent("aaaaaa")
+                                            .setLike(0)
+                                            .setUserId(UID_1)
+                                            .setCreatedAt(MILLIS)))));
         assertThat(commentRepository.findById(UID_1)).isNotEmpty();
         assertThat(momentRepository.findById(UID_1))
             .isNotEmpty()

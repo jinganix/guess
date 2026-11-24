@@ -28,7 +28,8 @@ import {
   MomentCreateRequest,
   MomentCreateResponse,
 } from "@proto/MomentProto";
-import { every, some } from "lodash";
+import every from "lodash/every";
+import some from "lodash/some";
 import { observable } from "mobx";
 import { MomentListScript } from "../list/script";
 

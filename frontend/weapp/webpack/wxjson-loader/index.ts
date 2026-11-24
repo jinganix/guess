@@ -1,33 +1,32 @@
-import { getOptions, urlToRequest } from "loader-utils";
+import { urlToRequest } from "loader-utils";
 import * as path from "path";
 import * as webpack from "webpack";
-import { cast, moduleLoader } from "../utils";
+import { moduleLoader } from "../utils";
+
+export interface WxJsonLoaderOptions {
+  minify?: boolean;
+}
 
 interface TabBar {
-  list: [{ iconPath: string; selectedIconPath: string }];
+  list: { iconPath: string; selectedIconPath: string }[];
 }
 
 export default function loader(
-  this: webpack.LoaderContext<unknown>,
+  this: webpack.LoaderContext<WxJsonLoaderOptions>,
   source: string | Buffer,
-): string | Buffer | void | undefined {
-  const options = getOptions(cast(this)) || {};
+): string | Buffer {
+  const options = this.getOptions() || {};
 
   const text = source.toString();
-  const assets: string[] = [];
-  const { tabBar }: { tabBar: TabBar } = cast(JSON.parse(text));
-  if (tabBar) {
-    tabBar.list &&
-      tabBar.list.forEach((e: { iconPath: string; selectedIconPath: string }) => {
-        e.iconPath && assets.push(e.iconPath);
-        e.selectedIconPath && assets.push(e.selectedIconPath);
-      });
-  }
-
-  assets.filter(Boolean).forEach((e) => {
-    const request = urlToRequest(path.relative(this.rootContext, e));
+  const parsed = JSON.parse(text) as { tabBar?: TabBar };
+  const addAsset = (icon: string): void => {
+    const request = urlToRequest(path.relative(this.rootContext, icon));
     void moduleLoader.loadModule(this, request);
+  };
+  parsed.tabBar?.list?.forEach((e) => {
+    e.iconPath && addAsset(e.iconPath);
+    e.selectedIconPath && addAsset(e.selectedIconPath);
   });
 
-  return options.minify ? JSON.stringify(JSON.parse(source.toString())) : source;
+  return options.minify ? JSON.stringify(parsed) : source;
 }

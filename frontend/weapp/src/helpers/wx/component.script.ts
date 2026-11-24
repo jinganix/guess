@@ -21,7 +21,7 @@ import { ScriptedComponent, ScriptedPage } from "@helpers/wx/adapter.types";
 import { Observer, getObservableKeys } from "@helpers/wx/observer";
 import { pickObservable } from "@helpers/wx/pick.obervable";
 import { components } from "@modules/container";
-import { omit } from "lodash";
+import omit from "lodash/omit";
 
 export abstract class ComponentScript {
   private static COUNTER = 1;

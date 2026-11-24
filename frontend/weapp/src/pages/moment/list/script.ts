@@ -33,7 +33,7 @@ import {
   MomentListResponse,
   MomentStatus,
 } from "@proto/MomentProto";
-import { find } from "lodash";
+import find from "lodash/find";
 import { observable } from "mobx";
 
 const CATEGORIES = {

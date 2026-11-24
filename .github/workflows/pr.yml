@@ -1,5 +1,8 @@
 name: PR
 
+permissions:
+  contents: read
+
 on:
   pull_request:
     branches:
@@ -10,13 +13,15 @@ jobs:
     name: Check Commit Message
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
-      - uses: wagoid/commitlint-github-action@v6
-        with:
-          configFile: package.json
-          failOnWarnings: true
+      - name: Validate commit messages
+        run: |
+          range='${{ github.event.pull_request.base.sha }}..${{ github.event.pull_request.head.sha }}'
+          for sha in $(git log --format=%H "$range"); do
+            git log -1 --format=%B "$sha" | ./docs/scripts/validate-commit-msg.sh /dev/stdin
+          done
   build:
     name: Build
     needs: [ commitlint ]
@@ -24,18 +29,18 @@ jobs:
     strategy:
       matrix:
         os: [ ubuntu-latest ]
-        jdk: [ 24 ]
+        jdk: [ 25 ]
       fail-fast: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Setup JDK ${{ matrix.jdk }}
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v6
         with:
           distribution: 'temurin'
           java-version: ${{ matrix.jdk }}
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
       - name: Build with Gradle
         run: ./gradlew clean build

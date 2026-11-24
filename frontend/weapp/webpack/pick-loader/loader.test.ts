@@ -1,24 +1,25 @@
-const path = require("path");
-const loader = require("./index");
+import * as path from "path";
+import * as webpack from "webpack";
+import loader, { PickLoaderOptions } from "./index";
 
-const fixture = (...parts) => path.join(__dirname, "__fixtures__", ...parts);
+const fixture = (...parts: string[]): string => path.join(__dirname, "__fixtures__", ...parts);
 
-function runLoader(source, resourcePath, options = {}) {
-  const warnings = [];
-  const deps = [];
-  let result;
-  let error;
+function runLoader(source: string, resourcePath: string, options: PickLoaderOptions = {}) {
+  const warnings: string[] = [];
+  const deps: string[] = [];
+  let result: string | undefined;
+  let error: Error | undefined;
   const context = {
-    addDependency: (dep) => deps.push(dep),
-    async: () => (err, out) => {
-      error = err;
+    addDependency: (dep: string) => deps.push(dep),
+    async: () => (err?: Error | null, out?: string) => {
+      error = err ?? undefined;
       result = out;
     },
-    emitWarning: (warning) => warnings.push(String(warning)),
+    emitWarning: (warning: Error) => warnings.push(String(warning)),
     getOptions: () => options,
     query: options,
     resourcePath,
-  };
+  } as unknown as webpack.LoaderContext<PickLoaderOptions>;
   loader.call(context, source);
   if (error) {
     throw error;
@@ -53,7 +54,10 @@ describe("pick-loader", () => {
 
   it("warns and leaves the file untouched on unparsable expressions", () => {
     const source = `constructor(comp) { super(comp); }`;
-    const { deps, result, warnings } = runLoader(source, fixture("unparsable", "script.ts"));
+    const { deps, result, warnings } = runLoader(
+      source,
+      fixture("unparsable", "script.ts"),
+    );
     expect(result).toBe(source);
     expect(warnings).toHaveLength(1);
     expect(warnings[0]).toMatch(/a %% b/);
@@ -108,7 +112,7 @@ describe("pick-loader", () => {
     const source = `class A { constructor(comp) { super(comp); } }
 class B { constructor(comp) { super(comp); } }`;
     const { result } = runLoader(source, fixture("basic", "script.ts"));
-    expect(result.indexOf(`super(comp, ["show","title"])`)).toBeGreaterThan(-1);
+    expect(result?.indexOf(`super(comp, ["show","title"])`)).toBeGreaterThan(-1);
     expect(result).toContain("class B { constructor(comp) { super(comp); } }");
   });
 });

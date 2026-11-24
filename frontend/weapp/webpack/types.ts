@@ -1,4 +1,4 @@
-import { Environment } from "./env/env";
+import { Environment } from "../env/env";
 import { PathMappers } from "./utils";
 
 export interface App {

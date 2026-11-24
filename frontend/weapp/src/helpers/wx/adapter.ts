@@ -34,7 +34,7 @@ import {
   PropertyOption,
 } from "@helpers/wx/wx.types";
 import { appService } from "@modules/container";
-import { includes } from "lodash";
+import includes from "lodash/includes";
 
 type Method = (this: Script, ...args: unknown[]) => void;
 type Methods = Record<string, Method> & Script;

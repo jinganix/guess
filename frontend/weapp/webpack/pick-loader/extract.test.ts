@@ -1,4 +1,4 @@
-const { extractPicks } = require("./extract");
+import { extractPicks } from "./extract";
 
 describe("extractPicks", () => {
   it("extracts identifiers and member paths", () => {

@@ -1,12 +1,12 @@
 // WXML 绑定校验：index.wxml 里的 {{x}} 首段必须能在同目录 script.ts
 // （@observable accessor / getter）、index.ts（properties）、wxs 模块名、
-// wx:for 循环变量中找到，否则报错。字段提取复用 pick-loader 的 extractPicks。
-const fs = require("fs");
-const path = require("path");
-const { extractPicks } = require("../webpack/pick-loader/extract");
+// wx:for 循环变量中找到，否则报错。字段提取复用 pick-loader 的 extractPicks.
+import * as fs from "fs";
+import * as path from "path";
+import { extractPicks } from "../webpack/pick-loader/extract";
 
-const scriptFields = (src) => {
-  const fields = new Set();
+const scriptFields = (src: string): Set<string> => {
+  const fields = new Set<string>();
   for (const m of src.matchAll(/@observable\s+accessor\s+(\w+)/g)) {
     fields.add(m[1]);
   }
@@ -19,16 +19,16 @@ const scriptFields = (src) => {
   return fields;
 };
 
-const propsFields = (src) => {
-  const fields = new Set();
+const propsFields = (src: string): Set<string> => {
+  const fields = new Set<string>();
   for (const m of src.matchAll(/(\w+)\s*:\s*\{\s*type\s*:/g)) {
     fields.add(m[1]);
   }
   return fields;
 };
 
-const wxsModules = (wxml) => {
-  const modules = new Set();
+const wxsModules = (wxml: string): Set<string> => {
+  const modules = new Set<string>();
   for (const m of wxml.matchAll(/<wxs[^>]*module=["']([\w-]+)["']/g)) {
     modules.add(m[1]);
   }
@@ -37,8 +37,8 @@ const wxsModules = (wxml) => {
 
 // wx:for 默认循环变量 item/index；自定义 wx:for-item="x" 一并收录。
 // shortcut: 按文件级白名单而非逐元素作用域，同一文件内误判率极低。
-const loopLocals = (wxml) => {
-  const locals = new Set();
+const loopLocals = (wxml: string): Set<string> => {
+  const locals = new Set<string>();
   if (/wx:for\s*=/.test(wxml)) {
     locals.add("item").add("index");
   }
@@ -53,10 +53,10 @@ const loopLocals = (wxml) => {
 
 // 遗留写法：index.ts 里 Component({data: {...}}) 内联数据（如 preview-page）。
 // 用括号计数取 data 块顶层 key。
-const dataFields = (src) => {
-  const fields = new Set();
+const dataFields = (src: string): Set<string> => {
+  const fields = new Set<string>();
   const m = src.match(/data\s*:\s*\{/);
-  if (!m) {
+  if (!m || m.index === undefined) {
     return fields;
   }
   let depth = 0;
@@ -80,8 +80,8 @@ const dataFields = (src) => {
   return fields;
 };
 
-const checkWxml = (wxml, fields) => {
-  const errors = [];
+const checkWxml = (wxml: string, fields: Set<string>): string[] => {
+  const errors: string[] = [];
   const wxs = wxsModules(wxml);
   const locals = loopLocals(wxml);
   for (const pick of extractPicks(wxml)) {
@@ -99,7 +99,7 @@ const checkWxml = (wxml, fields) => {
   return errors;
 };
 
-const ALIAS_ROOTS = {
+const ALIAS_ROOTS: Record<string, string> = {
   "@comps": "src/components",
   "@helpers": "src/helpers",
   "@modules": "src/modules",
@@ -109,11 +109,11 @@ const ALIAS_ROOTS = {
 
 // index.ts 可能复用别处目录的 script（如 user/moments 用 moment/list 的
 // MomentListScript）：把指向 */script 的 import 解析成绝对路径一并校验。
-const resolveScriptImports = (indexSrc, dir, root) => {
-  const out = [];
+const resolveScriptImports = (indexSrc: string, dir: string, root: string): string[] => {
+  const out: string[] = [];
   for (const m of indexSrc.matchAll(/from\s+["']([^"']+)\/script["']/g)) {
     const spec = m[1];
-    let abs = null;
+    let abs: string | null = null;
     const alias = Object.keys(ALIAS_ROOTS).find((a) => spec === a || spec.startsWith(`${a}/`));
     if (alias) {
       abs = path.join(root, ALIAS_ROOTS[alias], spec.slice(alias.length), "script.ts");
@@ -127,10 +127,10 @@ const resolveScriptImports = (indexSrc, dir, root) => {
   return out;
 };
 
-const checkFile = (dir) => {
+const checkFile = (dir: string): string[] => {
   const wxml = fs.readFileSync(path.join(dir, "index.wxml"), "utf-8");
-  const fields = new Set();
-  const addFields = (file) => {
+  const fields = new Set<string>();
+  const addFields = (file: string): void => {
     for (const f of scriptFields(fs.readFileSync(file, "utf-8"))) {
       fields.add(f);
     }
@@ -157,9 +157,9 @@ const checkFile = (dir) => {
   return checkWxml(wxml, fields);
 };
 
-const collectDirs = (root) => {
-  const out = [];
-  const walk = (dir) => {
+const collectDirs = (root: string): string[] => {
+  const out: string[] = [];
+  const walk = (dir: string): void => {
     for (const name of fs.readdirSync(dir, { withFileTypes: true })) {
       if (name.isDirectory()) {
         walk(path.join(dir, name.name));
@@ -172,7 +172,7 @@ const collectDirs = (root) => {
   return out;
 };
 
-const main = () => {
+const main = (): void => {
   const roots = process.argv.slice(2).length
     ? process.argv.slice(2)
     : [path.join(__dirname, "..", "src", "components"), path.join(__dirname, "..", "src", "pages")];
@@ -182,7 +182,9 @@ const main = () => {
       const errors = checkFile(dir);
       if (errors.length) {
         failed = true;
-        console.error(`${path.relative(process.cwd(), dir)}/index.wxml: unknown bindings: ${errors.join(", ")}`);
+        console.error(
+          `${path.relative(process.cwd(), dir)}/index.wxml: unknown bindings: ${errors.join(", ")}`,
+        );
       }
     }
   }
@@ -191,7 +193,16 @@ const main = () => {
   }
 };
 
-module.exports = { checkFile, checkWxml, collectDirs, dataFields, loopLocals, propsFields, resolveScriptImports, scriptFields };
+export {
+  checkFile,
+  checkWxml,
+  collectDirs,
+  dataFields,
+  loopLocals,
+  propsFields,
+  resolveScriptImports,
+  scriptFields,
+};
 
 if (require.main === module) {
   main();

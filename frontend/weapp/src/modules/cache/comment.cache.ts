@@ -21,7 +21,7 @@ import { Dispose } from "@helpers/types/types";
 import { CacheHolder } from "@modules/cache/cache.types";
 import { Comment } from "@modules/comment/comment.types";
 import { components } from "@modules/container";
-import { find } from "lodash";
+import find from "lodash/find";
 
 export class CommentCache implements CacheHolder<Comment> {
   constructor() {}

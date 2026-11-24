@@ -1,5 +1,5 @@
-const path = require("path");
-const { checkWxml } = require("../scripts/check-wxml-bind");
+import * as path from "path";
+import { checkFile, checkWxml } from "../scripts/check-wxml-bind";
 
 const AVATAR_WXML = `<wxs src="../../wxs/clsx.wxs" module="clsx"/>
 <view class="{{rootClass}}">
@@ -33,13 +33,11 @@ describe("checkWxml", () => {
   });
 
   it("resolves the real avatar files with zero errors", () => {
-    const { checkFile } = require("../scripts/check-wxml-bind");
     const dir = path.join(__dirname, "..", "src", "components", "avatar");
     expect(checkFile(dir)).toEqual([]);
   });
 
   it("resolves reused scripts and inline data with zero errors", () => {
-    const { checkFile } = require("../scripts/check-wxml-bind");
     const root = path.join(__dirname, "..", "src");
     expect(checkFile(path.join(root, "pages", "user", "moments"))).toEqual([]);
     expect(checkFile(path.join(root, "components", "preview-page"))).toEqual([]);

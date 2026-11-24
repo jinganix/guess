@@ -69,12 +69,11 @@ public class CommentCreateHandler {
         () ->
             commentRepository
                 .findFirstByUserIdOrderByCreatedAtDesc(userId)
-                .ifPresent(
-                    comment -> {
-                      if (comment.getCreatedAt() > millis - TimeUnit.SECONDS.toMillis(15)) {
-                        throw ApiException.of(ErrorCode.OPERATION_TOO_FREQUENT);
-                      }
-                    }));
+                .ifPresent(comment -> {
+                  if (comment.getCreatedAt() > millis - TimeUnit.SECONDS.toMillis(15)) {
+                    throw ApiException.of(ErrorCode.OPERATION_TOO_FREQUENT);
+                  }
+                }));
     if (!weappProvider.checkContent(request.getContent())) {
       throw ApiException.of(ErrorCode.WEAPP_INVALID_CONTENT);
     }

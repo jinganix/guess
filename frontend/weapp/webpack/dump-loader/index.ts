@@ -1,8 +1,8 @@
-import { getOptions, interpolateName } from "loader-utils";
+import { interpolateName } from "loader-utils";
 import * as webpack from "webpack";
 import { cast } from "../utils";
 
-interface Options {
+export interface DumpLoaderOptions {
   context?: string;
   mapOutput?: (url: string, resourcePath: string, context: string) => string;
   name?: string;
@@ -10,16 +10,17 @@ interface Options {
 }
 
 export default function loader(
-  this: webpack.LoaderContext<unknown>,
+  this: webpack.LoaderContext<DumpLoaderOptions>,
   source: string | Buffer,
   sourceMap?: string,
-): string | Buffer | void | undefined {
-  const options: Options = getOptions(cast(this)) || {};
+): string | Buffer {
+  const options = this.getOptions() || {};
   const context = options.context || this.rootContext;
+  // @types/loader-utils still models the webpack 4 context: narrow the call site only.
   let url = interpolateName(cast(this), options.name ?? "[path][name].[ext]", {
+    content: source,
     context,
     regExp: options.regExp,
-    source,
   });
 
   if (options.mapOutput) {

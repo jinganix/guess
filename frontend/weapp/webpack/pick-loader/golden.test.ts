@@ -1,8 +1,8 @@
-const fs = require("fs");
-const path = require("path");
-const { extractPicks } = require("./extract");
+import * as fs from "fs";
+import * as path from "path";
+import { extractPicks } from "./extract";
 
-function collectWxml(dir, out = []) {
+function collectWxml(dir: string, out: string[] = []): string[] {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) {
@@ -17,7 +17,7 @@ function collectWxml(dir, out = []) {
 describe("real wxml bindings", () => {
   it("keeps extraction stable across all src templates", () => {
     const srcDir = path.join(__dirname, "..", "..", "src");
-    const result = {};
+    const result: Record<string, string[]> = {};
     for (const file of collectWxml(srcDir).sort()) {
       result[path.relative(srcDir, path.dirname(file))] = extractPicks(
         fs.readFileSync(file, "utf-8"),

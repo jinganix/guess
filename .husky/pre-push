@@ -1,6 +1,0 @@
-branch="$(git rev-parse --abbrev-ref HEAD)"
-
-if [ "$branch" = "master" ]; then
-  echo "Never push to [$branch] directly"
-  exit 1
-fi

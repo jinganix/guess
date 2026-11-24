@@ -10,10 +10,11 @@ import CopyPlugin = require("copy-webpack-plugin");
 import { WebpackConfig } from "./types";
 import { moduleLoader, PathMappers, requireFile } from "./utils";
 import { EntryResolver } from "./entry.resolver";
-import { Environment } from "./env/env";
+import { Environment } from "../env/env";
 
 const ROOT_DIR = path.resolve(".");
 const SRC_DIR = path.resolve("src");
+const GENERATED_DIR = path.resolve("generated");
 const VANT_DIR = path.resolve("node_modules/@vant");
 
 const config: WebpackConfig = {
@@ -104,14 +105,14 @@ const wxmlLoader = (options?: {
 // Reads the FULL_BIND env switch itself; no options needed.
 const pickLoader = (): RuleSetUseItem => {
   return {
-    loader: path.resolve("webpack/pick-loader/index.js"),
+    loader: path.resolve("webpack/pick-loader/index.ts"),
   };
 };
 
 export default (env: string | { dev: boolean }): webpack.Configuration => {
   const isDev: boolean = typeof env === "string" ? env !== "prod" : env.dev;
   const { environment }: { environment: Environment } = requireFile(
-    path.resolve(`./webpack/env/${isDev ? "dev" : "prod"}.env.ts`),
+    path.resolve(`./env/${isDev ? "dev" : "prod"}.env.ts`),
   );
   config.environment = environment;
 
@@ -128,7 +129,7 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
           use: [dumpLoader()],
         },
         {
-          include: [SRC_DIR, path.resolve("build")],
+          include: [SRC_DIR, GENERATED_DIR],
           test: /\.(ts|tsx)$/,
           use: ["ts-loader", "source-map-loader"],
         },
@@ -229,7 +230,7 @@ export default (env: string | { dev: boolean }): webpack.Configuration => {
             chunks: "all",
             enforce: true,
             name: "generated",
-            test: /[\\/]build[\\/]generated[\\/].*\.(js|jsx|ts|tsx)$/,
+            test: /[\\/]generated[\\/]proto[\\/].*\.(js|jsx|ts|tsx)$/,
           },
           helpers: {
             chunks: "all",

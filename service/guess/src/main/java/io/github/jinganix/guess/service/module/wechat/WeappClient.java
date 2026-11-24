@@ -27,7 +27,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 public class WeappClient extends WebpbClient {
 
   /** Construct from {@link WebClient.Builder}. */
-  public WeappClient() {
-    super(WebClient.builder().build());
+  public WeappClient(WebClient.Builder webClientBuilder) {
+    super(webClientBuilder.build());
   }
 }

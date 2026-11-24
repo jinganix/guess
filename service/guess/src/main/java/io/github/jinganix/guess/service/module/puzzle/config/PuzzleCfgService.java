@@ -38,8 +38,7 @@ public class PuzzleCfgService {
 
   private final MultiValueMap<Integer, String> answersMap = new LinkedMultiValueMap<>();
 
-  private PuzzleCfgService() throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
+  private PuzzleCfgService(ObjectMapper objectMapper) throws IOException {
     String filename = "/config/puzzle.json";
     try (InputStream stream = PuzzleCfgService.class.getResourceAsStream(filename)) {
       if (stream == null) {

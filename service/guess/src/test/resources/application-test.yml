@@ -1,5 +1,5 @@
 core:
-  jwt-secret: fake-jwt-secret
+  jwt-secret: fake-jwt-secret-for-test-only-32bytes
   weapp:
     app-id: fake-app-id
     app-secret: fake-app-secret

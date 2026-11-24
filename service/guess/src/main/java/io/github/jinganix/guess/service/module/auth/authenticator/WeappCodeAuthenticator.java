@@ -27,9 +27,7 @@ import io.github.jinganix.guess.service.module.auth.model.UserWeapp;
 import io.github.jinganix.guess.service.module.auth.model.WeappCodeToken;
 import io.github.jinganix.guess.service.module.auth.repository.UserWeappRepository;
 import io.github.jinganix.guess.service.module.emitter.Emitter;
-import io.github.jinganix.guess.service.module.user.model.User;
-import io.github.jinganix.guess.service.module.user.model.UserStatus;
-import io.github.jinganix.guess.service.module.user.repository.UserRepository;
+import io.github.jinganix.guess.service.module.user.api.UserApi;
 import io.github.jinganix.guess.vendor.kit.helper.uid.UidGenerator;
 import io.github.jinganix.webpb.runtime.reactive.WebpbClient;
 import java.util.Objects;
@@ -57,7 +55,7 @@ public class WeappCodeAuthenticator implements Authenticator {
 
   private final UidGenerator uidGenerator;
 
-  private final UserRepository userRepository;
+  private final UserApi userApi;
 
   private final UserWeappRepository userWeappRepository;
 
@@ -88,16 +86,14 @@ public class WeappCodeAuthenticator implements Authenticator {
 
     if (userWeapp == null) {
       long userId = uidGenerator.nextUid();
-      User user = createUser(userId);
+      userApi.createUser(userId);
       userWeapp = createUserWeapp(userId, response);
 
-      userRepository.save(user);
       userWeappRepository.save(userWeapp);
-      emitter.userCreated(user.getId());
+      emitter.userCreated(userId);
     } else if (!Objects.equals(userWeapp.getAppId(), appId)) {
       long userId = userWeapp.getUserId();
-      User user = createUser(userId);
-      userRepository.save(user);
+      userApi.createUser(userId);
     } else {
       userWeapp
           .setSessionKey(response.getSessionKey())
@@ -106,16 +102,6 @@ public class WeappCodeAuthenticator implements Authenticator {
     }
     return new UserAuthenticationToken(
         userWeapp.getUserId(), Set.of(new SimpleGrantedAuthority("WEAPP")));
-  }
-
-  private User createUser(long userId) {
-    long millis = utilsService.currentTimeMillis();
-    return (User)
-        new User()
-            .setId(userId)
-            .setStatus(UserStatus.ACTIVE)
-            .setCreatedAt(millis)
-            .setUpdatedAt(millis);
   }
 
   private UserWeapp createUserWeapp(long userId, WeappSessionResponse response) {

@@ -25,8 +25,7 @@ import io.github.jinganix.guess.service.helper.exception.ApiException;
 import io.github.jinganix.guess.service.module.auth.AuthService;
 import io.github.jinganix.guess.service.module.auth.model.UserToken;
 import io.github.jinganix.guess.service.module.auth.repository.UserTokenRepository;
-import io.github.jinganix.guess.service.module.user.model.User;
-import io.github.jinganix.guess.service.module.user.repository.UserRepository;
+import io.github.jinganix.guess.service.module.user.api.UserApi;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpStatus;
@@ -41,7 +40,7 @@ public class AuthTokenHandler {
 
   private final UserTokenRepository userTokenRepository;
 
-  private final UserRepository userRepository;
+  private final UserApi userApi;
 
   @Transactional
   public AuthTokenResponse handle(AuthTokenRequest request) {
@@ -55,10 +54,7 @@ public class AuthTokenHandler {
             .orElseThrow(
                 () -> ApiException.of(HttpStatus.UNAUTHORIZED, ErrorCode.BAD_REFRESH_TOKEN));
     userTokenRepository.deleteById(token.getId());
-    User user =
-        userRepository
-            .findById(token.getUserId())
-            .orElseThrow(() -> ApiException.of(ErrorCode.USER_NOT_FOUND));
-    return authService.createAuthTokenResponse(user.getId());
+    userApi.assertUserExists(token.getUserId());
+    return authService.createAuthTokenResponse(token.getUserId());
   }
 }

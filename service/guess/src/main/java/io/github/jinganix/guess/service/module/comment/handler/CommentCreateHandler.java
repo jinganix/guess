@@ -29,8 +29,7 @@ import io.github.jinganix.guess.service.module.comment.model.Comment;
 import io.github.jinganix.guess.service.module.comment.model.CommentStatus;
 import io.github.jinganix.guess.service.module.comment.repository.CommentRepository;
 import io.github.jinganix.guess.service.module.emitter.Emitter;
-import io.github.jinganix.guess.service.module.moment.model.Moment;
-import io.github.jinganix.guess.service.module.moment.repository.MomentRepository;
+import io.github.jinganix.guess.service.module.moment.api.MomentApi;
 import io.github.jinganix.guess.service.module.wechat.WeappProvider;
 import io.github.jinganix.guess.vendor.kit.helper.uid.UidGenerator;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +47,7 @@ public class CommentCreateHandler {
 
   private final Emitter emitter;
 
-  private final MomentRepository momentRepository;
+  private final MomentApi momentApi;
 
   private final OrderedTraceExecutor orderedTraceExecutor;
 
@@ -87,12 +86,9 @@ public class CommentCreateHandler {
       toUserId = comment.getUserId();
       momentId = comment.getMomentId();
     } else {
-      Moment moment =
-          momentRepository
-              .findById(request.getMomentId())
-              .orElseThrow(() -> ApiException.of(ErrorCode.MOMENT_NOT_FOUND));
+      momentApi.assertMomentExists(request.getMomentId());
       toUserId = null;
-      momentId = moment.getId();
+      momentId = request.getMomentId();
     }
     Comment comment =
         (Comment)

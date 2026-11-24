@@ -82,18 +82,17 @@ class UserCurrentControllerTest extends SpringBootIntegrationTests {
         testHelper
             .request(UID_1, new UserCurrentRequest())
             .andExpect(status().isOk())
-            .andExpect(
-                result ->
-                    assertThat(testHelper.deserialize(result, UserCurrentResponse.class))
-                        .usingRecursiveComparison()
-                        .isEqualTo(
-                            new UserCurrentResponse()
-                                .setUser(
-                                    new UserPb()
-                                        .setId(UID_1)
-                                        .setAvatar("avatar")
-                                        .setGender(1)
-                                        .setNickname("nickname"))));
+            .andExpect(result ->
+                assertThat(testHelper.deserialize(result, UserCurrentResponse.class))
+                    .usingRecursiveComparison()
+                    .isEqualTo(
+                        new UserCurrentResponse()
+                            .setUser(
+                                new UserPb()
+                                    .setId(UID_1)
+                                    .setAvatar("avatar")
+                                    .setGender(1)
+                                    .setNickname("nickname"))));
       }
     }
   }

@@ -1,7 +1,6 @@
 {
   "compilerOptions": {
     "allowJs": true,
-    "baseUrl": "./",
     "emitDecoratorMetadata": false,
     "esModuleInterop": true,
     "experimentalDecorators": false,
@@ -10,26 +9,28 @@
     "isolatedModules": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "commonjs",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "rootDir": "./",
     "skipLibCheck": true,
     "strict": true,
     "target": "es6",
     "types": ["jest", "miniprogram-api-typings", "node"],
     "paths": {
-      "@comps/*": ["src/components/*"],
-      "@helpers/*": ["src/helpers/*"],
-      "@modules/*": ["src/modules/*"],
-      "@pages/*": ["src/pages/*"],
-      "@proto/*": ["build/generated/source/proto/main/ts/*"]
+      "@comps/*": ["./src/components/*"],
+      "@helpers/*": ["./src/helpers/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@proto/*": ["./generated/proto/*"]
     },
     "typeRoots": [
       "global.d.ts",
-      "node_modules/@types"
+      "node_modules/@types",
+      "node_modules"
     ]
   },
   "include": [
-    "build/**/*.ts",
+    "generated/**/*.ts",
     "src/**/*.ts"
   ],
   "exclude": [

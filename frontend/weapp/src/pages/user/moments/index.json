@@ -1,6 +1,6 @@
 {
   "enablePullDownRefresh": true,
-  "navigationBarTitleText": "",
+  "navigationBarTitleText": "我的动态",
   "usingComponents": {
     "icon-comment": "/components/icon-comment/index",
     "icon-follow": "/components/icon-follow/index",

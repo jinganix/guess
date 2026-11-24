@@ -33,9 +33,8 @@ import {
   MomentListResponse,
   MomentStatus,
 } from "@proto/MomentProto";
-import { find } from "lodash";
+import find from "lodash/find";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 const CATEGORIES = {
   [MomentCategory.ALL]: "动态",
@@ -53,7 +52,7 @@ export class MomentListScript extends ComponentScript {
   @observable accessor configStore = configStore;
 
   constructor(comp: ScriptedPage) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

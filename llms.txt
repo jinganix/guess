@@ -1,0 +1,71 @@
+# guess（猜猜谜题）
+
+《猜猜谜题》微信小程序源码：看图猜谜、发动态互动；扫码体验见 `docs/qrcode.jpg`（README “扫码体验”节）。
+
+## 仓库结构（monorepo）
+
+- `frontend/weapp/`：微信小程序前端，TypeScript + webpack 构建。源码在 `src/`，产物输出到 `dist/`（开发者工具导入该目录）。
+- `service/`：Java + Spring 后端，用 gradle 构建（如 `service/guess`，入口任务 `service:guess:bootRun`）。
+- `proto/`：前后端共用的 protobuf 定义（`proto/service`、`proto/imports`）。
+- `docs/`：文档索引见 `docs/README.md`；`docs/qrcode.jpg` 为小程序码，`docs/devtools.setting*.png` 为开发者工具设置截图。
+- 根目录 `README.md`（中文）、`README.en.md`（英文）为使用入口；`CONTRIBUTING.md` 为贡献规范。
+
+## 关键命令（均真实存在，以 `frontend/weapp/package.json` 与根目录 `gradlew` 为准）
+
+后端（仓库根目录执行，需要先按 README 复制 `application-local.yml.example` 为 `application-local.yml` 并填值）：
+
+```shell
+./gradlew service:guess:bootRun
+./gradlew build
+docker-compose up --build
+```
+
+小程序（`frontend/weapp` 目录下执行）：
+
+```shell
+cd frontend/weapp
+npm install
+npm start
+npm run dev
+npm run build
+npm run lint
+npm run lint:fix
+npm test
+npm run clean
+npm run proto
+npx tsc --noEmit
+```
+
+说明：`npm start` 等价于 `npm run dev`（`clean + proto + webpack --watch dev`）；
+`npm run build` 会依次跑 `lint + clean + proto + webpack production`；
+`npm run proto` 用 `webpb` 按 `package.json` 内写死的 proto 路径生成代码；
+`npx tsc --noEmit` 为 TypeScript 类型检查。注意：`npm run check` 在本仓库
+`frontend/weapp/package.json` 中尚不存在，不要使用，一切以 `package.json` 实际 scripts 为准。
+
+## FAQ
+
+1. 怎么跑后端？答：装好 `.tool-versions` 指定版本 JDK 并启动 MySQL，把
+   `service/guess/src/main/resources/application-local.yml.example` 复制为同目录
+   `application-local.yml` 填入 `core.weapp.app-id / app-secret`（及数据库账号密码，
+   或设同名环境变量），然后在仓库根跑 `./gradlew service:guess:bootRun`
+  （Windows 用 `./gradlew.bat service:guess:bootRun`）；有 docker 时也可
+   `./gradlew build && docker-compose up --build`。详见 `README.md`“运行项目”。
+2. 怎么跑小程序？答：装好 `.tool-versions` 指定版本 Node，
+   `cd frontend/weapp && npm install && npm start`，再用微信开发者工具导入
+   `frontend/weapp/dist` 目录并关闭域名校验（截图见 `docs/devtools.setting.png`）。
+3. 构建链 pick-loader 是什么？答：`frontend/weapp/webpack/pick-loader/index.js`
+   是一个 webpack loader：把 `script.ts` 里无参数的 `super(comp)` 改写为
+   `super(comp, [...picks])`，其中 picks 由同目录 `index.wxml` 经
+   `webpack/pick-loader/extract.js` 的 `extractPicks` 提取；无匹配、有显式 picks、
+   缺 wxml 或 `FULL_BIND=1` 时直通走全量绑定。业务 `script.ts` 保持
+   `constructor(comp) { super(comp); }` 形态，不要手写 picks。
+4. 改完怎么校验？答：在 `frontend/weapp` 下跑 `npm run lint`（eslint）、
+   `npx tsc --noEmit`（类型检查）、`npm test`（jest），小程序侧用微信开发者工具
+   导入 `dist` 编译验证；后端跑 `./gradlew build`。命令以
+   `frontend/weapp/package.json` 实际 scripts 为准。
+5. 常见坑有哪些？答：(a) `application-local.yml` 不入库，必须从
+   `application-local.yml.example` 复制后填真实值；(b) 开发者工具必须导入
+   `dist` 而非 `src`，且关闭域名校验；(c) Node/JDK 版本以 `.tool-versions`
+   为准；(d) `npm run proto` 的 proto 路径写死在 `package.json`，不要凭空编
+   `npm run check` 等不存在的命令；(e) 页面标题（`navigationBarTitleText`）
+   与 `sitemap.json`（`allow: *`）影响搜一搜收录，只补标题不动收录策略。

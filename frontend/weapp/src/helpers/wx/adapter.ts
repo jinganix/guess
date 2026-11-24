@@ -32,10 +32,9 @@ import {
   PageLifetimes,
   PageOptions,
   PropertyOption,
-  PropertyType,
 } from "@helpers/wx/wx.types";
 import { appService } from "@modules/container";
-import { includes } from "lodash";
+import includes from "lodash/includes";
 
 type Method = (this: Script, ...args: unknown[]) => void;
 type Methods = Record<string, Method> & Script;
@@ -69,7 +68,7 @@ export function componentMethods<T extends ComponentScript>(
   if (properties) {
     const data: Record<string, unknown> = {};
     for (const key in properties) {
-      const property = properties[key] as FullProperty<PropertyType>;
+      const property = properties[key] as FullProperty;
       data[key] = property.value;
       const methodName = `observe${key.charAt(0).toUpperCase() + key.slice(1)}`;
       methods[methodName] = function (this: Script, newVal: unknown): unknown {

@@ -23,7 +23,6 @@ import { ComponentScript } from "@helpers/wx/component.script";
 import { cacheService } from "@modules/container";
 import { User } from "@modules/user/user.types";
 import { intercept, observable, observe } from "mobx";
-import { PICKS } from "./pick";
 
 export class NameGenderScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -32,7 +31,7 @@ export class NameGenderScript extends ComponentScript {
   @observable accessor nameClass = "";
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
     intercept(this, "nameClass", (change) => {
       change.newValue = cn("text-base font-bold text-grey-0", change.newValue);
       return change;

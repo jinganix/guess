@@ -102,21 +102,20 @@ public class MomentListHandler {
         momentActionRepository.findAllByUserIdAndMomentIdIn(userId, momentIds).stream()
             .collect(Collectors.toMap(MomentAction::getMomentId, x -> x));
     return moments.stream()
-        .map(
-            moment -> {
-              MomentAction action = actionMap.get(moment.getId());
-              int answer = Objects.equals(moment.getUserId(), userId) ? moment.getAnswer() : 0;
-              MomentDetailPb pb = momentMapper.mapToPb(moment, action, answer);
-              if (moment.getStatus() != MomentStatus.ACTIVE) {
-                pb.getMoment()
-                    .setContent("")
-                    .setOption1("")
-                    .setOption2("")
-                    .setOption3("")
-                    .setOption4("");
-              }
-              return pb;
-            })
+        .map(moment -> {
+          MomentAction action = actionMap.get(moment.getId());
+          int answer = Objects.equals(moment.getUserId(), userId) ? moment.getAnswer() : 0;
+          MomentDetailPb pb = momentMapper.mapToPb(moment, action, answer);
+          if (moment.getStatus() != MomentStatus.ACTIVE) {
+            pb.getMoment()
+                .setContent("")
+                .setOption1("")
+                .setOption2("")
+                .setOption3("")
+                .setOption4("");
+          }
+          return pb;
+        })
         .toList();
   }
 }

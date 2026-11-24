@@ -1,5 +1,6 @@
 {
   "enablePullDownRefresh": false,
+  "navigationBarTitleText": "我的",
   "usingComponents": {
     "avatar": "/components/avatar/index",
     "name-gender": "/components/name-gender/index",

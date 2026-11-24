@@ -19,11 +19,4 @@
 import { CommentEditorScript } from "@comps/comment-editor/script";
 import { defaultComponent } from "@helpers/wx/adapter";
 
-Component(
-  defaultComponent(CommentEditorScript, (x) => new CommentEditorScript(x), {
-    cacheKey: {
-      type: String,
-      value: "",
-    },
-  }),
-);
+Component(defaultComponent(CommentEditorScript, (x) => new CommentEditorScript(x), {}));

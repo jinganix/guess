@@ -21,12 +21,14 @@ package io.github.jinganix.guess.service.module.user.model;
 import io.github.jinganix.guess.service.helper.AbstractEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /** User. */
 @Entity
+@Table(name = "user")
 @Getter
 @Setter
 @Accessors(chain = true)

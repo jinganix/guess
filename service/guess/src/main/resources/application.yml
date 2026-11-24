@@ -4,7 +4,7 @@ core:
     puzzle-daily-limit: 30
     puzzle-limit-increase: 20
     static-url: http://127.0.0.1:8080/static/
-  jwt-secret: test-jwt-secret
+  jwt-secret: test-jwt-secret-for-local-dev-only-32b
   url:
     db-mysql: jdbc:mysql://127.0.0.1:3306/guess
   weapp:

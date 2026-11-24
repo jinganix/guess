@@ -1,7 +1,6 @@
-import { fixupPluginRules } from "@eslint/compat";
 import eslint from "@eslint/js";
 import tsParser from "@typescript-eslint/parser";
-import eslintPluginImport from "eslint-plugin-import";
+import eslintPluginImportX from "eslint-plugin-import-x";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 import sortKeysFix from "eslint-plugin-sort-keys-fix";
 import globals from "globals";
@@ -19,7 +18,7 @@ export default [
       parser: tsParser,
     },
     plugins: {
-      import: fixupPluginRules(eslintPluginImport),
+      import: eslintPluginImportX,
       "sort-keys-fix": sortKeysFix,
     },
     rules: {

@@ -22,6 +22,7 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import java.nio.charset.StandardCharsets;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -48,6 +49,9 @@ public class JwtTokenService implements TokenService {
 
   public JwtTokenService(
       @Value("${core.issuer}") String issuer, @Value("${core.jwt-secret}") String jwtSecret) {
+    if (jwtSecret == null || jwtSecret.getBytes(StandardCharsets.UTF_8).length < 32) {
+      throw new IllegalStateException("core.jwt-secret must be at least 32 bytes");
+    }
     this.issuer = issuer;
     this.algorithm = Algorithm.HMAC256(jwtSecret);
     this.verifier = JWT.require(algorithm).withIssuer(issuer).build();

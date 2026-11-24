@@ -60,12 +60,11 @@ public class MomentCreateHandler {
     long millis = utilsService.currentTimeMillis();
     momentRepository
         .findFirstByUserIdOrderByCreatedAtDesc(userId)
-        .ifPresent(
-            moment -> {
-              if (moment.getCreatedAt() > millis - TimeUnit.SECONDS.toMillis(30)) {
-                throw ApiException.of(ErrorCode.OPERATION_TOO_FREQUENT);
-              }
-            });
+        .ifPresent(moment -> {
+          if (moment.getCreatedAt() > millis - TimeUnit.SECONDS.toMillis(30)) {
+            throw ApiException.of(ErrorCode.OPERATION_TOO_FREQUENT);
+          }
+        });
 
     List<String> options =
         new ArrayList<>(

@@ -124,17 +124,16 @@ class AuthLoginControllerTest extends SpringBootIntegrationTests {
         testHelper
             .request(UID_1, new AuthLoginRequest("abc"))
             .andExpect(status().isOk())
-            .andExpect(
-                result ->
-                    assertThat(testHelper.deserialize(result, AuthTokenResponse.class))
-                        .usingRecursiveComparison()
-                        .isEqualTo(
-                            new AuthTokenResponse()
-                                .setAccessToken("test_token")
-                                .setExpiresIn(MILLIS + TimeUnit.MINUTES.toMillis(5))
-                                .setRefreshToken("test_uuid")
-                                .setTokenType("Bearer")
-                                .setScope(GrantedRole.USER.getScope())));
+            .andExpect(result ->
+                assertThat(testHelper.deserialize(result, AuthTokenResponse.class))
+                    .usingRecursiveComparison()
+                    .isEqualTo(
+                        new AuthTokenResponse()
+                            .setAccessToken("test_token")
+                            .setExpiresIn(MILLIS + TimeUnit.MINUTES.toMillis(5))
+                            .setRefreshToken("test_uuid")
+                            .setTokenType("Bearer")
+                            .setScope(GrantedRole.USER.getScope())));
       }
     }
   }

@@ -19,7 +19,7 @@ import CustomEvent = WechatMiniprogram.CustomEvent;
 import CustomOption = WechatMiniprogram.Page.CustomOption;
 import DownloadFileOption = WechatMiniprogram.DownloadFileOption;
 import DownloadFileSuccessCallbackResult = WechatMiniprogram.DownloadFileSuccessCallbackResult;
-import FullProperty = WechatMiniprogram.Component.FullProperty;
+import FullProperty = WechatMiniprogram.Component.AllFullProperty;
 import GeneralCallbackResult = WechatMiniprogram.GeneralCallbackResult;
 import GetFileInfoOption = WechatMiniprogram.GetFileInfoOption;
 import GetFileInfoSuccessCallbackResult = WechatMiniprogram.GetFileInfoSuccessCallbackResult;
@@ -180,10 +180,12 @@ export type {
   VideoContext,
 };
 
-export interface TriggeredEvent<Detail extends IAnyObject | number | string = IAnyObject>
-  extends BaseEvent<IAnyObject, IAnyObject, IAnyObject> {
+export interface TriggeredEvent<
+  Detail extends IAnyObject | number | string = IAnyObject,
+> extends BaseEvent<IAnyObject, IAnyObject, IAnyObject> {
   detail: Detail;
 }
 
-export interface TappedEvent<CurrentTargetDataset extends IAnyObject = IAnyObject>
-  extends BaseEvent<IAnyObject, CurrentTargetDataset, IAnyObject> {}
+export interface TappedEvent<
+  CurrentTargetDataset extends IAnyObject = IAnyObject,
+> extends BaseEvent<IAnyObject, CurrentTargetDataset, IAnyObject> {}

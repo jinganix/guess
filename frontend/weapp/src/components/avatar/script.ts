@@ -23,7 +23,6 @@ import { ComponentScript } from "@helpers/wx/component.script";
 import { cacheService } from "@modules/container";
 import { User } from "@modules/user/user.types";
 import { intercept, observable, observe } from "mobx";
-import { PICKS } from "./pick";
 
 export class AvatarScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -33,7 +32,7 @@ export class AvatarScript extends ComponentScript {
   @observable accessor user: User | null = null;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
     intercept(this, "rootClass", (change) => {
       change.newValue = cn(
         "w-14 h-14 flex items-center justify-center border border-grey-3 rounded",

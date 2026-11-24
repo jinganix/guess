@@ -1,7 +1,6 @@
-@import "styles/theme";
-@import "styles/clip";
-@import 'styles/iconfont';
-@import "styles/tailwind";
+@use "./styles/clip" as *;
+@use "./styles/iconfont";
+@use "./styles/tailwind";
 
 button {
   background-color: #ffffff;

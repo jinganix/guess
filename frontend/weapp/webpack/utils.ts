@@ -16,6 +16,19 @@ export interface PathMapper {
   supports: (entry: string) => boolean;
 }
 
+// Collects all matches of a pattern without leaking lastIndex state:
+// each call runs on a fresh RegExp, so module-level /g patterns are safe.
+export function collectMatches(text: string, pattern: RegExp): RegExpExecArray[] {
+  const flags = pattern.flags.includes("g") ? pattern.flags : `${pattern.flags}g`;
+  const regex = new RegExp(pattern.source, flags);
+  const matches: RegExpExecArray[] = [];
+  let match: RegExpExecArray | null;
+  while ((match = regex.exec(text)) !== null) {
+    matches.push(match);
+  }
+  return matches;
+}
+
 export class PathMappers {
   constructor(private mappers: PathMapper[]) {}
 

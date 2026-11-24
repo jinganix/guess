@@ -24,15 +24,19 @@ import io.github.jinganix.peashooter.Tracer;
 import io.github.jinganix.peashooter.trace.DefaultTracer;
 import io.github.jinganix.webpb.runtime.mvc.WebpbRequestBodyAdvice;
 import io.github.jinganix.webpb.runtime.reactive.WebpbClient;
+import io.netty.channel.ChannelOption;
+import java.time.Duration;
 import java.util.concurrent.Executors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration;
-import org.springframework.boot.web.embedded.tomcat.TomcatProtocolHandlerCustomizer;
+import org.springframework.boot.tomcat.TomcatProtocolHandlerCustomizer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.task.AsyncTaskExecutor;
 import org.springframework.core.task.support.TaskExecutorAdapter;
+import org.springframework.http.client.reactive.ReactorClientHttpConnector;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.netty.http.client.HttpClient;
 
 /** Configuration for beans. */
 @Configuration
@@ -50,8 +54,17 @@ public class BeansConfiguration {
   }
 
   @Bean
-  WebpbClient webpbClient() {
-    return new WebpbClient(WebClient.builder().build());
+  WebClient.Builder webClientBuilder() {
+    HttpClient httpClient =
+        HttpClient.create()
+            .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
+            .responseTimeout(Duration.ofSeconds(10));
+    return WebClient.builder().clientConnector(new ReactorClientHttpConnector(httpClient));
+  }
+
+  @Bean
+  WebpbClient webpbClient(WebClient.Builder webClientBuilder) {
+    return new WebpbClient(webClientBuilder.build());
   }
 
   @Bean(TaskExecutionAutoConfiguration.APPLICATION_TASK_EXECUTOR_BEAN_NAME)

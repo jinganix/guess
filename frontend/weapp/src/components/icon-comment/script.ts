@@ -24,7 +24,6 @@ import { ComponentScript } from "@helpers/wx/component.script";
 import { cacheService, components } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
 import { observable, observe } from "mobx";
-import { PICKS } from "./pick";
 
 export class IconCommentScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -32,7 +31,7 @@ export class IconCommentScript extends ComponentScript {
   @observable accessor moment: Moment | null = null;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
     observe(this, "cacheKey", ({ newValue }) => {
       this.moment = newValue ? cacheService.getByKey<Moment>(this.cacheKey) : null;
     });

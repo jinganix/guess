@@ -6,6 +6,5 @@ module.exports = {
       rootValue: 32,
       transformUnit: "rpx",
     },
-    tailwindcss: {},
   },
 };

@@ -24,7 +24,6 @@ import { CacheKey } from "@modules/cache/cache.service";
 import { Comment } from "@modules/comment/comment.types";
 import { CommentListRequest, CommentListResponse, ICommentFacadePb } from "@proto/CommentProto";
 import { observable, observe } from "mobx";
-import { PICKS } from "./pick";
 
 export class CommentListScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -35,7 +34,7 @@ export class CommentListScript extends ComponentScript {
   @observable accessor cacheKeys: string[] = [];
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
     observe(this, "cacheKey", () => void this.fetchData(true));
   }
 

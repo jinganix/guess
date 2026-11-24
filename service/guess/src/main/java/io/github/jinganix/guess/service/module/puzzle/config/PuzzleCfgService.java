@@ -18,8 +18,6 @@
 
 package io.github.jinganix.guess.service.module.puzzle.config;
 
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import io.github.jinganix.guess.service.helper.fake.FakeRandom;
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,6 +28,8 @@ import java.util.Random;
 import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
+import tools.jackson.core.type.TypeReference;
+import tools.jackson.databind.ObjectMapper;
 
 @Service
 public class PuzzleCfgService {
@@ -38,8 +38,7 @@ public class PuzzleCfgService {
 
   private final MultiValueMap<Integer, String> answersMap = new LinkedMultiValueMap<>();
 
-  private PuzzleCfgService() throws IOException {
-    ObjectMapper objectMapper = new ObjectMapper();
+  private PuzzleCfgService(ObjectMapper objectMapper) throws IOException {
     String filename = "/config/puzzle.json";
     try (InputStream stream = PuzzleCfgService.class.getResourceAsStream(filename)) {
       if (stream == null) {

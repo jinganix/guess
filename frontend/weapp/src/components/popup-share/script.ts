@@ -22,14 +22,13 @@ import { ScriptedComponent } from "@helpers/wx/adapter.types";
 import { ComponentScript } from "@helpers/wx/component.script";
 import { components } from "@modules/container";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class PopoverShareScript extends ComponentScript {
   static readonly CLASS_ID = classId();
   @observable accessor show = false;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

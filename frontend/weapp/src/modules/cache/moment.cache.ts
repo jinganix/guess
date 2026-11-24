@@ -22,7 +22,7 @@ import { components } from "@modules/container";
 import { Moment } from "@modules/moment/moment.types";
 import { MomentDetailScript } from "@pages/moment/detail/script";
 import { MomentListScript } from "@pages/moment/list/script";
-import { find } from "lodash";
+import find from "lodash/find";
 
 export class MomentCache implements CacheHolder<Moment> {
   constructor() {}

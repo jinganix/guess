@@ -16,6 +16,6 @@
  * https://github.com/jinganix/guess
  */
 
-import { Environment } from "../../webpack/env/env";
+import { Environment } from "../../env/env";
 
 export const environment: Environment = process.env as unknown as Environment;

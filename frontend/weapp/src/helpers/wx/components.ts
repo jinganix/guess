@@ -16,7 +16,7 @@
  * https://github.com/jinganix/guess
  */
 
-import { ComponentScript } from "@helpers/wx/component.script";
+import type { ComponentScript } from "@helpers/wx/component.script";
 
 type ProtoType<T> = { prototype: T; CLASS_ID: string };
 
@@ -71,3 +71,7 @@ export class Components {
     this.scripts[key] = comps.filter((x) => x.scriptId != script.scriptId);
   }
 }
+
+// Singleton lives here (not in container) so component scripts never load the
+// container module, which would cycle back through the caches at import time.
+export const components = new Components();

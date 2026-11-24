@@ -25,7 +25,6 @@ import { RewardedVideoAd } from "@helpers/wx/wx.types";
 import { configStore } from "@modules/container";
 import { PuzzleHintRequest, PuzzleHintResponse } from "@proto/PuzzleProto";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 
 export class PuzzleHintScript extends ComponentScript {
   static readonly CLASS_ID = classId();
@@ -34,7 +33,7 @@ export class PuzzleHintScript extends ComponentScript {
   @observable accessor show = false;
 
   constructor(comp: ScriptedComponent) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

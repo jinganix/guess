@@ -18,10 +18,10 @@
 
 import { Dispose } from "@helpers/types/types";
 import { ScriptedComponent, ScriptedPage } from "@helpers/wx/adapter.types";
-import { Observer } from "@helpers/wx/observer";
+import { components } from "@helpers/wx/components";
+import { Observer, getObservableKeys } from "@helpers/wx/observer";
 import { pickObservable } from "@helpers/wx/pick.obervable";
-import { components } from "@modules/container";
-import { omit } from "lodash";
+import omit from "lodash/omit";
 
 export abstract class ComponentScript {
   private static COUNTER = 1;
@@ -29,9 +29,11 @@ export abstract class ComponentScript {
   _scriptId = 1;
   _comp: ScriptedPage | ScriptedComponent;
   _observer: Observer;
-  _picks: string[] = [];
+  _picks?: string[];
 
-  protected constructor(comp: ScriptedPage | ScriptedComponent, picks: string[]) {
+  // picks is injected at build time by webpack/pick-loader; absent means
+  // full binding (also the case under jest, where the loader never runs).
+  protected constructor(comp: ScriptedPage | ScriptedComponent, picks?: string[]) {
     this._scriptId = ComponentScript.COUNTER++;
     this._comp = comp;
     this._picks = picks;
@@ -48,7 +50,7 @@ export abstract class ComponentScript {
   abstract classId(): string;
 
   defaultData(excludes?: string[]): Record<string, unknown> {
-    const data = pickObservable(this, this._picks);
+    const data = pickObservable(this, this._picks ?? getObservableKeys(this));
     return excludes && excludes.length ? omit(data, excludes) : data;
   }
 

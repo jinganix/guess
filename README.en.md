@@ -10,6 +10,8 @@ The source code of the 'Guess Who I Am' Wechat miniprogram, you can [scan to exp
 - Frontend development using `TypeScript` with `webpack` for building and bundling
 - Backend development using `Java` and `Spring` framework with `Gradle` for building and packaging
 
+> Quick start: `frontend/weapp` (miniprogram frontend) + `service` (Java backend); backend runs with `./gradlew service:guess:bootRun`, miniprogram runs with `cd frontend/weapp && npm install && npm start` (import `frontend/weapp/dist` into devtools); scan the miniprogram QR code in [Scan to experience](#qr-code) (`docs/qrcode.jpg`), see [Running the Project](#running-the-project) for details.
+
 ## Running the Project
 
 To run the project, you need to first clone the source code and navigate to the project's root directory.
@@ -23,7 +25,7 @@ cd guess
 
 #### Running with docker-compose
 
-- Modify the [application-local.yml](service/guess/src/main/resources/application-local.yml) file to configure the backend service of the project
+- Copy the [application-local.yml.example](service/guess/src/main/resources/application-local.yml.example) file to `application-local.yml` in the same directory and fill in the real values (that file is not tracked; use environment variables in production)
 
 - core.weapp.app-id: The `app-id` of the WeChat mini-program
 - core.weapp.app-secret: The `app-secret` of the WeChat mini-program
@@ -39,7 +41,7 @@ docker-compose up --build
 
 You need to install JDK with the corresponding version specified in [.tool-versions](.tool-versions) and start a MySQL database.
 
-Modify the application-local.yml file to configure the backend services of the project.
+Modify the copied `application-local.yml` file to configure the backend services of the project (or set the equivalent environment variables).
 
 - core.weapp.app-id: The `app-id` of the WeChat mini-program
 - core.weapp.app-secret: The `app-secret` of the WeChat mini-program
@@ -74,10 +76,10 @@ npm start
 
 #### Wechat devtools
 
-1. Import`guess/frontend/weapp/dist` into Wechat devtools
+1. Import `guess/frontend/weapp/dist` into Wechat devtools
 2. Disable domain verification
 
-   <img src="docs/devtools.setting.png" alt="Image" width="320" height="484">
+   <img src="docs/devtools.setting.en.png" alt="Image" width="320" height="484">
 
 ## <a id="qr-code"></a>Scan to experience
 

@@ -28,9 +28,9 @@ import {
   MomentCreateRequest,
   MomentCreateResponse,
 } from "@proto/MomentProto";
-import { every, some } from "lodash";
+import every from "lodash/every";
+import some from "lodash/some";
 import { observable } from "mobx";
-import { PICKS } from "./pick";
 import { MomentListScript } from "../list/script";
 
 export class EditOptions {
@@ -57,7 +57,7 @@ export class MomentEditScript extends ComponentScript {
   @observable accessor options = new EditOptions();
 
   constructor(comp: ScriptedPage) {
-    super(comp, PICKS);
+    super(comp);
   }
 
   classId(): string {

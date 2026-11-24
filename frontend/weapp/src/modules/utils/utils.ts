@@ -18,7 +18,7 @@
 
 import { emitter } from "@helpers/event/emitter";
 import { Dispose } from "@helpers/types/types";
-import { includes } from "lodash";
+import includes from "lodash/includes";
 
 export function listenLoading(types: string[], callback: (loading: boolean) => void): Dispose {
   return emitter.on("loading", (loading, type) => {

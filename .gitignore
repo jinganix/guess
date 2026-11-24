@@ -1,11 +1,30 @@
 *.iml
 .DS_Store
-.env.local
+.env*
+!.env.example
 .gradle
 .idea
 .run
 .tmp
+.vscode/
 LOG_DIR_IS_UNDEFINED
 build
+coverage/
+dist/
+generated/
 logs
 node_modules
+*.tsbuildinfo
+
+# Secrets / keys: never commit
+*.pem
+*.key
+*.p8
+*.p12
+*.jks
+*.log
+frontend/weapp/project.private.config.json
+service/guess/src/main/resources/application-local.yml
+
+# Superpowers local docs
+docs/superpowers/

@@ -6,5 +6,5 @@ rootProject.name = "guess"
 include(":frontend:weapp")
 include(":proto:imports")
 include(":proto:internal")
-include(":proto:service")
-include(":service:guess")
+include(":proto:api")
+include(":service")

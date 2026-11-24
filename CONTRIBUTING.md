@@ -35,7 +35,7 @@
 
 | scope | 路径 / 内容 |
 |-------|-------------|
-| `service` | `service/guess`（后端） |
+| `service` | `service`（后端） |
 | `frontend` | `frontend/weapp`（小程序前端） |
 | `proto` | `proto/`（proto 定义） |
 | `build` | `build.gradle.kts`、`buildSrc/`、`settings.gradle.kts`、Gradle wrapper、依赖版本升级 |

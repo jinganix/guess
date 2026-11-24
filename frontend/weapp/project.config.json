@@ -46,7 +46,9 @@
     "useCompilerPlugins": false,
     "ignoreUploadUnusedFiles": true,
     "useStaticServer": true,
-    "condition": false
+    "condition": false,
+    "compileWorklet": false,
+    "localPlugins": false
   },
   "simulatorType": "wechat",
   "simulatorPluginLibVersion": {},
@@ -55,5 +57,6 @@
   "editorSetting": {
     "tabIndent": "insertSpaces",
     "tabSize": 2
-  }
+  },
+  "appid": "wxd24c7fdcc9f954e6"
 }

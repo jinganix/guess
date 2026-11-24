@@ -7,6 +7,8 @@ import globals from "globals";
 import tseslint from "typescript-eslint";
 
 export default [
+  // Vendored kit snapshots are read-only tool artifacts, not host sources.
+  { ignores: ["src/vendor/**", "src/.vendor/**"] },
   eslint.configs.recommended,
   ...tseslint.configs.recommended,
   {

@@ -24,6 +24,7 @@ object Vers {
   lateinit var versionProtobufGradlePlugin: String
   lateinit var versionSpotlessPluginGradle: String
   lateinit var versionSpringBootGradlePlugin: String
+  lateinit var versionSpringModulith: String
   lateinit var versionTestContainers: String
   lateinit var versionWebpb: String
 

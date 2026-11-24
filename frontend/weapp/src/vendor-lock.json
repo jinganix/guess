@@ -1,0 +1,85 @@
+{
+  "kitSha": "6e62ecb9756df2aad5829162f26ebf8840a392ea",
+  "vendorJsonHash": "d023f752cf28a01645adb8a869d76b82895f873d527e0ddc433e1b9e9adbdc6f",
+  "toolVersion": "2",
+  "supportMode": "buyout",
+  "files": [
+    {
+      "originPath": "frontend/shared/src/helpers/collection/compact-ids.ts",
+      "destPath": "vendor/kit/helpers/collection/compact-ids.ts",
+      "baseHash": "a42a1c13c11fbccf9a0dc514648516c0eba7e69ff882f2847cf504a1eba8dc60",
+      "destHash": "a42a1c13c11fbccf9a0dc514648516c0eba7e69ff882f2847cf504a1eba8dc60",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/collection/filter-and-sorter.ts",
+      "destPath": "vendor/kit/helpers/collection/filter-and-sorter.ts",
+      "baseHash": "9b77e0cb7da2339c013b093c1c87324d141c6ab73678ce2663e0f5db4ca6310d",
+      "destHash": "9b77e0cb7da2339c013b093c1c87324d141c6ab73678ce2663e0f5db4ca6310d",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/collection/pagination-numbers.ts",
+      "destPath": "vendor/kit/helpers/collection/pagination-numbers.ts",
+      "baseHash": "5e8f90b4567fd9fccbe757f5749e14554b1542bdaa08019454eb18ec48a3d15e",
+      "destHash": "5e8f90b4567fd9fccbe757f5749e14554b1542bdaa08019454eb18ec48a3d15e",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/collection/tree-types.ts",
+      "destPath": "vendor/kit/helpers/collection/tree-types.ts",
+      "baseHash": "78970c6fd79553152fa38eda8ac79de40064da62717cc26d5a2967ff4a974a71",
+      "destHash": "78970c6fd79553152fa38eda8ac79de40064da62717cc26d5a2967ff4a974a71",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/collection/tree-utils.ts",
+      "destPath": "vendor/kit/helpers/collection/tree-utils.ts",
+      "baseHash": "52821465e33fd51b263f1cdb271cd3083658122351004c9c9fa28ac4bae2eb53",
+      "destHash": "52821465e33fd51b263f1cdb271cd3083658122351004c9c9fa28ac4bae2eb53",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/utils/enum.ts",
+      "destPath": "vendor/kit/helpers/utils/enum.ts",
+      "baseHash": "38add9118649ac40c2668529ccdb75bc57161dcc94e1be3732fc67858183e2bd",
+      "destHash": "38add9118649ac40c2668529ccdb75bc57161dcc94e1be3732fc67858183e2bd",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/utils/fake-random.ts",
+      "destPath": "vendor/kit/helpers/utils/fake-random.ts",
+      "baseHash": "09640d1a1bab3978ecb71ebc1d169235668c6c2103996c5e48a97b8b410a1f9f",
+      "destHash": "09640d1a1bab3978ecb71ebc1d169235668c6c2103996c5e48a97b8b410a1f9f",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/utils/hash.ts",
+      "destPath": "vendor/kit/helpers/utils/hash.ts",
+      "baseHash": "901e353b422e360a2584ab6ac939ca9a8e84a668f6e0305ea51f11627ce475cf",
+      "destHash": "901e353b422e360a2584ab6ac939ca9a8e84a668f6e0305ea51f11627ce475cf",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/utils/lru-cache.ts",
+      "destPath": "vendor/kit/helpers/utils/lru-cache.ts",
+      "baseHash": "0b37db0a0ac4bc6ffb71378e5a03c512a932517211d9dc8f7a0e6e6d43e381b2",
+      "destHash": "0b37db0a0ac4bc6ffb71378e5a03c512a932517211d9dc8f7a0e6e6d43e381b2",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/utils/query-params.ts",
+      "destPath": "vendor/kit/helpers/utils/query-params.ts",
+      "baseHash": "e4c458e56f08f2256d12ed7995dbd98a819c7934ddbbb82b30ea62a8aa46b6c6",
+      "destHash": "e4c458e56f08f2256d12ed7995dbd98a819c7934ddbbb82b30ea62a8aa46b6c6",
+      "generated": false
+    },
+    {
+      "originPath": "frontend/shared/src/helpers/utils/rg-text.ts",
+      "destPath": "vendor/kit/helpers/utils/rg-text.ts",
+      "baseHash": "06f4e184c9f69fe845b20e9762084e24791490cbfd5369c84a69feda9c0057bc",
+      "destHash": "06f4e184c9f69fe845b20e9762084e24791490cbfd5369c84a69feda9c0057bc",
+      "generated": false
+    }
+  ]
+}

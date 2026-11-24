@@ -1,0 +1,64 @@
+{
+  "kitSha": "6e62ecb9756df2aad5829162f26ebf8840a392ea",
+  "vendorJsonHash": "d023f752cf28a01645adb8a869d76b82895f873d527e0ddc433e1b9e9adbdc6f",
+  "toolVersion": "2",
+  "supportMode": "buyout",
+  "files": [
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/auth/token/JwtToken.java",
+      "destPath": "vendor/kit/helper/auth/token/JwtToken.java",
+      "baseHash": "cc4d2728f826e239ab58d519b63b89be6447fee0873ca0326e3897b83bf38a20",
+      "destHash": "cc4d2728f826e239ab58d519b63b89be6447fee0873ca0326e3897b83bf38a20",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/enumeration/EnumMapper.java",
+      "destPath": "vendor/kit/helper/enumeration/EnumMapper.java",
+      "baseHash": "15c3c61b58f68860df2c15738a0aa984fdea13eb0f0878e3f3f747f5053f3d32",
+      "destHash": "15c3c61b58f68860df2c15738a0aa984fdea13eb0f0878e3f3f747f5053f3d32",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/enumeration/IntegerEnumMapper.java",
+      "destPath": "vendor/kit/helper/enumeration/IntegerEnumMapper.java",
+      "baseHash": "42bd240b9f2ee0efdde7def3c5bdcfdbea0d5b9c8daf7cf972eaf0028cef8060",
+      "destHash": "42bd240b9f2ee0efdde7def3c5bdcfdbea0d5b9c8daf7cf972eaf0028cef8060",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/uid/UidGenerator.java",
+      "destPath": "vendor/kit/helper/uid/UidGenerator.java",
+      "baseHash": "7231b88539754bcf75b976601702f533c0f66d379063a88f4acfef622c0c9e4e",
+      "destHash": "7231b88539754bcf75b976601702f533c0f66d379063a88f4acfef622c0c9e4e",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/utils/KitTimeZone.java",
+      "destPath": "vendor/kit/helper/utils/KitTimeZone.java",
+      "baseHash": "0a2653f10ac22455393231edbd09c006bad97fb8bcbf1a7aecdff98e65abd2f4",
+      "destHash": "0a2653f10ac22455393231edbd09c006bad97fb8bcbf1a7aecdff98e65abd2f4",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/utils/MonthRangeUtils.java",
+      "destPath": "vendor/kit/helper/utils/MonthRangeUtils.java",
+      "baseHash": "d7ebfdd4ca39ccb6987f259eaaa138d1c40ddc3212c166e968ec4b3a07f1e16e",
+      "destHash": "d7ebfdd4ca39ccb6987f259eaaa138d1c40ddc3212c166e968ec4b3a07f1e16e",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/helper/utils/UtilsService.java",
+      "destPath": "vendor/kit/helper/utils/UtilsService.java",
+      "baseHash": "96e921e4e43926e19f4a8fbbb92f76c6e057670b5100cc4b4956af5b1b8b8eea",
+      "destHash": "96e921e4e43926e19f4a8fbbb92f76c6e057670b5100cc4b4956af5b1b8b8eea",
+      "generated": false
+    },
+    {
+      "originPath": "service/core/src/main/java/io/github/jinganix/kit/setup/argument/AnnotationFinder.java",
+      "destPath": "vendor/kit/setup/argument/AnnotationFinder.java",
+      "baseHash": "0cdf844bd5e8c9c1246dd4c8718bd154ddc5bb48dd3f117b611f8acac7fcf29f",
+      "destHash": "0cdf844bd5e8c9c1246dd4c8718bd154ddc5bb48dd3f117b611f8acac7fcf29f",
+      "generated": false
+    }
+  ]
+}
